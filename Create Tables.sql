@@ -23,5 +23,5 @@ CREATE TABLE Option (
     QID2 VARCHAR(255), /* can be null */ 
     QuestionnaireID2 VARCHAR(255) NOT NULL,
 
-    /* to be continued... */
+    /* to be continued.... */
 );
