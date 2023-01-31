@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <style>
+      body {
+        background-image: url("https://images.pexels.com/photos/5668869/pexels-photo-5668869.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+
+      h1 {
+        font-style: italic;
+        font-family: 'script';
+        color: rgb(51, 161, 85);
+      }
+
+      h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: rgba(255, 255, 255, 0.934);
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 0 10px;
+        background-color: rgb(24, 130, 72);
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .button:hover {
+        background-color: lightblue;
+      }
+
+      .button:active {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>IntelliQ</h1>
+      <h2>Our questions, your answers</h2>
+      <h2>Log in:</h2>
+      <div class="buttons">
+        <button class="button" onclick="window.location.href='/admin'">Administrator</button>
+        <button class="button" onclick="window.location.href='/user'">User</button>
+      </div>
+    </div>
+  </body>
+</html>
