@@ -1,7 +1,7 @@
 const pool = require("../app.js");
 
 // handler for RESET
-async function resetall (req, res) {
+async function resetall_handler(req, res) {
   var conn;
   try {
     // Get a connection from the pool
@@ -26,4 +26,4 @@ async function resetall (req, res) {
   }
 }
 
-module.exports = resetall;
+module.exports = resetall_handler;

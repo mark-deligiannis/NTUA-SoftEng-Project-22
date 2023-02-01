@@ -1,6 +1,6 @@
 const pool = require("../app.js");
 
-async function user_questionnaire(req, res) {
+async function user_questionnaire_handler(req, res) {
     // Get questionnaireID from request
     var questionnaireID = req.params.questionnaireID;
     // Declare response json
@@ -58,4 +58,4 @@ async function user_questionnaire(req, res) {
     }
 }
 
-module.exports = user_questionnaire;
+module.exports = user_questionnaire_handler;

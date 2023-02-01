@@ -1,6 +1,6 @@
 const pool = require("../app.js");
 
-async function user_questionnaire_dump(req, res) {
+async function user_questionnaire_dump_handler(req, res) {
     // Get questionnaireID from request
     var questionnaireID = req.params.questionnaireID;
     // Declare response json
@@ -73,4 +73,4 @@ async function user_questionnaire_dump(req, res) {
     }
 }
 
-module.exports = user_questionnaire_dump;
+module.exports = user_questionnaire_dump_handler;

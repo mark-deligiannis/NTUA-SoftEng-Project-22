@@ -5,7 +5,7 @@ const pool = require("../app.js");
 const json_format_ok = require('../helpers/json_format_ok.js');
 
 // Route and handler for INSERTION OF QUESTIONNAIRE
-async function admin_questionnaire_upd(req, res) {
+async function admin_questionnaire_upd_handler(req, res) {
   // Fetch the questionnaire (JSON)
   const quest = JSON.parse(req.file.buffer.toString());
 
@@ -95,4 +95,4 @@ async function admin_questionnaire_upd(req, res) {
 }
 
 // Export router so that admin.js can use it
-module.exports = admin_questionnaire_upd;
+module.exports = admin_questionnaire_upd_handler;
