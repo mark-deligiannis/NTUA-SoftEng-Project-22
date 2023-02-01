@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 9103;
 const baseRoute = "/intelliq_api"
-const path = require('path');
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
   host: 'localhost',
