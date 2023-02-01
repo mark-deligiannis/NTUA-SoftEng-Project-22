@@ -8,7 +8,7 @@ function buildGraph(json) {
     for (q of json["questions"]) {
         graph[mapping[q["qID"]]] = [];
         for (op of q["options"]) {
-            if(!op["nextqID"] == '-') {
+            if(!(op["nextqID"] == '-')) {
                 graph[mapping[q["qID"]]].push(mapping[op["nextqID"]]);
             }
         }
@@ -80,8 +80,9 @@ function json_format_ok(json) {
         }
       }
     }
-    
-    if(notDAG(buildGraph(json))) {
+
+    let { graph, vertices } = buildGraph(json);
+    if(notDAG(graph)) {
         return false;
     }
     
