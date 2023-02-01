@@ -1,7 +1,6 @@
 const pool = require("../app.js");
-const bodyParser = require("body-parser")
-const buildConnectionString = require("../helpers/buildConnectionString.js")
-const pool_params = require('../helpers/pool_params.js')
+const buildConnectionString = require("../helpers/buildConnectionString.js");
+const pool_params = require('../helpers/pool_params.js');
 
 async function admin_healthcheck_handler(req, res) {
     var stat_code;
