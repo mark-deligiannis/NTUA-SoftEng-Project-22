@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS Qoption (
     Opttxt VARCHAR(255) NOT NULL,
     NextQID VARCHAR(127) NOT NULL,
     PRIMARY KEY (OptID, QID, QuestionnaireID),
-    FOREIGN KEY (QID,QuestionnaireID) REFERENCES Question(QID,QuestionnaireID),
+    FOREIGN KEY (QID,QuestionnaireID) REFERENCES Question(QID,QuestionnaireID)
+    ON DELETE CASCADE,
     FOREIGN KEY (NextQID) REFERENCES Question(QID)
     ON DELETE CASCADE
 );
