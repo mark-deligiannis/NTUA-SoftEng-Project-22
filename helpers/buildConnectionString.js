@@ -1,7 +1,7 @@
 // Function to build a connection string from a pool
-const buildConnectionString = (pool) => {
-    const { host, user, password, database } = pool;
-    return `mariadb://${user}:${password}@${host}/${database}`;
+const buildConnectionString = (pool_params) => {
+    const {host, port, user, password, database} = pool_params;
+    return `mariadb://${user}:${password}@${host}:${port}/${database}`;
 }
 
 module.exports = buildConnectionString;

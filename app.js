@@ -3,16 +3,10 @@ const app = express();
 const port = 9103;
 const baseRoute = "/intelliq_api"
 const mariadb = require('mariadb');
-const pool = mariadb.createPool({
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: '',
-  database: 'intelliQ',
-  connectionLimit: 5,
-  charset: 'utf8mb4',
-  collation: 'utf8mb4_general_ci'
-});
+
+const pool_params = require('./helpers/pool_params.js');
+
+const pool = mariadb.createPool(pool_params);
 
 module.exports = pool
 
