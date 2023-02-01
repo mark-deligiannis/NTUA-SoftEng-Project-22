@@ -7,7 +7,6 @@ async function user_question_handler(req, res) {
 
     var stat_code, ret_file;
     let conn;
-    let empty = false;
     try {
         // Get a connection from the pool
         conn = await pool.getConnection();
@@ -18,7 +17,6 @@ async function user_question_handler(req, res) {
         // Execute the statement
         let rows = await stmt.execute([questionID, questionnaireID]);
 
-        if(!rows.length) empty = true;
         if(!rows.length) {
             stat_code = 402;
             ret_file = "../templates/error_402.html";
@@ -49,6 +47,7 @@ async function user_question_handler(req, res) {
             }
 
             res.status(200).send(result);
+            if (conn) conn.end();
             return;
         }
 
