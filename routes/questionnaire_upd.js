@@ -6,7 +6,7 @@ const multer = require('multer');
 const upload = multer();
 
 // Function to check json format. Returns false if wrong, true if correct
-const json_format_ok = required('../helpers/json_format_ok.js');
+const json_format_ok = require('../helpers/json_format_ok.js');
 
 // Route and handler for INSERTION OF QUESTIONNAIRE
 router.post('/', upload.single('file'), async (req, res) => {
