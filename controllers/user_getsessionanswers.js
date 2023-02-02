@@ -1,4 +1,5 @@
 const pool = require("../app.js");
+const path = require('path');
 
 async function user_getsessionanswers_handler(req, res) {
     const questionnaireID = req.params.questionnaireID;
@@ -18,20 +19,20 @@ async function user_getsessionanswers_handler(req, res) {
         // Create entry in questionnaire
         // Prepare the statement
         var stmt = await conn.prepare(
-            `(select ans.QID as qID, ans.Answer_text as ans
-            from answer ans, qoption opt 
-            where ans.OptID = opt.OptID 
-            and ans.QID = opt.QID
-            and ans.QuestionnaireID = opt.QuestionnaireID
-            and (ans.QuestionnaireID, ans.Session_ID) == (?, ?),
+            `(select ansss.QID as qID, ansss.Answer_text as ans
+            from answer ansss, qoption opt 
+            where ansss.OptID = opt.OptID 
+            and ansss.QID = opt.QID
+            and ansss.QuestionnaireID = opt.QuestionnaireID
+            and (ansss.QuestionnaireID, ansss.Session_ID) = (?, ?)
             and opt.Opttxt = '<open string>')
             union
-            (select ans.QID as ans, opt.OptID as ans
-            from answer ans, qoption opt
-            where ans.OptID = opt.OptID
-            and ans.QID = opt.QID
-            and ans.QuestionnaireID = opt.QuestionnaireID
-            and (ans.QuestionnaireID, ans.Session_ID) == (?, ?),
+            (select ansss.QID as qID, opt.OptID as ans
+            from answer ansss, qoption opt
+            where ansss.OptID = opt.OptID
+            and ansss.QID = opt.QID
+            and ansss.QuestionnaireID = opt.QuestionnaireID
+            and (ansss.QuestionnaireID, ansss.Session_ID) = (?, ?)
             and opt.Opttxt != '<open string>')`
         );
         // Execute the statement

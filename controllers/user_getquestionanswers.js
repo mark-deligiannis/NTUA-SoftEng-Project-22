@@ -19,7 +19,7 @@ async function user_getquestionanswer_handler(req, res) {
             where ans.OptID = opt.OptID 
             and ans.QID = opt.QID
             and ans.QuestionnaireID = opt.QuestionnaireID
-            and (ans.QuestionnaireID, ans.QID) == (?, ?),
+            and (ans.QuestionnaireID, ans.QID) = (?, ?)
             and opt.Opttxt = '<open string>')
             union
             (select ans.Session_ID as Session_ID, opt.OptID as Answer
@@ -27,11 +27,11 @@ async function user_getquestionanswer_handler(req, res) {
             where ans.OptID = opt.OptID
             and ans.QID = opt.QID
             and ans.QuestionnaireID = opt.QuestionnaireID
-            and (ans.QuestionnaireID, ans.QID) == (?, ?),
+            and (ans.QuestionnaireID, ans.QID) = (?, ?)
             and opt.Opttxt != '<open string>')
         `);
         // Execute the statement
-        let rows = await stmt.execute([questionnaireID, questionID]);
+        let rows = await stmt.execute([questionnaireID, questionID, questionnaireID, questionID]);
 
         if(!rows.length) {
             stat_code = 402;
@@ -43,6 +43,7 @@ async function user_getquestionanswer_handler(req, res) {
 
         result["questionnaireID"] = questionnaireID;
         result["qID"] = questionID;
+        result["answers"] = [];
         for(let row of rows) {
             result["answers"].push({"session":row.Session_ID, "ans":row.Answer});
         }

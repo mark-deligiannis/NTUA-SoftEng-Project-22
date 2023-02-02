@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const BodyParser = require('body-parser');
+
+router.use(BodyParser.urlencoded({extended: true}))
 
 const user_question_handler = require("../controllers/user_question.js")
 const user_questionnaire_handler = require("../controllers/user_questionnaire.js")

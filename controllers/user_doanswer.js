@@ -6,7 +6,7 @@ async function user_doanswer_handler(req, res) {
     const questionID = req.params.questionID;
     const session = req.params.session;
     const optionID = req.params.optionID;
-    let answer_text = req.body;
+    let answer_text = req.body["answer"];
 
     let conn;
     try {
@@ -21,7 +21,7 @@ async function user_doanswer_handler(req, res) {
         // Execute the statement
         await stmt.execute([optionID, questionID, questionnaireID, session, answer_text]);
 
-        res.status(200);
+        res.status(200).send();
 
     } catch (err) {
         // Log the error message for debugging
