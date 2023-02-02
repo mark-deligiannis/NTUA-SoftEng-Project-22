@@ -16,6 +16,7 @@ async function user_doanswer_handler(req, res) {
         // Create entry in questionnaire
         // Prepare the statement
         var stmt;
+        if(answer_text == null) answer_text = '';
         if(answer_text == '') {
             stmt = await conn.prepare(`
                 insert into answer (OptID, QID, QuestionnaireID, Session_ID) values (?,?,?,?)
