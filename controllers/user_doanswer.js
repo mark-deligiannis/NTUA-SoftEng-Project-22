@@ -22,7 +22,7 @@ async function user_doanswer_handler(req, res) {
                 insert into answer (OptID, QID, QuestionnaireID, Session_ID) values (?,?,?,?)
             `);
             // Execute the statement
-            await stmt.execute([optionID, questionID, questionnaireID, session, answer_text]);
+            await stmt.execute([optionID, questionID, questionnaireID, session]);
         }
         else {
             stmt = await conn.prepare(`

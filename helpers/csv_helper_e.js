@@ -10,7 +10,7 @@ function csv_helper_e(json) {
         entry["ans"] = answer["ans"];
         final.push(entry);
     }
-    let fields = ["questionnaireID", "qID", "session", "ans"];
+    let fields = ["questionnaireID", "questionID", "session", "ans"];
     return (new json2csv({ fields }).parse(final));
 }
 
