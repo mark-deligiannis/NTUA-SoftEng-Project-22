@@ -62,7 +62,7 @@ function json_format_ok(json) {
     every_question_id.push('-');
   
     // Questionnaire ID, Title and questions must be provided
-    if (!json["questionnaireID"] || !json["questionnaireTitle"] || !json["questions"]) return false;
+    if (!json["questionnaireID"] || !json["questionnaireTitle"] || !json["questions"] || !json["keywords"]) return false;
     // There must be at least one question and its name must be "P00"
     if (!json["questions"][0] || json["questions"][0]["qID"]!="P00") return false;
     // Scan questions for errors

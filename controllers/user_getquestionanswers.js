@@ -46,7 +46,7 @@ async function user_getquestionanswer_handler(req, res) {
         let result = {};
 
         result["questionnaireID"] = questionnaireID;
-        result["qID"] = questionID;
+        result["questionID"] = questionID;
         result["answers"] = [];
         for(let row of rows) {
             result["answers"].push({"session":row.Session_ID, "ans":row.Answer});
