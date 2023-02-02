@@ -15,11 +15,21 @@ async function user_doanswer_handler(req, res) {
 
         // Create entry in questionnaire
         // Prepare the statement
-        var stmt = await conn.prepare(`
-            insert into answer values (?, ?, ?, ?, ?)
-        `);
-        // Execute the statement
-        await stmt.execute([optionID, questionID, questionnaireID, session, answer_text]);
+        var stmt;
+        if(answer_text == '') {
+            stmt = await conn.prepare(`
+                insert into answer (OptID, QID, QuestionnaireID, Session_ID) values (?,?,?,?)
+            `);
+            // Execute the statement
+            await stmt.execute([optionID, questionID, questionnaireID, session, answer_text]);
+        }
+        else {
+            stmt = await conn.prepare(`
+                insert into answer values (?, ?, ?, ?, ?)
+            `);
+            // Execute the statement
+            await stmt.execute([optionID, questionID, questionnaireID, session, answer_text]);
+        }
 
         res.status(200).send();
 
