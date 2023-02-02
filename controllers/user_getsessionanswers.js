@@ -1,9 +1,13 @@
 const pool = require("../app.js");
 const path = require('path');
+const url = require('url');
 
 async function user_getsessionanswers_handler(req, res) {
     const questionnaireID = req.params.questionnaireID;
     const sessionID = req.params.session;
+
+    var isCsv = false;
+    if(url.parse(req.url, true).query.format == "csv") isCsv = true;
 
     var json = {
         questionnaireID: questionnaireID,
@@ -42,10 +46,14 @@ async function user_getsessionanswers_handler(req, res) {
         delete json["answers"].meta;
 
         if (json["answers"][0]) {
-            res.status(200).send(json);
+            if(isCsv) {
+                const csv_helper_d = require('../helpers/csv_helper_d.js');
+                res.status(200).send(csv_helper_d(json));
+            } else
+                res.status(200).send(json);
         }
         else {
-            res.status(402).send({});
+            res.status(402).send();
         }
     } catch (err) {
         // Log the error message for debugging

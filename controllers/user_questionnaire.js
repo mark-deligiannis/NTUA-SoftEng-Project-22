@@ -1,8 +1,13 @@
 const pool = require("../app.js");
+const url = require('url');
 
 async function user_questionnaire_handler(req, res) {
     // Get questionnaireID from request
     var questionnaireID = req.params.questionnaireID;
+
+    var isCsv = false;
+    if(url.parse(req.url, true).query.format == "csv") isCsv = true;
+
     // Declare response json
     var json = {};
     let conn;
@@ -44,10 +49,14 @@ async function user_questionnaire_handler(req, res) {
                 }
             });
 
-            res.status(200).send(json);
+            if(isCsv) {
+                const csv_helper_a = require('../helpers/csv_helper_a.js');
+                res.status(200).send(csv_helper_a(json));
+            } else
+                res.status(200).send(json);
         }
         else {
-            res.status(402).send({});
+            res.status(402).send();
         }
     } catch (err) {
         // Log the error message for debugging

@@ -1,9 +1,13 @@
 const pool = require("../app.js");
 const path = require("path");
+const url = require('url');
 
 async function user_question_handler(req, res) {
     const questionnaireID = req.params.questionnaireID;
     const questionID = req.params.questionID;
+
+    var isCsv = false;
+    if(url.parse(req.url, true).query.format == "csv") isCsv = true;
 
     var stat_code, ret_file;
     let conn;
@@ -46,7 +50,11 @@ async function user_question_handler(req, res) {
                 result["options"].push({"optID":o.OptID, "opttxt":o.Opttxt, "nextqID":o.NextQID});
             }
 
-            res.status(200).send(result);
+            if(isCsv) {
+                const csv_helper_b = require('../helpers/csv_helper_b.js');
+                res.status(200).send(csv_helper_b(result));
+            } else
+                res.status(200).send(result);
             if (conn) conn.end();
             return;
         }
