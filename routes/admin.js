@@ -12,5 +12,8 @@ router.get('/healthcheck', admin_healthcheck);
 const admin_resetall = require('../controllers/admin_resetall');
 router.post('/resetall', admin_resetall);
 
+const admin_resetq = require('../controllers/admin_resetq');
+router.post('/resetq/:questionnaireID', admin_resetq);
+
 // Export router so that app.js can use it
 module.exports = router;
