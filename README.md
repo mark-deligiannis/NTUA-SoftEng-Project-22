@@ -18,7 +18,7 @@ Members: el19007, el19017, el19023, el19044, el19050, el19196
 
 | Name
 | ----- 
-| el19007 - Gerasimos Moudakis
+| el19007 - Gerasimos Mountakis
 | el19017 - Theodoros Papadopoulos
 | el19023 - Markos Deligiannis 
 | el19044 - Petros Maratos
