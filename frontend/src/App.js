@@ -1,9 +1,6 @@
-import logo from "../public/IntelliQ_logo_draft_2.svg";
 import './App.css';
-import { useState} from 'react';
 
 function App() {
-
   return (
     
     <div class="container">
