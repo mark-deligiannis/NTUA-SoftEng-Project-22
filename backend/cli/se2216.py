@@ -226,7 +226,7 @@ def getquestionanswers (**kwargs):
 program_name = "se2216"
 
 parser = argparse.ArgumentParser(prog=program_name, usage=f"{program_name} scope --param1 value1 [--param2 value2 ...] --format fff")
-subparsers = parser.add_subparsers(title="subcommands", help="supported operations")
+subparsers = parser.add_subparsers(title="scope", help="supported operations")
 
 # Healthcheck
 healthcheck_subpars = subparsers.add_parser("healthcheck", help="Check if database is up", usage=f"{program_name} healthcheck --format fff")
@@ -299,4 +299,8 @@ if unknown_args:
     parser.print_help()
     parser.exit(1)
 
-known_args.func(**vars(known_args))
+try:
+    known_args.func(**vars(known_args))
+except AttributeError:
+    parser.print_help()
+    parser.exit(1)

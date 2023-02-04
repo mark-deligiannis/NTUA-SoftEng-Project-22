@@ -13,8 +13,6 @@ async function user_doanswer_handler(req, res) {
         // Get a connection from the pool
         conn = await pool.getConnection();
 
-        // Create entry in questionnaire
-        // Prepare the statement
         var stmt;
         if(answer_text == null) answer_text = '';
         if(answer_text == '') {

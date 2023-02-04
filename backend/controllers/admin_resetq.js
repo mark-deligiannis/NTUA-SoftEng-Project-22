@@ -29,7 +29,7 @@ async function admin_resetq_handler(req, res) {
         // Set the status to 500 (internal server error)
         if(isCsv){
             const json2csv = require('json2csv').Parser;
-            const fields = ['status'];
+            const fields = ['status','reason'];
             res.status(500).send((new json2csv({ fields })).parse({"status":"failed", "reason":err.message}));
         } else
             res.status(500).send({"status":"failed", "reason":err.message}); 
