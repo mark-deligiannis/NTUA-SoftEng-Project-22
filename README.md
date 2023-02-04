@@ -10,7 +10,7 @@ Members: el19007, el19017, el19023, el19044, el19050, el19196
 | Asset | Technologies Used |
 | ----- | ----------- |
 | backend | NodeJS, ExpressJS |
-| frontend | html, css, javascript (ReactJS), php, bootstrap5 |
+| frontend | html, css, javascript (ReactJS), bootstrap5 |
 | database | MariaDB |
 
 
