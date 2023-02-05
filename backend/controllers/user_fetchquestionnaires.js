@@ -13,7 +13,7 @@ async function user_fetchquestionnaires_handler(req, res) {
         // Get a connection from the pool
         conn = await pool.getConnection();
 
-        var stmt, result;
+        var stmt, result, stat_code=200;
         if (!keywords || keywords.length==0) {
             result = await conn.query("SELECT * FROM questionnaire;");
         }
@@ -28,13 +28,17 @@ async function user_fetchquestionnaires_handler(req, res) {
             // Execute the statement
             result = await stmt.execute(keywords);
         }
+        // Delete useless metadata
+        delete result.meta;
+        // If result is empty then adjust the stat_code
+        if (Object.keys(result).length==0) stat_code = 402;
 
         if(isCsv){
             const json2csv = require('json2csv').Parser;
             const fields = ["QuestionnaireID", "QuestionnaireTitle"];
-            res.status(200).send((new json2csv({ fields })).parse(result));
+            res.status(stat_code).send((new json2csv({ fields })).parse(result));
         } else
-            res.status(200).send(result);
+            res.status(stat_code).send(result);
 
     } catch (err) {
         // Log the error message for debugging
