@@ -96,6 +96,36 @@ def resetq (**kwargs):
         print("No message provided")
     return
 
+def fetchquestionnaires (**kwargs):
+    format_ext = f"?format={kwargs['format']}"
+    keywords = kwargs.get("keywords")
+    if (keywords):
+        body = {"keywords": keywords}
+    else:
+        body = None
+
+    try:
+        response = requests.post(url = base_url + "/fetchquestionnaires/" + format_ext, data=body)
+    except requests.exceptions.ConnectionError:
+        print("API unreachable")
+        return
+    status_code = response.status_code
+    if(status_code == 200):
+        print(f"API call (get questionnaires) successfull")
+    elif(status_code == 400):
+        print("Data format error")
+    elif(status_code == 402):
+        print("API call returned nothing")
+    elif(status_code == 500):
+        print("Internal Server Error")
+    else:
+        print("Resource unavailable")
+    if response.text:
+        print(f"Returned Message:\n{response.text}")
+    else:
+        print("No message provided")
+    return
+
 def questionnaire (**kwargs):
     format_ext = f"?format={kwargs['format']}"
     questionnaireID = kwargs["questionnaire_id"]
@@ -249,6 +279,12 @@ resetq_subpars = subparsers.add_parser("resetq", help="Delete all answers for a 
 resetq_subpars.add_argument("--questionnaire_id", type=str, required=True, help="ID of questionnaire")
 resetq_subpars.add_argument("--format", type=str, required=True, help="Format of output")
 resetq_subpars.set_defaults(func=resetq)
+
+# Fetchquestionnaires
+fetchquestionnaires_subpars = subparsers.add_parser("fetchquestionnaires", help="Fetch questionnaires with or without keywords", usage=f"{program_name} fetchquestionnaires [--keywords KEYWORD1 [KEYWORD2 ...]] --format fff")
+fetchquestionnaires_subpars.add_argument("--keywords", type=str, nargs='*', help="List of all keywords")
+fetchquestionnaires_subpars.add_argument("--format", type=str, required=True, help="Format of output")
+fetchquestionnaires_subpars.set_defaults(func=fetchquestionnaires)
 
 # Questionnaire
 questionnaire_subpars = subparsers.add_parser("questionnaire", help="Fetch questionnaire and questions", usage=f"{program_name} questionnaire --questionnaire_id QUESTIONNAIRE_ID --format fff")
