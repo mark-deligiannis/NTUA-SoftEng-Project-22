@@ -9,8 +9,8 @@ function App() {
       <h2>Our questions, your answers</h2>
       <h2>Log in:</h2>
       <div class="buttons">
-        <button class="button" onclick="window.location.href='/admin'">Administrator</button>
-        <button class="button" onclick="window.location.href='/user'">User</button>
+        <button class="button" onclick="window.location.href='/Components/Admin'">Administrator</button>
+        <button class="button" onclick="window.location.href='/Components/User'">User</button>
       </div>
     </div>
   );
