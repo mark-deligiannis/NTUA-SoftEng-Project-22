@@ -126,6 +126,29 @@ def fetchquestionnaires (**kwargs):
         print("No message provided")
     return
 
+def fetchkeywords (**kwargs):
+    format_ext = f"?format={kwargs['format']}"
+
+    try:
+        response = requests.get(url = base_url + "/fetchkeywords/" + format_ext)
+    except requests.exceptions.ConnectionError:
+        print("API unreachable")
+        return
+    status_code = response.status_code
+    if(status_code == 200):
+        print(f"API call (fetch keywords) successfull")
+    elif(status_code == 402):
+        print("API call returned nothing")
+    elif(status_code == 500):
+        print("Internal Server Error")
+    else:
+        print("Resource unavailable")
+    if response.text:
+        print(f"Returned Message:\n{response.text}")
+    else:
+        print("No message provided")
+    return
+
 def questionnaire (**kwargs):
     format_ext = f"?format={kwargs['format']}"
     questionnaireID = kwargs["questionnaire_id"]
@@ -285,6 +308,11 @@ fetchquestionnaires_subpars = subparsers.add_parser("fetchquestionnaires", help=
 fetchquestionnaires_subpars.add_argument("--keywords", type=str, nargs='*', help="List of all keywords")
 fetchquestionnaires_subpars.add_argument("--format", type=str, required=True, help="Format of output")
 fetchquestionnaires_subpars.set_defaults(func=fetchquestionnaires)
+
+# Fetchkeywords
+fetchkeywords_subpars = subparsers.add_parser("fetchkeywords", help="Fetch all keywords in database", usage=f"{program_name} fetchkeywords --format fff")
+fetchkeywords_subpars.add_argument("--format", type=str, required=True, help="Format of output")
+fetchkeywords_subpars.set_defaults(func=fetchkeywords)
 
 # Questionnaire
 questionnaire_subpars = subparsers.add_parser("questionnaire", help="Fetch questionnaire and questions", usage=f"{program_name} questionnaire --questionnaire_id QUESTIONNAIRE_ID --format fff")

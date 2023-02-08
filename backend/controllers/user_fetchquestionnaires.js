@@ -31,7 +31,7 @@ async function user_fetchquestionnaires_handler(req, res) {
         // Delete useless metadata
         delete result.meta;
         // If result is empty then adjust the stat_code
-        if (Object.keys(result).length==0) stat_code = 402;
+        if (result.length==0) stat_code = 402;
 
         if(isCsv){
             const json2csv = require('json2csv').Parser;
