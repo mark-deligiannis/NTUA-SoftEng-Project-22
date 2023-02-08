@@ -62,7 +62,7 @@ async function admin_questionnaire_upd_handler(req, res) {
 
     // Once everything is done set the status
     stat_code = 200
-    ret_file = "../templates/insertion_success.html"
+    ret_file = "../test/dummydata.json"
   } catch (err) {
     // Log the error message for debugging
     console.log(`The following error occured:\n\n${err.message}\n`);
