@@ -1,32 +1,50 @@
+import React, {Component} from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import Admin from "./Components/admin_components/Admin";
+import User from "./Components/user_components/User";
+import Home from "./Components/home"
 
-function App() {
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
+  componentDidMount() {
+      this.setState({});
+  }
+
+
+  render(){
   return (
     
+    
+   
     <div class="container">
+      <Router>
       <h1>IntelliQ</h1>
       
       <h2>Our questions, your answers</h2>
       <h2>Log in:</h2>
       <div class="buttons">
-      <Link to={"/Admin"}>
-                  Admin
-                </Link>
-        {/*<button class="button" onclick="window.location.href='/Admin'">Administrator</button>
-        <button class="button" onclick="window.location.href='/User'">User</button> */}
+        <Link to={"/Admin"}> <button class="button" >Administrator</button></Link>
+        <Link to={"/User"}><button class="button" >User</button> </Link>
       </div>
       <div>
-        <Router>
+        
           <Routes>
-            <Route exact path={ "/Admin"} component={Admin} />
-          </Routes>
-          </Router>
+            <Route path="/" element={<Home />} />
+            <Route path={ "/Admin"} element={<Admin />} />
+            <Route path={ "/User"} element={<User />} />
+          </Routes> 
+  
       </div>
-    </div>
-  );
+      </Router>
+    </div> 
+  );}
 }
 
 export default App;
