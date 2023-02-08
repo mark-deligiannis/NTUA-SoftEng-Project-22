@@ -11,6 +11,7 @@ const user_getquestionanswers_handler = require("../controllers/user_getquestion
 const user_getsessionanswers_handler = require("../controllers/user_getsessionanswers.js")
 const user_doanswer_handler = require("../controllers/user_doanswer.js")
 const user_fetchquestionnaires = require("../controllers/user_fetchquestionnaires.js")
+const user_fetchkeywords = require("../controllers/user_fetchkeywords.js")
 
 router.get(`/questionnaire/:questionnaireID`, user_questionnaire_handler);
 router.get(`/questionnairedump/:questionnaireID`, user_questionnaire_dump_handler);
@@ -19,5 +20,6 @@ router.post(`/doanswer/:questionnaireID/:questionID/:session/:optionID`, user_do
 router.get(`/getsessionanswers/:questionnaireID/:session`, user_getsessionanswers_handler);
 router.get(`/getquestionanswers/:questionnaireID/:questionID`, user_getquestionanswers_handler);
 router.post(`/fetchquestionnaires`, user_fetchquestionnaires);
+router.get(`/fetchkeywords`, user_fetchkeywords);
 
 module.exports = router
