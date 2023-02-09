@@ -43,7 +43,7 @@ class Admin extends React.Component {
       mode: 'no-cors',
       
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/w-xxx-form-urlencoded",
       },
     })
       
@@ -52,7 +52,7 @@ class Admin extends React.Component {
   render() {
     return (
       <div>
-        <form method="post" enctype="multipart/form-data" onSubmit={this.onFileUpload} >
+        <form method="post" encType="multipart/form-data" onSubmit={this.onFileUpload} >
           <input type="file" onChange={this.onFileChange} />
           <button type="submit">Upload</button>
         </form>
