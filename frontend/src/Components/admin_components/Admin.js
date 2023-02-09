@@ -23,19 +23,22 @@ class Admin extends React.Component {
     event.preventDefault();
 
     const { selectedFile } = this.state;
-    const formData = new Blob([selectedFile], { type: "application/json" });
+    const formData = new FormData();
 
-    //formData.append("file", selectedFile);
+    formData.append("file", selectedFile);
+
+ 
 
     fetch(API_URL, {
       method: "POST",
+      mode: 'no-cors',
       body: formData,
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "multipart/form-data; boundary=${formData._boundary}",
       },
     })
   };
-
+  
   handleDelete() {
 
     fetch(Reset_URL, {
