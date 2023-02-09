@@ -12,7 +12,7 @@ export default class Home extends Component {
     
     render() {
     return (
-      <router>
+      <Router>
       <h1>IntelliQ</h1>
       
       <h2>Our questions, your answers</h2>
@@ -21,7 +21,7 @@ export default class Home extends Component {
         <Link to={"/Admin"}> <button class="button" >Administrator</button></Link>
         <Link to={"/User"}><button class="button" >User</button> </Link>
       </div>
-      </router>
+      </Router>
     
   );
 }
