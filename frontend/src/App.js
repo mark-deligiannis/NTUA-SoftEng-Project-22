@@ -26,14 +26,7 @@ class App extends Component {
     <div class="container">
       <Router>
       <div>
-      <h1>IntelliQ</h1>
       
-      <h2>Our questions, your answers</h2>
-      <h2>Log in:</h2>
-      <div class="buttons">
-        <Link to={"/Admin"}> <button class="button" >Administrator</button></Link>
-        <Link to={"/User"}><button class="button" >User</button> </Link>
-      </div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path={ "/Admin"} element={<Admin />} />
