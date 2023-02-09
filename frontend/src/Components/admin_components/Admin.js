@@ -1,5 +1,6 @@
 import React from "react";
 import './Admin.css'
+import { Link } from 'react-router-dom';
 const host = "localhost"
 const port = 9103
 const ResetAll_URL = `http://${host}:${port}/intelliq_api/admin/resetall`;
@@ -177,6 +178,8 @@ class Admin extends React.Component {
         <div>
         {this.graphs()}  
         </div>
+        <Link to={"/Admin/Graphs"}> <button className="button" >Graphs</button></Link>
+
       </div>
     );
   }

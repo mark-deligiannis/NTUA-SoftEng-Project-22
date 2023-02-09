@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
-export default class Home extends Component {
+export default class AdminGraphs extends Component {
     constructor(props) {
         super(props);
     
@@ -18,10 +18,9 @@ export default class Home extends Component {
       <h2>Our questions, your answers</h2>
       <h2>Log in:</h2>
       <div className="buttons">
-        <Link to={"/Admin"}> <button className="button" >Administrator</button></Link>
-        <Link to={"/User"}><button className="button" >User</button> </Link>
+        <Link to={"/Admin"}> <button className="button" >Back</button></Link>
       </div>
-      <p>Welcome Home</p>
+      <p>Let's see amazing graphs</p>
       </div>
   );
 }
