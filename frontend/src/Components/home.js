@@ -17,9 +17,9 @@ export default class Home extends Component {
       
       <h2>Our questions, your answers</h2>
       <h2>Log in:</h2>
-      <div class="buttons">
-        <Link to={"/Admin"}> <button class="button" >Administrator</button></Link>
-        <Link to={"/User"}><button class="button" >User</button> </Link>
+      <div className="buttons">
+        <Link to={"/Admin"}> <button className="button" >Administrator</button></Link>
+        <Link to={"/User"}><button className="button" >User</button> </Link>
       </div>
       <p>Welcome Home</p>
       </div>

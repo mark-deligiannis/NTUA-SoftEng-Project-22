@@ -23,7 +23,7 @@ class App extends Component {
     
     
    
-    <div class="container">
+    <div className="container">
       <Router>
       <div>
           
