@@ -1,0 +1,23 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    background-color: rgb(24, 130, 72);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .button:hover {
+    background-color: lightblue;
+  }
+  
+  .button:active {
+    background-color: green;
+  }
