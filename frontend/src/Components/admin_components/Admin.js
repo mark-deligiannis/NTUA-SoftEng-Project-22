@@ -2,19 +2,22 @@ import React from "react";
 import './Admin.css'
 const host = "localhost"
 const port = 9103
-const id = "QQ000"
+var id
 const ResetAll_URL = `http://${host}:${port}/intelliq_api/admin/resetall`;
 const Upload_URL = `http://${host}:${port}/intelliq_api/admin/questionnaire_upd`;
 const DownloadCSV_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}?format=csv`;
-const DownloadJSON_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}`;
+var DownloadJSON_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}`;
 
 
 class Admin extends React.Component {
 
   constructor(props) {
     super(props);
+    this.exportCSV = this.exportCSV.bind(this);
+    this.exportJSON = this.exportJSON.bind(this);
     this.state = {
       selectedFile: null,
+      id: ''
     };
   }
 
@@ -53,7 +56,9 @@ class Admin extends React.Component {
   };
 
   exportCSV() {
-   
+  const id  = this.state.id;
+  const DownloadCSV_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}?format=csv`;
+
   fetch(DownloadCSV_URL, {
     headers: {
       "Accept-Charset": "utf-8",
@@ -64,6 +69,7 @@ class Admin extends React.Component {
   })
   .then(text => {
     console.log(text);
+    console.log(DownloadCSV_URL);
     const utf8EncodedCsv = new TextEncoder("UTF-8").encode(text);
     const blob = new Blob([utf8EncodedCsv], { type: 'text/csv;charset=utf-8;' });
     //var csv = new Blob([text], { type: 'text/csv;charset=utf-8' });
@@ -80,6 +86,8 @@ class Admin extends React.Component {
   
 
   exportJSON() {
+    const { id } = this.state;
+    const DownloadJSON_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}`;
 
     fetch(DownloadJSON_URL)
     .then(response => {
@@ -109,6 +117,9 @@ class Admin extends React.Component {
         <button class="button" onClick={this.exportCSV}>Export CSV</button>
         <br/>
         <button class="button" onClick={this.exportJSON}>Export JSON</button>
+        <br/>
+        
+        <input type="text" onChange={(event) => { this.setState({id: event.target.value}) }} />
       </div>
     );
   }
