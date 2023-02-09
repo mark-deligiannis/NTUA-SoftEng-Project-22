@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import Select from "react-select";
 import './User.css';
 const API_URL = "http://localhost:9103/intelliq_api/fetchquestionnaires";
 const KEYS_URL = "http://localhost:9103/intelliq_api/fetchkeywords";
@@ -12,44 +13,40 @@ export default class User extends React.Component {
 
 		this.state = {
 			keywords: [],
-			content: []
+			content: [],
+      selectedOptions: [],
+	    
 		};
 	}
 
-  fetchKeywords(){
-    const requestOptions = {
-			method: 'GET',
-			mode: 'cors',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		}
-	
-	fetch(KEYS_URL, requestOptions)
-		.then(res => res.json())
-		.then(data => (data ? this.setState({ keywords: data.Keywords }) : {}))
-		
-  }
-
 	componentDidMount() {
 
-		const requestOptions = {
+		var requestOptions = {
 			method: 'POST',
 			mode: 'cors',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			//body: JSON.stringify({ keywords: [] })
 		}
-        //const API_URL = "//localhost:9103/intelliq_api/fetchquestionnaires"
 
 		fetch(API_URL, requestOptions)
 			.then(res => res.json())
-			//.then(res => console.log(res))
        		.then(data => (data ? this.setState({ content: data }) : {}))
             .catch(error => {console.error("Error",error);});
+
+		requestOptions = {
+			method: 'GET',
+			mode: 'cors',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		}
+	
+		fetch(KEYS_URL, requestOptions)
+			.then(res => res.json())
+			.then(data => (data ? this.setState({ keywords: data.Keywords }) : {}))
 
 	}
 
 
 	table() {
-    	//this.fetchQuestionnaire();
 		const data = new Array(this.state.content.length)    // a new array with the size (rows) of reply array of objects size
 		for (var i=0; i<this.state.content.length; i++) data[i] = new Array(2);  // columns of it
 		for (i=0; i<this.state.content.length; i++) {
@@ -79,22 +76,29 @@ export default class User extends React.Component {
 			</div>
 		);
 	}
-  
 
-
-  
-
-  //<h1> {this.state.keywords} </h1>
 
 
 	render() {
-		//this.fetchKeywords();
-		//const { keywords } = this.state.keywords;
+		let options = this.state.keywords.map(item => ({value: item, label: item}));
 		return (
 			<div className="container">
 				<div className="welcome">
 					<h2> Select Questionnaires </h2>
-					<p> View all available questionnaires </p>
+					<p> View all available questionnaires or filter by keywords </p>
+				<div className="app">
+					<h2>Choose keywords</h2>
+					<div className="dropdown-container">
+						<Select
+							options={options}
+							placeholder="Select Keywords"
+							value={this.state.selectedOptions}
+							onChange={data => this.setState({selectedOptions: data})}
+							isSearchable={true}
+							isMulti
+						/>
+					</div>
+				</div>
 				</div>
         			<header className="jumbotron" id="questionnaires">
 						{this.table()}          
