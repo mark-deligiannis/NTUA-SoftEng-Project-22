@@ -43,7 +43,7 @@ class Admin extends React.Component {
       mode: 'no-cors',
       
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/w-xxx-form-urlencoded",
       },
     })
       
