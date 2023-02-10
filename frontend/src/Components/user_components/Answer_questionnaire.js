@@ -33,6 +33,8 @@ function AnswerQuestionnaire() {
   const [qTitle, setTitle] = useState('')
   
   const [qStart, setStart] = useState('TRUE') 
+
+  const [inputValue, setInputValue] = useState('');
   
   useEffect(() => {
     
@@ -48,21 +50,11 @@ function AnswerQuestionnaire() {
         setState({nextQuestion: data.questions[0].qID})
         setTitle(data.questionnaireTitle)
       })
-
-    // fetch(QUESTION_URL + params.id + '/' + state.nextQuestion, requestOptions)
-    //   .then(res => res.json())
-    //   .then(data => setQuestion({
-    //       qID: data.qID,
-    //       qtext: data.qtext,
-    //       required: data.required,
-    //       type: data.type,
-    //       options: data.options
-    //     }))
   }, [])
   
   
   const showQuestion = (quest) => {
-    console.log("fuck")
+    console.log(inputValue)
     setStart('FALSE')
     const requestOptions = {
       method: 'GET',
@@ -89,9 +81,9 @@ function AnswerQuestionnaire() {
 
     const onClickNext = () => {
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
-      console.log(question.options[0])
-        setState({nextQuestion: question.options[0].nextqID})
-        showQuestion(question.options[0].nextqID)
+      console.log("question.options[0]")
+      setState({nextQuestion: question.options[0].nextqID})
+      showQuestion(question.options[0].nextqID)
     }
     else {
       if(question.qID !== ''){
@@ -101,14 +93,21 @@ function AnswerQuestionnaire() {
             {
               qID: question.qID,
               optID: selectedAnswerIndex,
-              ans: null
+              ans: inputValue
             }
           ])
       }
+      setInputValue('')
       setSelectedAnswerIndex(null)
       showQuestion(state.nextQuestion)
     }
   }
+
+  const handleInputChange = (event, option) => {
+    setSelectedAnswerIndex(option.optID);
+    setState({nextQuestion: option.nextqID});
+    setInputValue(event.target.value);
+  };
 
 
   return (
@@ -118,6 +117,7 @@ function AnswerQuestionnaire() {
     <h2>{question.qtext}</h2>
     <ul>
       {question.options.map((option) => (
+        option.opttxt !== "<open string>" ?
         <li
           onClick={() => onAnswerSelected(option)}
           key={option.opttxt}
@@ -126,6 +126,9 @@ function AnswerQuestionnaire() {
           }>
           {option.opttxt}
         </li>
+        : <div>
+        <input type="text" value={inputValue} onChange={event => handleInputChange(event, option)} />
+      </div>
       ))}
     </ul>
     <div className="flex-right">
