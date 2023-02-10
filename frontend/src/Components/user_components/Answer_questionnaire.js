@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 const QUESTIONNAIRE_URL = "http://localhost:9103/intelliq_api/questionnaire/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
+const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
+const SESSION_URL = "http://localhost:9103/intelliq_api/getsessionanswers/";
 
 // GAMW THN PSYXH MOY!!!! DO SAME 
 
@@ -22,7 +24,7 @@ function AnswerQuestionnaire() {
     {
       qID: '',
       optID: '',
-      ansTXT: null
+      ansTXT: ''
     }
   ])
 
@@ -37,6 +39,8 @@ function AnswerQuestionnaire() {
   const [qFinish, setFinish] = useState('FALSE') 
 
   const [inputValue, setInputValue] = useState('');
+
+  const [session, setSession] = useState('');
   
   useEffect(() => {
     
@@ -52,6 +56,8 @@ function AnswerQuestionnaire() {
         setState({nextQuestion: data.questions[0].qID})
         setTitle(data.questionnaireTitle)
       })
+    
+    generateRandomString()
   }, [])
   
   
@@ -81,10 +87,40 @@ function AnswerQuestionnaire() {
     setState({nextQuestion: option.nextqID})
   }
 
+  const generateRandomString = () => {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const randomStringArray = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]);
+    setSession(randomStringArray.join(''));
+  };
 
   // CREATE SESSION ANSWER
   const createSessionAnswer = () => {
     console.log(answer)
+    console.log(session)
+    
+    for (var i = 1; i < answer.length; i++ ) {
+      var ans = answer[i]
+      console.log(ans)
+      const requestOptions = {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'answer='+ ans.ansTXT
+      }
+
+      fetch(ANSWER_URL + params.id + '/' + ans.qID + '/' + session + '/' + ans.optID, requestOptions)
+        .catch(error => {console.error("Error",error);});
+    }
+
+    const requestOptions = {
+      method: 'GET',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    }
+
+    fetch(SESSION_URL + params.id + '/' + session, requestOptions)
+      .then(res => console.log(res.json()))
+    
   }
   
 
@@ -104,7 +140,7 @@ function AnswerQuestionnaire() {
             {
               qID: question.qID,
               optID: selectedAnswerIndex,
-              ans: inputValue
+              ansTXT: inputValue
             }
           ])
       }

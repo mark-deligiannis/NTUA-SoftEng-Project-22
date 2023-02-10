@@ -47,21 +47,8 @@ export default class User extends React.Component {
 
 	updateTable(data) {
 		this.setState({selectedOptions: data});
-    
-
-    var formBody = [];
-    let keys = this.state.selectedOptions.map(item => ({keywords: item.value}));
-    for (var key in keys) {
-		var Key = "keywords";
-		var Value = key.keywords;
-		formBody.push(Key + ":" + Value);
-    }
-    formBody = formBody.join("&");
-	console.log(keys);
-
-
-
-  const payload = {"keywords": ['footbal']};
+    	
+  const payload = `keywords=footbal`;
   // var parameters = new URLSearchParams();
   // parameters.append('keywords :', JSON.stringify(keywords));
 
@@ -70,10 +57,8 @@ export default class User extends React.Component {
 		var requestOptions = {
 			method: 'POST',
 			mode: 'cors',
-			headers: { 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json' },
-			body: JSON.stringify({payload})
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: payload
 		}
 		
 
@@ -81,9 +66,8 @@ export default class User extends React.Component {
 		fetch(API_URL, requestOptions)
 			.then(res => res.json())
 			.then(res => console.log(res))
-				.then(data => (data ? this.setState({ content: data }) : {}))
+			.then(response =>  this.setState({ content: response }))
 			.catch(error => {console.error("Error",error);});
-      console.log(this.state.content);
 	}
 
 
