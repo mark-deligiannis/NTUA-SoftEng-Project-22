@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const QUESTIONNAIRE_URL = "http://localhost:9103/intelliq_api/questionnaire/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 
@@ -7,8 +7,7 @@ const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 
 function AnswerQuestionnaire() {
   const [state, setState] = useState({
-    title: '',
-    nextQuestion: ''
+    nextQuestion: null
   })
   
   const [question, setQuestion] = useState({
@@ -30,8 +29,13 @@ function AnswerQuestionnaire() {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null)
   
   const params = useParams()
+
+  const [qTitle, setTitle] = useState('')
+  
+  const [qStart, setStart] = useState('TRUE') 
   
   useEffect(() => {
+    
     const requestOptions = {
       method: 'GET',
       mode: 'cors',
@@ -40,35 +44,34 @@ function AnswerQuestionnaire() {
 
     fetch(QUESTIONNAIRE_URL + params.id, requestOptions)
       .then(res => res.json())
-      //.then(res => console.log(res))
-      .then(data => setState({
-          title: data.questionnaireTitle,
-          nextQuestion: data.questions[0].qID
-        }))
+      .then(data => {
+        setState({nextQuestion: data.questions[0].qID})
+        setTitle(data.questionnaireTitle)
+      })
 
-    fetch(QUESTION_URL + params.id + '/' + state.nextQuestion, requestOptions)
-      .then(res => res.json())
-      //.then(res => console.log(res))
-      .then(data => setQuestion({
-          qID: data.qID,
-          qtext: data.qtext,
-          required: data.required,
-          type: data.type,
-          options: data.options
-        }))
+    // fetch(QUESTION_URL + params.id + '/' + state.nextQuestion, requestOptions)
+    //   .then(res => res.json())
+    //   .then(data => setQuestion({
+    //       qID: data.qID,
+    //       qtext: data.qtext,
+    //       required: data.required,
+    //       type: data.type,
+    //       options: data.options
+    //     }))
   }, [])
   
   
-   const showQuestion = () => {
+  const showQuestion = (quest) => {
+    console.log("fuck")
+    setStart('FALSE')
     const requestOptions = {
       method: 'GET',
       mode: 'cors',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }
 
-    fetch(QUESTION_URL + params.id + '/' + state.nextQuestion, requestOptions)
+    fetch(QUESTION_URL + params.id + '/' + quest, requestOptions)
       .then(res => res.json())
-      //.then(res => console.log(res))
       .then(data => setQuestion({
           qID: data.qID,
           qtext: data.qtext,
@@ -84,23 +87,33 @@ function AnswerQuestionnaire() {
     setState({nextQuestion: option.nextqID})
   }
 
-  const onClickNext = () => {
-    // again reset the selectedAnwerIndex, so it won't effect next question
-    setSelectedAnswerIndex(null)
-    setAnswer([
-      ...answer,
-      {
-        qID: question.qID,
-        optID: selectedAnswerIndex,
-        ans: null
+    const onClickNext = () => {
+    if (question.required === 'FALSE' && selectedAnswerIndex === null){
+      console.log(question.options[0])
+        setState({nextQuestion: question.options[0].nextqID})
+        showQuestion(question.options[0].nextqID)
+    }
+    else {
+      if(question.qID !== ''){
+        console.log("geia")
+        setAnswer([
+            ...answer,
+            {
+              qID: question.qID,
+              optID: selectedAnswerIndex,
+              ans: null
+            }
+          ])
       }
-    ])
-    showQuestion()
+      setSelectedAnswerIndex(null)
+      showQuestion(state.nextQuestion)
+    }
   }
+
 
   return (
   <div>
-    <h2> {state.title} </h2>
+    <h2> {qTitle} </h2>
     <div className="quiz-container">
     <h2>{question.qtext}</h2>
     <ul>
@@ -117,7 +130,7 @@ function AnswerQuestionnaire() {
     </ul>
     <div className="flex-right">
       <button onClick={onClickNext} disabled={selectedAnswerIndex === null && question.required === 'TRUE'}>
-        {state.nextQuestion === '-' ? 'Finish' : 'Next'}
+        {qStart === 'TRUE' ? 'Start' : state.nextQuestion === '-' ? 'Finish' : 'Next'}
       </button>
     </div>
   </div>
@@ -126,4 +139,5 @@ function AnswerQuestionnaire() {
   )
 }
 
+//{state.nextQuestion === '-' ? 'Finish' : 'Next'}
 export default AnswerQuestionnaire;
