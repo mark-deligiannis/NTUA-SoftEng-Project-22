@@ -33,6 +33,8 @@ function AnswerQuestionnaire() {
   const [qTitle, setTitle] = useState('')
   
   const [qStart, setStart] = useState('TRUE') 
+  
+  const [qFinish, setFinish] = useState('FALSE') 
 
   const [inputValue, setInputValue] = useState('');
   
@@ -79,11 +81,20 @@ function AnswerQuestionnaire() {
     setState({nextQuestion: option.nextqID})
   }
 
-    const onClickNext = () => {
+
+  // CREATE SESSION ANSWER
+  const createSessionAnswer = () => {
+    console.log(answer)
+  }
+  
+
+  const onClickNext = () => {
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
       console.log("question.options[0]")
       setState({nextQuestion: question.options[0].nextqID})
-      showQuestion(question.options[0].nextqID)
+      if (state.nextQuestion !== '-') {
+        showQuestion(question.options[0].nextqID)
+      }
     }
     else {
       if(question.qID !== ''){
@@ -99,6 +110,11 @@ function AnswerQuestionnaire() {
       }
       setInputValue('')
       setSelectedAnswerIndex(null)
+    }
+    if (state.nextQuestion === '-') {
+      setFinish('TRUE')
+    }
+    else {
       showQuestion(state.nextQuestion)
     }
   }
@@ -114,33 +130,46 @@ function AnswerQuestionnaire() {
   <div>
     <h2> {qTitle} </h2>
     <div className="quiz-container">
-    <h2>{question.qtext}</h2>
-    <ul>
-      {question.options.map((option) => (
-        option.opttxt !== "<open string>" ?
-        <li
-          onClick={() => onAnswerSelected(option)}
-          key={option.opttxt}
-          className={
-            selectedAnswerIndex === option.optID ? 'selected-answer' : null
-          }>
-          {option.opttxt}
-        </li>
-        : <div>
-        <input type="text" value={inputValue} onChange={event => handleInputChange(event, option)} />
+      {qFinish !== 'TRUE' ? (
+        <div>
+          <h2>{question.qtext}</h2>
+          <ul>
+            {question.options.map((option) => (
+              option.opttxt !== "<open string>" ?
+              <li
+                onClick={() => onAnswerSelected(option)}
+                key={option.opttxt}
+                className={
+                  selectedAnswerIndex === option.optID ? 'selected-answer' : null
+                }>
+                {option.opttxt}
+              </li>
+              : <div>
+              <input type="text" value={inputValue} onChange={event => handleInputChange(event, option)} />
+            </div>
+            ))}
+          </ul>
+          <div className="flex-right">
+            <button onClick={onClickNext} disabled={selectedAnswerIndex === null && question.required === 'TRUE'}>
+              {qStart === 'TRUE' ? 'Start' : state.nextQuestion === '-' ? 'Finish' : 'Next'}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="result">
+        <h2>Congratulations!!!</h2>
+        <h3>You can now view your answer</h3>
+        <div className="flex-right">
+            <button onClick={createSessionAnswer}>
+              {"View Answers"}
+            </button>
+        </div>
       </div>
-      ))}
-    </ul>
-    <div className="flex-right">
-      <button onClick={onClickNext} disabled={selectedAnswerIndex === null && question.required === 'TRUE'}>
-        {qStart === 'TRUE' ? 'Start' : state.nextQuestion === '-' ? 'Finish' : 'Next'}
-      </button>
-    </div>
+    )}    
   </div>
   </div>
 
   )
 }
 
-//{state.nextQuestion === '-' ? 'Finish' : 'Next'}
 export default AnswerQuestionnaire;
