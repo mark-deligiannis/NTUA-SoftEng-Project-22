@@ -31,7 +31,7 @@ class App extends Component {
           
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path={ "/Admin"} element={<Admin />} />
+            <Route path={ "/Admin/*"} element={<Admin />} />
             {/*If you want a nested Route, like having a top page staying the same but the bottom 
             becoming different then you need this:
 
@@ -43,7 +43,7 @@ class App extends Component {
             <Route path={ "/User/Answer/:QuestionID"} element={<NameOfClass />} />
 
             and don't forget the import at the top :) */}
-            <Route path={ "/Admin/Graphs"} element={<AdminGraphs />} />
+            {/*<Route path={ "/Admin/Graphs"} element={<AdminGraphs />} />*/}
             <Route path={ "/User"} element={<User />} />
           </Routes> 
   
