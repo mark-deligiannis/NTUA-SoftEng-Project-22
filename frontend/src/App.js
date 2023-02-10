@@ -8,6 +8,7 @@ import AdminQuestionnaire from "./Components/admin_components/Admin_questionnair
 import User from "./Components/user_components/User";
 import AnswerQuestionnaire from "./Components/user_components/Answer_questionnaire";
 import Home from "./Components/home"
+import ViewSession from "./Components/user_components/View_session";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends React.Component {
             <Route path={ "/Admin/Questionnaires"} element={<AdminQuestionnaire />} />
             <Route path={ "/Admin/Questionnaires/:id/Graphs"} element={<AdminGraphs />} />
             <Route path={ "/User/Answer/:id"} element={<AnswerQuestionnaire />} />
+
             <Route path={ "/User"} element={<User />} />
           </Routes> 
   

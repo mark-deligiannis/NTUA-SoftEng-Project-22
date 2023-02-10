@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const QUESTIONNAIRE_URL = "http://localhost:9103/intelliq_api/questionnaire/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
-const SESSION_URL = "http://localhost:9103/intelliq_api/getsessionanswers/";
+
 
 // GAMW THN PSYXH MOY!!!! DO SAME 
 
@@ -112,14 +113,11 @@ function AnswerQuestionnaire() {
         .catch(error => {console.error("Error",error);});
     }
 
-    const requestOptions = {
-      method: 'GET',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    }
-
-    fetch(SESSION_URL + params.id + '/' + session, requestOptions)
-      .then(res => console.log(res.json()))
+    return (
+      <>
+        <Link to={`/${session}`}>Session</Link>
+      </>
+    )
     
   }
   
