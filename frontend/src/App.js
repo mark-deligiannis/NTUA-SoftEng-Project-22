@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Admin from "./Components/admin_components/Admin";
 import AdminGraphs from "./Components/admin_components/Admin_graphs";
 import User from "./Components/user_components/User";
-//import ClassName from "./Components/user_components/Answer_questionnaire";
+import AnswerQuestionnaire from "./Components/user_components/Answer_questionnaire";
 import Home from "./Components/home"
 
 class App extends Component {
@@ -43,6 +43,7 @@ class App extends Component {
             <Route path={ "/User/Answer/:QuestionID"} element={<NameOfClass />} />
 
             and don't forget the import at the top :) */}
+            <Route path={ "/User/Answer/:id"} element={<AnswerQuestionnaire />} />
             {/*<Route path={ "/Admin/Graphs"} element={<AdminGraphs />} />*/}
             <Route path={ "/User"} element={<User />} />
           </Routes> 

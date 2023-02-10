@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 import Select from "react-select";
 import './User.css';
@@ -15,7 +15,7 @@ export default class User extends React.Component {
 			keywords: [],
 			content: [],
       selectedOptions: [],
-	    
+
 		};
 	}
 
@@ -25,7 +25,7 @@ export default class User extends React.Component {
 			method: 'POST',
 			mode: 'cors',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			//body: JSON.stringify({ keywords: [] })
+			body: JSON.stringify({ keywords: this.state.selectedOptions })
 		}
 
 		fetch(API_URL, requestOptions)
@@ -45,8 +45,50 @@ export default class User extends React.Component {
 
 	}
 
+	updateTable(data) {
+		this.setState({selectedOptions: data});
+    
+
+    var formBody = [];
+    let keys = this.state.selectedOptions.map(item => ({keywords: item.value}));
+    for (var key in keys) {
+		var Key = "keywords";
+		var Value = key.keywords;
+		formBody.push(Key + ":" + Value);
+    }
+    formBody = formBody.join("&");
+	console.log(keys);
+
+
+
+  const payload = {"keywords": ['footbal']};
+  // var parameters = new URLSearchParams();
+  // parameters.append('keywords :', JSON.stringify(keywords));
+
+
+
+		var requestOptions = {
+			method: 'POST',
+			mode: 'cors',
+			headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' },
+			body: JSON.stringify({payload})
+		}
+		
+
+
+		fetch(API_URL, requestOptions)
+			.then(res => res.json())
+			.then(res => console.log(res))
+				.then(data => (data ? this.setState({ content: data }) : {}))
+			.catch(error => {console.error("Error",error);});
+      console.log(this.state.content);
+	}
+
 
 	table() {
+    console.log("hello");
 		const data = new Array(this.state.content.length)    // a new array with the size (rows) of reply array of objects size
 		for (var i=0; i<this.state.content.length; i++) data[i] = new Array(2);  // columns of it
 		for (i=0; i<this.state.content.length; i++) {
@@ -67,7 +109,7 @@ export default class User extends React.Component {
 								<tr>
 									<td><h5>{item[0]}</h5></td>
 									<td><h5>{item[1]}</h5></td>
-									<td><Link to={"/Answer_questionnaire"}> <button class="button" >Answer</button></Link></td>
+									<td><Link to={`Answer/${item[0]}`}> <button class="button" >Answer</button></Link></td>
 								</tr>
 							);
 						})}
@@ -81,6 +123,7 @@ export default class User extends React.Component {
 
 	render() {
 		let options = this.state.keywords.map(item => ({value: item, label: item}));
+    
 		return (
 			<div className="container">
 				<div className="welcome">
@@ -93,16 +136,16 @@ export default class User extends React.Component {
 							options={options}
 							placeholder="Select Keywords"
 							value={this.state.selectedOptions}
-							onChange={data => this.setState({selectedOptions: data})}
+							onChange={data => this.updateTable(data)}
 							isSearchable={true}
 							isMulti
 						/>
 					</div>
 				</div>
 				</div>
-        			<header className="jumbotron" id="questionnaires">
-						{this.table()}          
-					</header>
+				<header className="jumbotron" id="questionnaires">
+					{this.table()}
+				</header>
 			</div>
 			
 		);
