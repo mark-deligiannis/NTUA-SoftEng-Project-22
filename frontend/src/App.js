@@ -7,6 +7,7 @@ import AdminGraphs from "./Components/admin_components/Admin_graphs";
 import User from "./Components/user_components/User";
 import AnswerQuestionnaire from "./Components/user_components/Answer_questionnaire";
 import Home from "./Components/home"
+import ViewSession from "./Components/user_components/View_session";
 
 class App extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class App extends Component {
 
             and don't forget the import at the top :) */}
             <Route path={ "/User/Answer/:id"} element={<AnswerQuestionnaire />} />
+            <Route path={ "/User/Answer/:id/:session"} element={<ViewSession />} />
             <Route path={ "/Admin/Graphs"} element={<AdminGraphs />} />
             <Route path={ "/User"} element={<User />} />
           </Routes> 
