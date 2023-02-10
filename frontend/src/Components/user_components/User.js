@@ -99,9 +99,11 @@ export default class User extends React.Component {
 			<div id="table-responsive">
 				<table>
 					<thead id="questionnaire">
-						<td><h3><b>Questionnaire ID</b></h3></td>
-						<td><h3><b>Title</b></h3></td>
-						<td><h3><b>Answer Questionnaire</b></h3></td>
+						<tr>
+							<th><h3><b>Questionnaire ID</b></h3></th>
+							<th><h3><b>Title</b></h3></th>
+							<th><h3><b>Answer Questionnaire</b></h3></th>
+						</tr>
 					</thead>
 					<tbody id="questionnaire">
 						{data.slice(0, data.length).map((item, index) => {
@@ -109,7 +111,7 @@ export default class User extends React.Component {
 								<tr>
 									<td><h5>{item[0]}</h5></td>
 									<td><h5>{item[1]}</h5></td>
-									<td><Link to={`Answer/${item[0]}`}> <button class="button" >Answer</button></Link></td>
+									<td><Link to={`Answer/${item[0]}`}> <button className="button" >Answer</button></Link></td>
 								</tr>
 							);
 						})}

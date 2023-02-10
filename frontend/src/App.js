@@ -19,13 +19,13 @@ class App extends Component {
       this.setState({});
   }
 
-
   render(){
   return (
     
     
    
     <div className="container">
+
       <Router>
       <div>
           
@@ -44,7 +44,7 @@ class App extends Component {
 
             and don't forget the import at the top :) */}
             <Route path={ "/User/Answer/:id"} element={<AnswerQuestionnaire />} />
-            {/*<Route path={ "/Admin/Graphs"} element={<AdminGraphs />} />*/}
+            <Route path={ "/Admin/Graphs"} element={<AdminGraphs />} />
             <Route path={ "/User"} element={<User />} />
           </Routes> 
   

@@ -1,14 +1,27 @@
 import React from "react";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut, Pie } from "react-chartjs-2";
+//import { Doughnut, Pie } from "react-chartjs-2";
 import './Admin.css'
 import AdminGraphs from "./Admin_graphs";
 import { Routes, Route, Link } from 'react-router-dom';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 const host = "localhost"
 const port = 9103
 const ResetAll_URL = `http://${host}:${port}/intelliq_api/admin/resetall`;
 const Upload_URL = `http://${host}:${port}/intelliq_api/admin/questionnaire_upd`;
 //const { answers } = this.state;
+var a = 0;
+var b = 10;
+var c = 20;
+var d = 30;
+
+const data = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class Admin extends React.Component {
 
@@ -24,7 +37,7 @@ class Admin extends React.Component {
       qid: '',
       answers: [],
       displayAnswers: false,
-      disabled : false
+      hasLoaded: false
     };
   }
 
@@ -206,15 +219,18 @@ class Admin extends React.Component {
 
       componentDidMount() {
         this.getAnswersToQuestions('Q01');
+        console.log('This will only be printed once.');
       }
-
+      
+      componentDidUpdate(prevProps, prevState) {
+        if (prevState.answers === this.state.answers) {
+          return;
+        }
+      }
       
 
       graphs() {
-        if (this.state.disabled) {
-          return;
-      }
-      this.setState({disabled: true});
+        
         const data = new Array(this.state.answers.length)    // a new array with the size (rows) of reply array of objects size
         for (var i=0; i<this.state.answers.length; i++) data[i] = new Array(2);  // columns of it
         for (i=0; i<this.state.answers.length; i++) {
@@ -229,35 +245,50 @@ class Admin extends React.Component {
       
       graphAns= Object.entries(graphAns);
 
-        console.log(graphAns);
 
         return (
-          <>
-          <table>
-        <thead>
-          <tr>
-            <th>Answer</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          {graphAns.map(([ans, count], index) => (
-            <tr key={index}>
-              <td>{ans}</td>
-              <td>{count}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {this.PieChart(graphAns) }
-      </>
+          <div id="table-responsive">
+            <table>
+              <thead id="questionnaire">
+                <tr>
+                  <th><h3><b>Questionnaire ID</b></h3></th>
+                  <th><h3><b>Title</b></h3></th>
+                </tr>
+              </thead>
+              <tbody id="questionnaire">
+                { graphAns.slice(0, graphAns.length).map((item, index) => {
+                  return (
+                    <tr>
+                      <td><h5>{item[0]}</h5></td>
+                      <td><h5>{item[1]}</h5></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         );
+
+        //return (
+          {/*<div>
+        <h1>My Pie Chart</h1>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie data={data} cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
+              {
+                data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+              }
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+            </div>*/}
+        //);
       };
 
   render() {
-    let answers = this.state.answers;
+    //let answers = this.state.answers;
 
+    {console.log("I am a fucking hoe");}
     return (
       <div>
         <form method="post" encType="multipart/form-data" onSubmit={this.onFileUpload} >
@@ -272,13 +303,11 @@ class Admin extends React.Component {
         
           <input type="text" placeholder="ID" onChange={(event) => this.setState({ id: event.target.value })} />
           <button className="button" onClick={this.exportCSV}>Export CSV</button>
-          <button className="button" onClick={this.exportJSON}>Export JSON</button>
+    <button className="button" onClick={this.exportJSON}>Export JSON</button>
         
         <br />
         <br />
-        
-          <button className="button" onClick={() => { this.toggleDisplayAnswers(); this.getAnswersToQuestions('Q01'); }}>Get answers</button>
-          <canvas id="myChart" width="500" height="500"></canvas>
+          <button className="button" onClick={() => { this.toggleDisplayAnswers();  }}>Get answers</button>
         <br />
         <br />
         { this.state.displayAnswers && (
@@ -286,11 +315,11 @@ class Admin extends React.Component {
           <p>hey there</p>
           {this.graphs()}  
         </div>
-      )}
-      <Link to={"Graphs"}> <button className="button" >Graphs</button></Link>
+        )}
+      <Link to={"/Admin/Graphs"}> <button className="button" >Graphs</button></Link>
         {/*<Link to={"Graphs"}> <button className="button" >Graphs</button></Link>*/}
         <Routes>
-          <Route path={ "Graphs"} element={<AdminGraphs />} />
+          <Route path={ "Admin/Graphs"} element={<AdminGraphs />} />
         </Routes>
 
       </div>
