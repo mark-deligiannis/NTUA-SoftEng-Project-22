@@ -1,27 +1,48 @@
 import React from "react";
-import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
-//import { Doughnut, Pie } from "react-chartjs-2";
+import { Doughnut, Pie } from "react-chartjs-2";
 import './Admin.css'
 import AdminGraphs from "./Admin_graphs";
 import { Routes, Route, Link } from 'react-router-dom';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 const host = "localhost"
 const port = 9103
 const ResetAll_URL = `http://${host}:${port}/intelliq_api/admin/resetall`;
 const Upload_URL = `http://${host}:${port}/intelliq_api/admin/questionnaire_upd`;
 //const { answers } = this.state;
-var a = 0;
-var b = 10;
-var c = 20;
-var d = 30;
 
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+var getPieChartData = (data) => {
+
+  const labels = [];
+    const helpData = [];
+    { for (var i=0; i<data.length; i++) {
+        labels[i] = data[i][0];
+        helpData[i] = data[i][1];
+  }}
+  return {
+    labels: labels,
+    datasets: [
+      {
+        data: helpData,
+        backgroundColor: [
+          "#F7464A",
+          "#46BFBD",
+          "#FDB45C",
+          "#949FB1",
+          "#4D5360",
+          "#AC64AD"
+        ],
+        hoverBackgroundColor: [
+          "#FF5A5E",
+          "#5AD3D1",
+          "#FFC870",
+          "#A8B3C5",
+          "#616774",
+          "#DA92DB"
+        ]
+      }
+    ]
+  };
+};
+
 
 class Admin extends React.Component {
 
@@ -145,92 +166,15 @@ class Admin extends React.Component {
        .catch(error => {console.error("Error",error);
       });
       
-      
-      };
-
-      PieChart(graphAns) {
-        var ctx = document.getElementById("myChart").getContext("2d");
-
-        // destroy the chart before reusing the canvas
-        if (window.myChart) {
-        window.myChart.destroy();
-        }
-        const labels = [];
-        const count = [];
-      
-        for (let item of graphAns) {
-          labels.push(item.label);
-          count.push(item.count);
-        }
-        myChart.destroy();
-        const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          chartData: {
-            labels: labels,
-            
-            
-            datasets: [
-              {
-                label: "# of Votes",
-                data: count,
-                backgroundColor: [
-                  "rgba(255, 99, 132, 0.2)",
-                  "rgba(54, 162, 235, 0.2)",
-                  "rgba(255, 206, 86, 0.2)",
-                  "rgba(75, 192, 192, 0.2)",
-                  "rgba(153, 102, 255, 0.2)",
-                  "rgba(255, 159, 64, 0.2)"
-                ],
-                borderColor: [
-                  "rgba(255, 99, 132, 1)",
-                  "rgba(54, 162, 235, 1)",
-                  "rgba(255, 206, 86, 1)",
-                  "rgba(75, 192, 192, 1)",
-                  "rgba(153, 102, 255, 1)",
-                  "rgba(255, 159, 64, 1)"
-                ],
-                borderWidth: 1
-              }
-            ]
-          }
-        }});
-        
-      
-          return (
-            <div className="pie-chart">
-              <Pie
-                data={myChart.data.chartData}
-                options={{
-                  title: {
-                    display: true,
-                    text: "Pie Chart Example",
-                    fontSize: 25
-                  },
-                  legend: {
-                    display: true,
-                    position: "right"
-                  }
-                }}
-              />
-            </div>
-          );
       };
 
       componentDidMount() {
         this.getAnswersToQuestions('Q01');
-        console.log('This will only be printed once.');
-      }
-      
-      componentDidUpdate(prevProps, prevState) {
-        if (prevState.answers === this.state.answers) {
-          return;
-        }
       }
       
 
       graphs() {
-        
+
         const data = new Array(this.state.answers.length)    // a new array with the size (rows) of reply array of objects size
         for (var i=0; i<this.state.answers.length; i++) data[i] = new Array(2);  // columns of it
         for (i=0; i<this.state.answers.length; i++) {
@@ -241,11 +185,10 @@ class Admin extends React.Component {
       data.forEach((item) => {
         graphAns[item[0]] = (graphAns[item[0]] || 0) + 1;
       });
-      
-      
+    
       graphAns= Object.entries(graphAns);
 
-
+    
         return (
           <div id="table-responsive">
             <table>
@@ -266,29 +209,17 @@ class Admin extends React.Component {
                 })}
               </tbody>
             </table>
+            {graphAns && (
+            <div>
+              {<Doughnut data={getPieChartData(graphAns)} />}
+            </div>)}
           </div>
         );
 
-        //return (
-          {/*<div>
-        <h1>My Pie Chart</h1>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie data={data} cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
-              {
-                data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-              }
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-            </div>*/}
-        //);
       };
 
   render() {
-    //let answers = this.state.answers;
 
-    {console.log("I am a fucking hoe");}
     return (
       <div>
         <form method="post" encType="multipart/form-data" onSubmit={this.onFileUpload} >
