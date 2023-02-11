@@ -37,7 +37,7 @@ class App extends React.Component {
             <Route path={ "/Admin/Questionnaires"} element={<AdminQuestionnaire />} />
             <Route path={ "/Admin/Questionnaires/:id/Graphs"} element={<AdminGraphs />} />
             <Route path={ "/User/Answer/:id"} element={<AnswerQuestionnaire />} />
-
+            <Route path={ "/User/Answer/:id/:session"} element={<ViewSession />} />
             <Route path={ "/User"} element={<User />} />
           </Routes> 
   
