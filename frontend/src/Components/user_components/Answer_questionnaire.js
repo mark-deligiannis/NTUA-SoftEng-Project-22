@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ViewSession from "./View_session";
 const QUESTIONNAIRE_URL = "http://localhost:9103/intelliq_api/questionnaire/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
@@ -42,6 +44,8 @@ function AnswerQuestionnaire() {
   const [inputValue, setInputValue] = useState('');
 
   const [session, setSession] = useState('');
+  
+  let navigate = useNavigate();
   
   useEffect(() => {
     
@@ -94,6 +98,7 @@ function AnswerQuestionnaire() {
     setSession(randomStringArray.join(''));
   };
 
+
   // CREATE SESSION ANSWER
   const createSessionAnswer = () => {
     console.log(answer)
@@ -113,12 +118,8 @@ function AnswerQuestionnaire() {
         .catch(error => {console.error("Error",error);});
     }
 
-    return (
-      <>
-        <Link to={`/${session}`}>Session</Link>
-      </>
-    )
-    
+    let path = session;
+    navigate(path);
   }
   
 
