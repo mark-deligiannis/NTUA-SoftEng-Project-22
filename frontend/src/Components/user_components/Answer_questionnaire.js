@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import './Answer_questionnaire.css';
 const QUESTIONNAIRE_URL = "http://localhost:9103/intelliq_api/questionnaire/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
