@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS Answer (
 	Session_ID CHAR(4) NOT NULL,
 	Answer_text VARCHAR(255) NULL,
 	PRIMARY KEY (OptID, QID, QuestionnaireID, Session_ID),
+    UNIQUE (QID, QuestionnaireID, Session_ID),
 	FOREIGN KEY (OptID , QID, QuestionnaireID)
     REFERENCES Qoption (OptID , QID , QuestionnaireID)
     ON DELETE CASCADE

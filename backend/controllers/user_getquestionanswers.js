@@ -1,5 +1,4 @@
 const pool = require("../app.js");
-const path = require("path");
 const url = require('url');
 
 async function user_getquestionanswer_handler(req, res) {
@@ -9,7 +8,7 @@ async function user_getquestionanswer_handler(req, res) {
     var isCsv = false;
     if(url.parse(req.url, true).query.format == "csv") isCsv = true;
 
-    var stat_code, ret_file;
+    var stat_code;
     let conn;
     try {
         // Get a connection from the pool
@@ -57,7 +56,7 @@ async function user_getquestionanswer_handler(req, res) {
         } else {
             if(isCsv) {
                 const csv_helper_e = require('../helpers/csv_helper_e.js');
-                res.status(200).send(csv_helper_e(result));
+                res.send(csv_helper_e(result));
             } else 
                 res.send(result);
         }
@@ -66,10 +65,7 @@ async function user_getquestionanswer_handler(req, res) {
         // Log the error message for debugging
         console.log(`The following error occured:\n\n${err.message}\n`);
         // Set the status to 500 (internal server error)
-        stat_code = 500
-        ret_file = "../templates/error_500.html"
-        res.status(stat_code).sendFile(path.join(__dirname,ret_file));
-
+        res.status(500).send();
     } finally {
         if (conn) conn.end();
     }

@@ -1,5 +1,4 @@
 const pool = require("../app.js");
-const path = require("path");
 const url = require('url');
 
 async function user_question_handler(req, res) {
@@ -9,7 +8,7 @@ async function user_question_handler(req, res) {
     var isCsv = false;
     if(url.parse(req.url, true).query.format == "csv") isCsv = true;
 
-    var stat_code, ret_file;
+    var stat_code;
     let conn;
     try {
         // Get a connection from the pool
@@ -21,14 +20,7 @@ async function user_question_handler(req, res) {
         // Execute the statement
         let rows = await stmt.execute([questionID, questionnaireID]);
 
-        if(!rows.length) {
-            stat_code = 402;
-            ret_file = "../templates/error_402.html";
-        }
-        else if(rows.length > 1) {
-            stat_code = 500;
-            ret_file = "../templates/error_500.html";
-        }
+        if(!rows.length) { stat_code = 402; }
         else {
             let qtext = rows[0].Qtext;
             let required = rows[0].Required;
@@ -58,19 +50,16 @@ async function user_question_handler(req, res) {
             if (conn) conn.end();
             return;
         }
-
     } catch (err) {
         // Log the error message for debugging
         console.log(`The following error occured:\n\n${err.message}\n`);
         // Set the status to 500 (internal server error)
-        stat_code = 500
-        ret_file = "../templates/error_500.html"
-
+        stat_code = 500;
     } finally {
         if (conn) conn.end();
     }
 
-    res.status(stat_code).sendFile(path.join(__dirname,ret_file));
+    res.status(stat_code).send();
 }
 
 module.exports = user_question_handler;

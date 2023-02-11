@@ -1,5 +1,4 @@
 const pool = require("../app.js");
-const path = require('path');
 const url = require('url');
 
 async function user_getsessionanswers_handler(req, res) {
@@ -60,7 +59,7 @@ async function user_getsessionanswers_handler(req, res) {
         console.log(`The following error occured:\n\n${err.message}\n`);
 
         // Set the status to 500 (internal server error)
-        res.status(500).sendFile(path.join(__dirname,"../templates/error_500.html"));
+        res.status(500).send();
     } finally {
         if (conn) conn.end();
     }

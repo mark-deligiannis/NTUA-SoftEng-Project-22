@@ -149,6 +149,28 @@ def fetchkeywords (**kwargs):
         print("No message provided")
     return
 
+def questionnaireanscount (**kwargs):
+    questionnaireID = kwargs["questionnaire_id"]
+    format_ext = f"?format={kwargs['format']}"
+
+    try:
+        response = requests.get(url = base_url + f"/questionnaireanscount/{questionnaireID}" + format_ext)
+    except requests.exceptions.ConnectionError:
+        print("API unreachable")
+        return
+    status_code = response.status_code
+    if(status_code == 200):
+        print(f"API call (get number of answers to questionnaire) successfull")
+    elif(status_code == 500):
+        print("Internal Server Error")
+    else:
+        print("Resource unavailable")
+    if response.text:
+        print(f"Returned Message:\n{response.text}")
+    else:
+        print("No message provided")
+    return
+
 def questionnaire (**kwargs):
     format_ext = f"?format={kwargs['format']}"
     questionnaireID = kwargs["questionnaire_id"]
@@ -313,6 +335,12 @@ fetchquestionnaires_subpars.set_defaults(func=fetchquestionnaires)
 fetchkeywords_subpars = subparsers.add_parser("fetchkeywords", help="Fetch all keywords in database", usage=f"{program_name} fetchkeywords --format fff")
 fetchkeywords_subpars.add_argument("--format", type=str, required=True, help="Format of output")
 fetchkeywords_subpars.set_defaults(func=fetchkeywords)
+
+# Questionnaireanscount
+questionnaireanscount_subpars = subparsers.add_parser("questionnaireanscount", help="Number of answers to a specific questionnaire", usage=f"{program_name} questionnaireanscount --questionnaire_id QUESTIONNAIRE_ID --format fff")
+questionnaireanscount_subpars.add_argument("--questionnaire_id", type=str, required=True, help="ID of questionnaire")
+questionnaireanscount_subpars.add_argument("--format", type=str, required=True, help="Format of output")
+questionnaireanscount_subpars.set_defaults(func=questionnaireanscount)
 
 # Questionnaire
 questionnaire_subpars = subparsers.add_parser("questionnaire", help="Fetch questionnaire and questions", usage=f"{program_name} questionnaire --questionnaire_id QUESTIONNAIRE_ID --format fff")

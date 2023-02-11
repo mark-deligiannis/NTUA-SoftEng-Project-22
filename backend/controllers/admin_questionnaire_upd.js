@@ -1,4 +1,3 @@
-const path = require('path');
 const pool = require("../app.js");
 
 // Function to check json format. Returns false if wrong, true if correct
@@ -11,12 +10,12 @@ async function admin_questionnaire_upd_handler(req, res) {
 
   // First check the format
   if (!json_format_ok(quest)) {
-    return res.status(400).sendFile(path.join(__dirname,"../templates/error_400.html"));
+    return res.status(400).send();
   }
   // Get the ID (useful later on)
   questionnaireID = quest["questionnaireID"];
   
-  var stat_code, ret_file, rollback=false;
+  var stat_code, rollback=false;
   let conn;
   try {
     // Get a connection from the pool
@@ -59,17 +58,13 @@ async function admin_questionnaire_upd_handler(req, res) {
         await stmt.execute([option["optID"],question["qID"],questionnaireID,option["opttxt"],option["nextqID"]]);
       }
     }
-
     // Once everything is done set the status
     stat_code = 200
-    ret_file = "../test/dummydata.json"
   } catch (err) {
     // Log the error message for debugging
     console.log(`The following error occured:\n\n${err.message}\n`);
     // Set the status to 500 (internal server error)
     stat_code = 500
-    ret_file = "../templates/error_500.html"
-    
     // If rollback is true, we need to delete the questionnaire entry
     if (rollback) {
       console.log("Invalid entries left in database. Attempting recovery...")
@@ -91,7 +86,7 @@ async function admin_questionnaire_upd_handler(req, res) {
     if (conn) conn.end();
   }
 
-  res.status(stat_code).sendFile(path.join(__dirname,ret_file));
+  res.status(stat_code).send();
 }
 
 // Export router so that admin.js can use it
