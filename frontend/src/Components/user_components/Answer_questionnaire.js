@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ViewSession from "./View_session";
 const QUESTIONNAIRE_URL = "http://localhost:9103/intelliq_api/questionnaire/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
