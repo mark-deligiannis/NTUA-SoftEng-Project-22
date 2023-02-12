@@ -62,11 +62,11 @@ class Admin extends React.Component {
             <span className="custom-file-upload">Choose File</span>
           </label>
           <input type="file" id="file-input" onChange={this.onFileChange} style={{ display: "none" }} />
-          <button className="button" type="submit">Upload</button>
+          <button className="submit" type="submit">Upload</button>
         </form>
-        <button className="button" onClick={() => this.handleDelete()}>Delete All</button>
+        <button className="delete" onClick={() => this.handleDelete()}>Delete All</button>
         <br/>
-        <Link to={`/Admin/Questionnaires`}> <button className="button" >Questionnaire</button></Link>
+        <Link to={`/Admin/Questionnaires`}> <button className="nextPage" >Questionnaires</button></Link>
         
           
         

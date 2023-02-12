@@ -4,10 +4,15 @@
   font-size: 18px;
   color: #fff;
   background-color: #333;
-  border-radius: 10px;
-  border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  border: 2px solid black;
+  border-radius: 20px;
+  color: white;
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  transform: translate(-50%, -50%);
 }
 
 .custom-file-upload:hover {
@@ -24,20 +29,79 @@
     margin-top: 20px;
   }
   
-  .button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 0 10px;
-    background-color: rgb(24, 130, 72);
+  button.upload {
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: black;
     color: white;
+    position: absolute;
+    top: 10%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+  }
+  
+
+  button.submit {
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: darkgreen;
+    color: lightgrey;
+    position: absolute;
+    top: 10%;
+    left: 55%;
+    font-size: 15px;
+  padding: 8px 15px;
+    transform: translate(-50%, -50%);
+  }
+  
+  button.submit:hover {
+    background-color: rgb(12, 145, 12);
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+  }
+  button.submit:active {
+    background-color: rgba(12, 145, 12, 0.552);
+    transform: translate(-50%, -50%);
+  }
+
+  button.delete {
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: red;
+    color: white;
+    position: absolute;
+    font-size: 20px;
+  padding: 15px 30px;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  button.delete:hover {
+    background-color: rgb(121, 9, 9);
+    cursor: pointer;
+  }
+  button.delete:active {
+    background-color: rgba(121, 9, 9, 0.552);
+    transform: translate(-50%, -50%);
   }
   
-  .button:hover {
-    background-color: lightblue;
+  button.nextPage {
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: darkblue;
+    color: lightgrey;
+    position: absolute;
+    font-size: 20px;
+  padding: 15px 30px;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
-  
-  .button:active {
-    background-color: green;
+
+  button.nextPage:hover {
+    background-color: rgb(64, 64, 230);
+    cursor: pointer;
+  }
+  button.nextPage:active {
+    background-color: rgba(64, 64, 230, 0.552);
+    transform: translate(-50%, -50%);
   }
