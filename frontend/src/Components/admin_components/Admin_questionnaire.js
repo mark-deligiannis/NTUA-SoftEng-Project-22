@@ -75,6 +75,16 @@ export default class AdminQuestionnaire extends React.Component {
           })
           .catch(error => console.error(error));
           };
+          handleDeleteAnswers() {
+            const ResetAnswers_URL = `http://${host}:${port}/intelliq_api/admin/resetq/${id}`;
+            fetch(ResetAnswers_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                "Content-Type": "application/w-xxx-form-urlencoded",
+              },
+            })     
+          };
       
           
 
@@ -86,6 +96,7 @@ export default class AdminQuestionnaire extends React.Component {
       <input type="text" placeholder="ID" onChange={(event) => this.setState({ id: event.target.value })} />
           <button className="button" onClick={this.exportCSV}>Export CSV</button>
     <button className="button" onClick={this.exportJSON}>Export JSON</button>
+    <button className="button" onClick={this.handleDeleteAnswers}>Delete all answers</button>
         
         <br />
         
