@@ -11,11 +11,13 @@ var id = "QQ001";
 
 function Admin()  {
   const [selectedFile, setselectedFile] = useState(null)
+  var [fileName, setFileName] = useState("Choose file")
   
   
-  const onFileChange = (event) => {setselectedFile(event.target.files[0]) }
+  const onFileChange = (event) => {setselectedFile(event.target.files[0]); setFileName(event.target.files[0].name); }
  
   const  onFileUpload = (event) => {
+    setFileName("Choose file");
     event.preventDefault();
 
    // const { selectedFile } = this.state;
@@ -51,7 +53,7 @@ function Admin()  {
       <div>
       <form method="post" encType="multipart/form-data" onSubmit={onFileUpload} >
         <label htmlFor="file-input">
-          <span className="custom-file-upload">Choose File</span>
+          <span className="custom-file-upload">{fileName}</span>
         </label>
         <input type="file" id="file-input" onChange={onFileChange} style={{ display: "none" }} />
         <button className="submit" type="submit">Upload</button>

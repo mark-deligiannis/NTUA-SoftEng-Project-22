@@ -10,9 +10,10 @@
   border-radius: 20px;
   color: white;
   position: absolute;
-  top: 10%;
+  top: 130px;
   left: 45%;
   transform: translate(-50%, -50%);
+  transition: all 0.3s ease-in-out;
 }
 
 .custom-file-upload:hover {
@@ -35,7 +36,7 @@
     background-color: black;
     color: white;
     position: absolute;
-    top: 10%;
+    top: 130px;
     left: 40%;
     transform: translate(-50%, -50%);
   }
@@ -47,11 +48,12 @@
     background-color: darkgreen;
     color: lightgrey;
     position: absolute;
-    top: 10%;
-    left: 55%;
+    top: 130px;
+    left: 60%;
     font-size: 15px;
   padding: 8px 15px;
     transform: translate(-50%, -50%);
+    transition: all 0.3s ease-in-out;
   }
   
   button.submit:hover {
@@ -66,21 +68,22 @@
   button.delete {
     border: 2px solid black;
     border-radius: 20px;
-    background-color: red;
+    background-color: rgb(121, 9, 9);
     color: white;
     position: absolute;
     font-size: 20px;
-  padding: 15px 30px;
-    top: 18%;
+    padding: 15px 30px;
+    top: 230px;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: all 0.3s ease-in-out;
   }
   button.delete:hover {
-    background-color: rgb(121, 9, 9);
+    background-color: red;
     cursor: pointer;
   }
   button.delete:active {
-    background-color: rgba(121, 9, 9, 0.552);
+    background-color: rgba(255, 0, 0, 0.523);
     transform: translate(-50%, -50%);
   }
   
@@ -92,9 +95,10 @@
     position: absolute;
     font-size: 20px;
   padding: 15px 30px;
-    top: 25%;
+    top: 330px;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: all 0.3s ease-in-out;
   }
 
   button.nextPage:hover {
