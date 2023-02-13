@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 var id = "QQ001";
 const host = "localhost"
-const port = 9103
+const port = 9103;
 
 
 
-export default class AdminQuestionnaire extends React.Component {
-    constructor(props) {
+function AdminQuestionnaire () {
+    /*constructor(props) {
         super(props);
         
         this.exportCSV = this.exportCSV.bind(this);
@@ -17,18 +17,18 @@ export default class AdminQuestionnaire extends React.Component {
         this.state = {
             id: '',
         };
-      }
+      }*/
 
 
-      exportCSV() {
-        const id  = this.state.id;
+      const exportCSV=()=> {
+        //const id  = this.state.id;
         const DownloadCSV_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}?format=csv`;
       
         fetch(DownloadCSV_URL, {
           headers: {
             "Accept-Charset": "utf-8",
-            //"mode": "cors",
-            "Content-Type": "application/x-www-form-urlencoded",
+            "mode": "no-cors",
+            "Content-Type": "application/w-xxx-form-urlencoded",
           }})
         .then(response => {
           return response.text();
@@ -48,18 +48,18 @@ export default class AdminQuestionnaire extends React.Component {
           console.error(error);
         
         });
-        };
+        }
         
       
-        exportJSON() {
-          const id = this.state.id;
+        const exportJSON=()=> {
+          //const id = this.state.id;
           const DownloadJSON_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}`;
       
           fetch(DownloadJSON_URL, {
             headers: {
               "Accept-Charset": "utf-8",
-              //"mode": "no-cors",
-              "Content-Type": "application/x-www-form-urlencoded",
+              "mode": "no-cors",
+              "Content-Type": "application/w-xxx-form-urlencoded",
             }})
           .then(response => {
             response.blob().then(blob => {
@@ -75,28 +75,28 @@ export default class AdminQuestionnaire extends React.Component {
           })
           .catch(error => console.error(error));
           };
-          handleDeleteAnswers() {
+          const handleDeleteAnswers=()=> {
             const ResetAnswers_URL = `http://${host}:${port}/intelliq_api/admin/resetq/${id}`;
             fetch(ResetAnswers_URL, {
               method: 'POST',
-              mode: 'no-cors',
+             // mode: 'no-cors',
               headers: {
-                "Content-Type": "application/w-xxx-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded",
               },
             })     
-          };
+          }
       
           
 
     
-    render() {
+    
     return (
       <div>
 
-      <input type="text" placeholder="ID" onChange={(event) => this.setState({ id: event.target.value })} />
-          <button className="button" onClick={this.exportCSV}>Export CSV</button>
-    <button className="button" onClick={this.exportJSON}>Export JSON</button>
-    <button className="button" onClick={this.handleDeleteAnswers}>Delete all answers</button>
+     {/* <input type="text" placeholder="ID" onChange={(event) => this.setState({ id: event.target.value })} />*/}
+          <button className="button" onClick={exportCSV}>Export CSV</button>
+    <button className="button" onClick={exportJSON}>Export JSON</button>
+    <button className="button" onClick={handleDeleteAnswers}>Delete all answers</button>
         
         <br />
         
@@ -107,5 +107,6 @@ export default class AdminQuestionnaire extends React.Component {
       <p>Let's see amazing graphs</p>
       </div>
   );
+
 }
-}
+export default AdminQuestionnaire;

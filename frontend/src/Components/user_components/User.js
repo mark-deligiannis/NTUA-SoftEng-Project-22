@@ -8,16 +8,18 @@ const KEYS_URL = "http://localhost:9103/intelliq_api/fetchkeywords";
 
 function User() {
 
+    // Store all keywords contained in the database
     const [keywords, setKeywords] = useState([])
-    
+
+    // Store all selected keywords
     const [selectedOptions, setSelectedOptions] = useState([])
-    
+
+    // Store all fetched questionnaires
     const [questionnaires, setQuestionnaires] = useState([])
 
 
-
+    // Fetch all available questionnaires and all available keywords from the database 
     useEffect(() => {
-        console.log("hello")
         
         var requestOptions = {
 			method: 'POST',
@@ -44,20 +46,20 @@ function User() {
     }, [])
 
    
+    // Creating the x-www-form-urlencoded post request to filter displayed questionnaires based on user selected keywords
     useEffect(() => {
-        console.log('Updating Table...')
+       
         
-    	if (selectedOptions.length) {
+    	if (selectedOptions.length) { // if keywords are selected
             let payload = ''
 
-            for (var i = 0; i < selectedOptions.length; i++) {
+            for (var i = 0; i < selectedOptions.length; i++) { // forming the x-www-form-urlencoded body of the post request
                 payload += `keywords[${i}]=${selectedOptions[i].value}`
                 if (i < selectedOptions.length-1) {
                     payload += '&'
                 }
             }
-            // console.log(payload)
-            // console.log(selectedOptions)
+            
             var requestOptions = {
                 method: 'POST',
                 mode: 'cors',
@@ -71,7 +73,7 @@ function User() {
                 .then(response =>  setQuestionnaires(response))
                 .catch(error => {console.error("Error",error)});
         }
-      else {
+      else { // no keyword seleced, fetch all questionnaires
         var requestOptions = {
 			method: 'POST',
 			mode: 'cors',
@@ -84,15 +86,13 @@ function User() {
             .catch(error => {console.error("Error",error)});
       }
             
-	}, [selectedOptions])
+	}, [selectedOptions]) // method is triggered each time selectedOptions changes
 
 
 
 
     var table = () => {
-        console.log('Building table...');
-        //console.log(selectedOptions);
-
+        
             const data = new Array(questionnaires.length)    // a new array with the size (rows) of reply array of objects size
             for (var i=0; i<questionnaires.length; i++) data[i] = new Array(2);  // columns of it
             for (i=0; i<questionnaires.length; i++) {
