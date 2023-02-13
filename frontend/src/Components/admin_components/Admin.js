@@ -6,7 +6,7 @@ const port = 9103
 const ResetAll_URL = `http://${host}:${port}/intelliq_api/admin/resetall`;
 const Upload_URL = `http://${host}:${port}/intelliq_api/admin/questionnaire_upd`;
 //const { answers } = this.state;
-var id = "QQ000";
+var id = "QQ001";
 
 
 function Admin()  {
@@ -38,7 +38,7 @@ function Admin()  {
       method: 'POST',
       mode: 'no-cors',
       headers: {
-        "Content-Type": "application/w-xxx-form-urlencoded",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     })     
   }

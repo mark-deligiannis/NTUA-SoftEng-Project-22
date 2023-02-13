@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-var id = "QQ000";
+var id = "QQ001";
 const host = "localhost"
 const port = 9103
 
@@ -27,8 +27,8 @@ export default class AdminQuestionnaire extends React.Component {
         fetch(DownloadCSV_URL, {
           headers: {
             "Accept-Charset": "utf-8",
-            "mode": "no-cors",
-            "Content-Type": "application/w-xxx-form-urlencoded",
+            //"mode": "cors",
+            "Content-Type": "application/x-www-form-urlencoded",
           }})
         .then(response => {
           return response.text();
@@ -58,8 +58,8 @@ export default class AdminQuestionnaire extends React.Component {
           fetch(DownloadJSON_URL, {
             headers: {
               "Accept-Charset": "utf-8",
-              "mode": "no-cors",
-              "Content-Type": "application/w-xxx-form-urlencoded",
+              //"mode": "no-cors",
+              "Content-Type": "application/x-www-form-urlencoded",
             }})
           .then(response => {
             response.blob().then(blob => {

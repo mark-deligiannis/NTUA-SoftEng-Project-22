@@ -29,7 +29,7 @@ class App extends React.Component {
     <div className="container">
 
       <Router>
-      <div>
+      <>
           
           <Routes>
             <Route path="/" element={<Home />} />
@@ -41,7 +41,7 @@ class App extends React.Component {
             <Route path={ "/User"} element={<User />} />
           </Routes> 
   
-      </div>
+      </>
       </Router>
     </div> 
   );}

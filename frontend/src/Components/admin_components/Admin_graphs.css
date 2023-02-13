@@ -1,0 +1,34 @@
+body{
+    background: lightblue;
+}
+
+.display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 100%;
+    padding-top: 20px;
+  }
+  
+  .pie-container {
+    align-items: center;
+    overflow: hidden;
+    max-width: 350px;
+    max-height: 350px;
+    display: flex;
+    margin: auto;
+  }
+  
+  .big-container {
+    display: relative;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+
+  }
+
+  .chart-container {
+    width: 350px;
+    height: 350px;
+  }

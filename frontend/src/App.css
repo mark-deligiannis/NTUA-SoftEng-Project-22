@@ -1,15 +1,15 @@
 body {
-  background-image: url("https://images.pexels.com/photos/5668869/pexels-photo-5668869.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-image: url("../public/Intelliq_background.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .container {
-  display: flex;
+  display: inside;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 80%;
   flex-direction: column;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -35,8 +35,11 @@ h2 {
 
 .button {
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 20px;
+  align-items: center;
   margin: 0 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   background-color: rgb(24, 130, 72);
   color: white;
   cursor: pointer;

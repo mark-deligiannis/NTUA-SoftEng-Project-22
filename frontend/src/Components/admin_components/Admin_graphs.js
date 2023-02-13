@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import "./Admin_graphs.css"
 const host = "localhost"
 const port = 9103
-var id = "QQ000";
+var id = "QQ001";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -12,8 +13,23 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const options = {
   maintainAspectRatio: false,
   responsive: true,
-  width: 100,
-  height: 100
+  width: 350,
+  height: 350,
+  textColor: '#000000',
+  plugins: {
+    legend: {
+      labels: {
+        color: '#000000',
+        boxWidth: 15,
+        padding: 10,
+        fontStyle: 'bold',
+        useBorderRadius: true,
+        borderRadius: '20px',
+        usePointStyle: true
+      }
+    }
+  }
+
 };
 
 var getPieChartData = (data) => {
@@ -71,7 +87,7 @@ export default class AdminGraphs extends React.Component {
       async getAnswersToQuestions(qid) {
        
         //const qid = this.state.qid;
-        const Answers_URL = `http://${host}:${port}/intelliq_api/getquestionanswers/QQ000/${qid}`;
+        const Answers_URL = `http://${host}:${port}/intelliq_api/getquestionanswers/${id}/${qid}`;
     
        
         const response = await fetch(Answers_URL, {
@@ -119,13 +135,13 @@ export default class AdminGraphs extends React.Component {
   
       
           return (
-            <div id="table-responsive">
+            <>
               
               {graphAns && (
-              <div>
+              <>
                 {<Pie data={getPieChartData(graphAns)} options={options} />}
-              </div>)}
-            </div>
+              </>)}
+            </>
           );
   
         };
@@ -134,7 +150,9 @@ export default class AdminGraphs extends React.Component {
       const buttons = [];
     for (let i = 0; i < 4; i++) {
       buttons.push(
-        <>
+        <div className="col-md-6">
+          <div className="text-center">
+          <h1>Question</h1>
         <button
           key={i}
           className="button"
@@ -142,32 +160,34 @@ export default class AdminGraphs extends React.Component {
             this.toggleDisplayAnswers(i);
           }}
         >
-          Get answers
+         Question {i+1}
         </button>
-        <br />
+        </div>
+        <div className="pie-container">
         {
         this.state.displayAnswers[i] && (
-            <div key={i}>
+            <div key={i+1} className="chart-container">
               {this.graphs(`Q0${i+1}`)}  
             </div>
           )
         }
-        </>
+        </div>
+        </div>
       );
     }
 
     return (
-      <div>
-      <br />
-          
-            <br/>{buttons}
-        <br/>
+      <div className="container">
+      <div className="row">
+      {buttons}
+      </div> 
+      
+      <br/>
 
       <div className="buttons">
         <Link to={`/Admin/Questionnaires`}> <button className="button" >Questionnaire</button></Link>
         <Link to={"/Admin"}> <button className="button" >Back</button></Link>
       </div>
-      <p>Let's see amazing graphs</p>
       </div>
   );
 }
