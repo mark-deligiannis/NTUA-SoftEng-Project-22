@@ -123,10 +123,13 @@ function AnswerQuestionnaire() {
 
   const onClickNext = () => {
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
-      console.log("question.options[0]")
+      console.log("Clicked next")
       setState({nextQuestion: question.options[0].nextqID})
       if (state.nextQuestion !== '-') {
         showQuestion(question.options[0].nextqID)
+      }
+      if (state.nextQuestion === '-') {
+        setFinish('TRUE')
       }
     }
     else {
@@ -143,12 +146,13 @@ function AnswerQuestionnaire() {
       }
       setInputValue('')
       setSelectedAnswerIndex(null)
-    }
-    if (state.nextQuestion === '-') {
-      setFinish('TRUE')
-    }
-    else {
-      showQuestion(state.nextQuestion)
+      
+      if (state.nextQuestion === '-') {
+        setFinish('TRUE')
+      }
+      else {
+        showQuestion(state.nextQuestion)
+      }
     }
   }
 
