@@ -5,11 +5,13 @@ const SESSION_URL = "http://localhost:9103/intelliq_api/getsessionanswers/";
 const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 
 function ViewSession() {
+    // Store all answers retrieved from API
     const [state, setState] = useState({
         ans: [],
         index: -1
     })
 
+    // Store each question to match IDs with text
     const [question, setQuestion] = useState([
         {
             qID: '',
@@ -18,36 +20,43 @@ function ViewSession() {
         }
     ]);
 
+    // Store final answers to be displayed
     const [answer,setAnswer] = useState([]);
 
+    // Match the parameters (id, session) from the url
     const params = useParams()
 
+    // Fetch answers for the specific questionnaire and session using the API
+    // Only runs when component mounts
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
             mode: 'cors',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           }
-      
+          
+          // Convert the fetched answers to JSON and the function state
           fetch(SESSION_URL + params.id + '/' + params.session, requestOptions)
             .then(res => res.json())
             .then(data => setState({ans: data.answers, index: 0}))
-          
     }, [])
 
+    
+    // Fetch the i-th question answered (position indicated by state.index)
+    // Only runs when state is updated
     useEffect(() => {
+        // Only run after the first useEffect() fetches all answers
         if (state.index >= 0) {
-            console.log(state)
             if(state.index < state.ans.length) {
                 var quest = state.ans[state.index].qID
-                console.log(state.ans)
 
                 const requestOptions = {
                     method: 'GET',
                     mode: 'cors',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 }
-            
+                
+                // Save only the info we need (question title, ID and available options)
                 fetch(QUESTION_URL + params.id + '/' + quest, requestOptions)
                     .then(res => res.json())
                     .then(data => setQuestion({
@@ -59,9 +68,12 @@ function ViewSession() {
         }
     }, [state])
 
+    // Build the final answer to be displayed
+    // Only runs when question is updated
     useEffect(() => {
-        console.log(question)
+        // Only run after the first useEffect() fetches all answers
         if (state.index >= 0) {
+            // If answer originated from text field push question title with the original answer
             if (question.options[0].opttxt === "<open string>") {
                 setAnswer([
                     ...answer,
@@ -71,6 +83,7 @@ function ViewSession() {
                     }
                 ]);
             }
+            // Else push question title with selected option text
             else {
                 for (var j=0; j<question.options.length; j++) {
                     if (question.options[j].optID === state.ans[state.index].ans) {
@@ -90,10 +103,9 @@ function ViewSession() {
     }, [question])
 
 
+    // Build table with final answers
     const table = () => {
-        console.log("Building table...");
-        console.log(answer);
-
+        
         const data = new Array(answer.length)    // a new array with the size (rows) of reply array of objects size
         for (var i=0; i<answer.length; i++) data[i] = new Array(2);  // columns of it
         for (i=0; i<answer.length; i++) {
