@@ -4,7 +4,7 @@ pool_params = {
     user: 'root',
     password: '',
     database: 'intelliQ',
-    connectionLimit: 5,
+    connectionLimit: 50,
     charset: 'utf8mb4',
     collation: 'utf8mb4_general_ci'
 };
