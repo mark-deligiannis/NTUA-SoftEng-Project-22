@@ -69,9 +69,6 @@ var getPieChartData = (data) => {
 
 
 
-
-
-
 async function getAnswersToQuestions(questid,qid) {
   const Answers_URL = `http://localhost:9103/intelliq_api/getquestionanswers/${questid}/${qid}`;
   
@@ -169,10 +166,10 @@ export default function AdminGraphs() {
   const [buttons,setButtons] =useState([]);
   const  graphs=(qid,opts)=> {
   if(allAnswers[qid][0] === -1){
-    return <center><h1>Nothing to show</h1></center>
+    return <center><h1 style={{color: 'white'}}>No answers yet!</h1></center>
   }
   else if(opts[0].opttxt==="<open string>"){
-    return <center><h1>Not a multiple choice question</h1></center>
+    return <center><h1 style={{color: 'white'}}>Not a multiple choice question</h1></center>
 
   } 
     var optdict={}
@@ -203,7 +200,7 @@ export default function AdminGraphs() {
       
       {(
         <>
-        <h5>{`Total Number of replies for this question: ${replies}`}</h5>
+        {<h5 style={{width: '350px'}}>{`Total number of replies for the above question: ${replies}`}</h5>}
       <div>
         {<Pie data={getPieChartData(graphAns1)} options={options} />}
       </div>

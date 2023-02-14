@@ -41,7 +41,6 @@
 }
 .redColor:active {
   background-color: rgba(255, 0, 0, 0.523);
-  transform: translate(-50%, -50%);
 }
 
 .blueColor{
@@ -53,5 +52,4 @@
 }
 .blueColor:active {
   background-color: rgba(64, 64, 230, 0.552);
-  transform: translate(-50%, -50%);
 }

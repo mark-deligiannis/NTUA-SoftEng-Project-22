@@ -1,5 +1,5 @@
 .welcome{
-  background-color: lightblue;
+  background-color: rgba(144, 238, 144, 0.479);
   border-radius: 20px;
   border-color: black ;
   border-width: thin;
@@ -43,6 +43,7 @@
 
   .helpCenter{
     min-height: 200px;
+    min-width: 350px;
     vertical-align: middle;
     display: table-cell;
     justify-Content: center;

@@ -102,6 +102,7 @@ function Admin()  {
       <center><button className="button redColor" onClick={handleDelete}>Delete All</button></center>
       <br/>
       <center><Link to={`/Admin/Questionnaires`}> <button className="button blueColor" >Questionnaires</button></Link></center>
+      <center><Link to={`/`}> <button className="button" >Homepage</button></Link></center>
     </div>
     );
   
