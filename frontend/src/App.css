@@ -1,6 +1,6 @@
 body {
   background-image: url("../public/Intelliq_background.webp");
-  background-size: cover;
+  background-size: initial;
   background-repeat: no-repeat;
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -34,6 +34,7 @@ h2 {
 }
 
 .button {
+  font-weight: bold;
   padding: 10px 20px;
   border-radius: 20px;
   align-items: center;

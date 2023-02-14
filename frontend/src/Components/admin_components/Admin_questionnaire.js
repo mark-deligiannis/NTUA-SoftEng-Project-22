@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Link } from 'react-router-dom';
 import Select from "react-select";
+import "./Admin_questionnaire.css"
 const API_URL = "http://localhost:9103/intelliq_api/fetchquestionnaires";
 const KEYS_URL = "http://localhost:9103/intelliq_api/fetchkeywords";
 const host = "localhost"
@@ -184,7 +185,7 @@ function AdminQuestionnaire () {
                     <table>
                         <thead id="questionnaire">
                             <tr>
-                                <th><h3><b>Questionnaire ID</b></h3></th>
+                                <th><h3><center><b>Questionnaire ID</b></center></h3></th>
                                 <th><h3><b>Title</b></h3></th>
                                 <th><h3><b>JSON</b></h3></th>
                                 <th><h3><b>CSV</b></h3></th>
@@ -200,8 +201,8 @@ function AdminQuestionnaire () {
                                         <td><h5>{item[1]}</h5></td>
                                         <td><button className="button" onClick={() => exportJSON(item[0])}>Export JSON</button></td>
                                         <td><button className="button" onClick={() => exportCSV(item[0])}>Export CSV</button></td>
-                                        <td><button className="button" onClick={() => handleDeleteAnswers(item[0])}>Delete all answers</button></td>
-                                        <td><Link to={`/Admin/Questionnaires/${item[0]}/Graphs`}> <button className="button" >View Statistics</button></Link></td>
+                                        <td><button className="button redColor" onClick={() => handleDeleteAnswers(item[0])}>Delete all answers</button></td>
+                                        <td><Link to={`/Admin/Questionnaires/${item[0]}/Graphs`}> <button className="button blueColor" >View Statistics</button></Link></td>
                                     </tr>
                                 );
                             })}
@@ -216,38 +217,24 @@ function AdminQuestionnaire () {
     
     return (
     
-
-    /* {/*  <div>
-<input type="text" placeholder="ID" onChange={(event) => this.setState({ id: event.target.value })} />
-          <button className="button" onClick={exportCSV}>Export CSV</button>
-    <button className="button" onClick={exportJSON}>Export JSON</button>
-    <button className="button" onClick={handleDeleteAnswers}>Delete all answers</button>
-        
-        <br />
-        
-      <div className="buttons">
-        <Link to={`/Admin/Questionnaires/${id}/Graphs`}> <button className="button" >Graphs</button></Link>
-        <Link to={"/Admin"}> <button className="button" >Back</button></Link>
-      </div>
-    <p>Let's see amazing graphs</p>
-  </div>*/
       
       <div className="container">
-      <div className="welcome">
-        <table>
-          <tbody>
-          <tr>
-            <td><h2> Select Questionnaires </h2></td>
-            <td><Link to={"/Admin"}> <button className="button" >Back</button></Link></td>
-          </tr>
-          <tr>
-            <td><p> View all available questionnaires or filter by keywords </p></td>
-            <td></td>
-          </tr>
-          </tbody>
-        </table>
+      <div className="top">
+        <center>
+          <table>
+            <tbody>
+            <tr>
+              <td className="admintd"><h2> Select Questionnaires </h2></td>
+              <td><Link to={"/Admin"}> <button className="button" >Back</button></Link></td>
+            </tr>
+            <tr>
+              <td colspan="2" className="admintd"><h3> View all available questionnaires or filter by keywords </h3></td>
+            </tr>
+            </tbody>
+          </table>
+        </center>
       <div className="app">
-          <h2>Choose keywords</h2>
+          <center><h2>Choose keywords</h2></center>
           <div className="dropdown-container">
               <Select
                   options={keywords.map(item => ({value: item, label: item}))}
