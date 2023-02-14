@@ -187,20 +187,27 @@ export default function AdminGraphs() {
       data[i][0] = optdict[allAnswers[qid][i].ans];
       data[i][1] = allAnswers[qid][i].session;
     }
-
+    var replies = 0;
     var graphAns1 = {};
   data.forEach((item) => {
     graphAns1[item[0]] = (graphAns1[item[0]] || 0) + 1;
   });
+
+    { for (let key in graphAns1) {
+        replies = replies + graphAns1[key];
+  }}
 
    return (
    
     <div id="table-responsive">
       
       {(
+        <>
+        <h5>{`Total Number of replies for this question: ${replies}`}</h5>
       <div>
         {<Pie data={getPieChartData(graphAns1)} options={options} />}
-      </div>)}
+      </div>
+      </>)}
     </div>
   );
 }
@@ -267,7 +274,7 @@ export default function AdminGraphs() {
               <div>
                 <button
                   key={i}
-                  className="button iWantToDie"
+                  className="button verticalMiddle"
                   onClick={() => {
                     toggleDisplayAnswers(i);
                   }}
