@@ -1,0 +1,1338 @@
+{
+	"info": {
+		"_postman_id": "768a00ec-4778-4480-ad3d-6147c1c37cf7",
+		"name": "Intelliq_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25603158"
+	},
+	"item": [
+		{
+			"name": "admin/healthcheck",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"status\": \"OK\",\r",
+							"    \"dbconnection\": \"mariadb://root:@localhost:3306/intelliQ\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/healthcheck",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/healthcheck (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"status\",\"dbconnection\"\\r\r",
+							"\"OK\",\"mariadb://root:@localhost:3306/intelliQ\"`\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/healthcheck?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"healthcheck"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/resetall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"status\": \"OK\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/resetall",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"resetall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/resetall (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"status\"\\r\\n\"OK\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/resetall?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"resetall"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/resetq",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"status\": \"OK\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/resetq/QQ001",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"resetq",
+						"QQ001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/resetq (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"status\"\\r\\n\"OK\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/resetq/QQ001?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"resetq",
+						"QQ001"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/questionnaire_upd (1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "dummydata_main.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"questionnaire_upd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchkeywords",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"Keywords\": [\r",
+							"        \"Courses\",\r",
+							"        \"NTUA\",\r",
+							"        \"ΕΜΠ\",\r",
+							"        \"Μαθήματα\"\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/fetchkeywords",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"fetchkeywords"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchkeywords (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"Keywords\"\\r\r",
+							"\"Courses\"\\r\r",
+							"\"NTUA\"\\r\r",
+							"\"ΕΜΠ\"\\r\r",
+							"\"Μαθήματα\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/fetchkeywords?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"fetchkeywords"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/questionnaire_upd (2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "dummydata2.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"questionnaire_upd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/questionnaire_upd (3)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "dummydata3.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"questionnaire_upd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/questionnaire_upd (4)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "dummydata4.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"questionnaire_upd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionnaire",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"questionnaireTitle\": \"Προτίμηση μαθημάτων\",\r",
+							"    \"keywords\": [\r",
+							"        \"Courses\",\r",
+							"        \"NTUA\",\r",
+							"        \"ΕΜΠ\",\r",
+							"        \"Μαθήματα\"\r",
+							"    ],\r",
+							"    \"questions\": [\r",
+							"        {\r",
+							"            \"qID\": \"P00\",\r",
+							"            \"qtext\": \"Ποιο είναι το mail σας;\",\r",
+							"            \"required\": \"FALSE\",\r",
+							"            \"type\": \"profile\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"P01\",\r",
+							"            \"qtext\": \"Ποια είναι η ηλικία σας;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"profile\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q01\",\r",
+							"            \"qtext\": \"Ποια κατεύθυνση επιλέξατε;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q02\",\r",
+							"            \"qtext\": \"Ποιο είναι το αγαπημένο σας μάθημα στην κατεύθυνση Λ;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q03\",\r",
+							"            \"qtext\": \"Θα σας ενδιέφερε να μάθετε περισσότερα για software development;\",\r",
+							"            \"required\": \"FALSE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q04\",\r",
+							"            \"qtext\": \"Αναγνωρίζετε όμως ότι η κατεύθυνση πληροφορικής είναι ανώτερη;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q05\",\r",
+							"            \"qtext\": \"Θα επιλέξετε την προχωρημένη ΤΛ στο επόμενο εξάμηνο;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q06\",\r",
+							"            \"qtext\": \"Είστε σίγουροι;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q07\",\r",
+							"            \"qtext\": \"Προτιμάτε τη ροή Υ ή Η;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/questionnaire/QQ001",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"questionnaire",
+						"QQ001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionnaire (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"questionnaireID\",\"questionnaireTitle\",\"keywords\",\"qID\",\"qtext\",\"required\",\"type\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"P00\",\"Ποιο είναι το mail σας;\",\"FALSE\",\"profile\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"P01\",\"Ποια είναι η ηλικία σας;\",\"TRUE\",\"profile\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q01\",\"Ποια κατεύθυνση επιλέξατε;\",\"TRUE\",\"question\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q02\",\"Ποιο είναι το αγαπημένο σας μάθημα στην κατεύθυνση Λ;\",\"TRUE\",\"question\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q03\",\"Θα σας ενδιέφερε να μάθετε περισσότερα για software development;\",\"FALSE\",\"question\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q04\",\"Αναγνωρίζετε όμως ότι η κατεύθυνση πληροφορικής είναι ανώτερη;\",\"TRUE\",\"question\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q05\",\"Θα επιλέξετε την προχωρημένη ΤΛ στο επόμενο εξάμηνο;\",\"TRUE\",\"question\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q06\",\"Είστε σίγουροι;\",\"TRUE\",\"question\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\",\"[Courses, NTUA, ΕΜΠ, Μαθήματα]\",\"Q07\",\"Προτιμάτε τη ροή Υ ή Η;\",\"TRUE\",\"question\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    console.log(expected_result);\r",
+							"    console.log(data);\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/questionnaire/QQ001?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"questionnaire",
+						"QQ001"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"qID\": \"Q01\",\r",
+							"    \"qtext\": \"Ποια κατεύθυνση επιλέξατε;\",\r",
+							"    \"required\": \"TRUE\",\r",
+							"    \"type\": \"question\",\r",
+							"    \"options\": [\r",
+							"        {\r",
+							"            \"optID\": \"Q01A1\",\r",
+							"            \"opttxt\": \"Πληροφορική\",\r",
+							"            \"nextqID\": \"Q02\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"optID\": \"Q01A2\",\r",
+							"            \"opttxt\": \"Ηλεκτρονική\",\r",
+							"            \"nextqID\": \"Q07\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"optID\": \"Q01A3\",\r",
+							"            \"opttxt\": \"Τηλεπικοινωνίες\",\r",
+							"            \"nextqID\": \"Q04\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"optID\": \"Q01A4\",\r",
+							"            \"opttxt\": \"Ενέργεια\",\r",
+							"            \"nextqID\": \"Q04\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/question/QQ001/Q01",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"question",
+						"QQ001",
+						"Q01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"questionnaireID\",\"qID\",\"qtext\",\"required\",\"type\",\"optID\",\"opttxt\",\"nextqID\"\\r\r",
+							"\"QQ001\",\"Q01\",\"Ποια κατεύθυνση επιλέξατε;\",\"TRUE\",\"question\",\"Q01A1\",\"Πληροφορική\",\"Q02\"\\r\r",
+							"\"QQ001\",\"Q01\",\"Ποια κατεύθυνση επιλέξατε;\",\"TRUE\",\"question\",\"Q01A2\",\"Ηλεκτρονική\",\"Q07\"\\r\r",
+							"\"QQ001\",\"Q01\",\"Ποια κατεύθυνση επιλέξατε;\",\"TRUE\",\"question\",\"Q01A3\",\"Τηλεπικοινωνίες\",\"Q04\"\\r\r",
+							"\"QQ001\",\"Q01\",\"Ποια κατεύθυνση επιλέξατε;\",\"TRUE\",\"question\",\"Q01A4\",\"Ενέργεια\",\"Q04\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/question/QQ001/Q01?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"question",
+						"QQ001",
+						"Q01"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doanswer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/doanswer/QQ001/Q01/0000/Q01A1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"doanswer",
+						"QQ001",
+						"Q01",
+						"0000",
+						"Q01A1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getsessionanswers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"session\": \"0000\",\r",
+							"    \"answers\": [\r",
+							"        {\r",
+							"            \"qID\": \"Q01\",\r",
+							"            \"ans\": \"Q01A1\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getsessionanswers/QQ001/0000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getsessionanswers",
+						"QQ001",
+						"0000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getsessionanswers (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"questionnaireID\",\"session\",\"qID\",\"ans\"\\r\r",
+							"\"QQ001\",\"0000\",\"Q01\",\"Q01A1\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getsessionanswers/QQ001/0000?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getsessionanswers",
+						"QQ001",
+						"0000"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getquestionanswers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"questionID\": \"Q01\",\r",
+							"    \"answers\": [\r",
+							"        {\r",
+							"            \"session\": \"0000\",\r",
+							"            \"ans\": \"Q01A1\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getquestionanswers/QQ001/Q01",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getquestionanswers",
+						"QQ001",
+						"Q01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getquestionanswers (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"questionnaireID\",\"questionID\",\"session\",\"ans\"\\r\r",
+							"\"QQ001\",\"Q01\",\"0000\",\"Q01A1\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getquestionanswers/QQ001/Q01?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getquestionanswers",
+						"QQ001",
+						"Q01"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionnaireanscount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"Number\": 1\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "answer",
+							"value": "\"hello\"",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/questionnaireanscount/QQ001",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"questionnaireanscount",
+						"QQ001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionnaireanscount (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = `\"Number\"\\r\\n1`;\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "answer",
+							"value": "\"hello\"",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/questionnaireanscount/QQ001?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"questionnaireanscount",
+						"QQ001"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchquestionnaires",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = [\r",
+							"    {\r",
+							"        \"QuestionnaireID\": \"QQ001\",\r",
+							"        \"QuestionnaireTitle\": \"Προτίμηση μαθημάτων\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "keywords[]",
+							"value": "NTUA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/fetchquestionnaires",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"fetchquestionnaires"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchquestionnaires (csv)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"var expected_result = `\"QuestionnaireID\",\"QuestionnaireTitle\"\\r\r",
+							"\"QQ001\",\"Προτίμηση μαθημάτων\"`;\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.text();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "keywords[]",
+							"value": "NTUA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/fetchquestionnaires?format=csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"fetchquestionnaires"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

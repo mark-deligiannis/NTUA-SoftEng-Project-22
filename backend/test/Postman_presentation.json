@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "f78831e4-8f0e-488f-8308-bc8738390738",
+		"name": "Intelliq_API_presentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25603158"
+	},
+	"item": [
+		{
+			"name": "admin/resetall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"status\": \"OK\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/resetall",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"resetall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/questionnaire_upd",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "dummydata_main.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"questionnaire_upd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionnaire",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"questionnaireTitle\": \"Προτίμηση μαθημάτων\",\r",
+							"    \"keywords\": [\r",
+							"        \"Courses\",\r",
+							"        \"NTUA\",\r",
+							"        \"ΕΜΠ\",\r",
+							"        \"Μαθήματα\"\r",
+							"    ],\r",
+							"    \"questions\": [\r",
+							"        {\r",
+							"            \"qID\": \"P00\",\r",
+							"            \"qtext\": \"Ποιο είναι το mail σας;\",\r",
+							"            \"required\": \"FALSE\",\r",
+							"            \"type\": \"profile\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"P01\",\r",
+							"            \"qtext\": \"Ποια είναι η ηλικία σας;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"profile\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q01\",\r",
+							"            \"qtext\": \"Ποια κατεύθυνση επιλέξατε;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q02\",\r",
+							"            \"qtext\": \"Ποιο είναι το αγαπημένο σας μάθημα στην κατεύθυνση Λ;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q03\",\r",
+							"            \"qtext\": \"Θα σας ενδιέφερε να μάθετε περισσότερα για software development;\",\r",
+							"            \"required\": \"FALSE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q04\",\r",
+							"            \"qtext\": \"Αναγνωρίζετε όμως ότι η κατεύθυνση πληροφορικής είναι ανώτερη;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q05\",\r",
+							"            \"qtext\": \"Θα επιλέξετε την προχωρημένη ΤΛ στο επόμενο εξάμηνο;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q06\",\r",
+							"            \"qtext\": \"Είστε σίγουροι;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q07\",\r",
+							"            \"qtext\": \"Προτιμάτε τη ροή Υ ή Η;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/questionnaire/QQ001",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"questionnaire",
+						"QQ001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"qID\": \"Q01\",\r",
+							"    \"qtext\": \"Ποια κατεύθυνση επιλέξατε;\",\r",
+							"    \"required\": \"TRUE\",\r",
+							"    \"type\": \"question\",\r",
+							"    \"options\": [\r",
+							"        {\r",
+							"            \"optID\": \"Q01A1\",\r",
+							"            \"opttxt\": \"Πληροφορική\",\r",
+							"            \"nextqID\": \"Q02\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"optID\": \"Q01A2\",\r",
+							"            \"opttxt\": \"Ηλεκτρονική\",\r",
+							"            \"nextqID\": \"Q07\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"optID\": \"Q01A3\",\r",
+							"            \"opttxt\": \"Τηλεπικοινωνίες\",\r",
+							"            \"nextqID\": \"Q04\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"optID\": \"Q01A4\",\r",
+							"            \"opttxt\": \"Ενέργεια\",\r",
+							"            \"nextqID\": \"Q04\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/question/QQ001/Q01",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"question",
+						"QQ001",
+						"Q01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doanswer_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/doanswer/QQ001/P01/0000/P01A1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"doanswer",
+						"QQ001",
+						"P01",
+						"0000",
+						"P01A1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doanswer_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/doanswer/QQ001/Q01/0000/Q01A4",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"doanswer",
+						"QQ001",
+						"Q01",
+						"0000",
+						"Q01A4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doanswer_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/doanswer/QQ001/Q04/0000/Q04A2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"doanswer",
+						"QQ001",
+						"Q04",
+						"0000",
+						"Q04A2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getsessionanswers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"session\": \"0000\",\r",
+							"    \"answers\": [\r",
+							"        {\r",
+							"            \"qID\": \"P01\",\r",
+							"            \"ans\": \"P01A1\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q01\",\r",
+							"            \"ans\": \"Q01A4\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q04\",\r",
+							"            \"ans\": \"Q04A2\"\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/getsessionanswers/QQ001/0000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getsessionanswers",
+						"QQ001",
+						"0000"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
