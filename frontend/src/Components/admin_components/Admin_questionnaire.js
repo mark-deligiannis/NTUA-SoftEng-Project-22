@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import { Link } from 'react-router-dom';
 import Select from "react-select";
 import "./Admin_questionnaire.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const API_URL = "http://localhost:9103/intelliq_api/fetchquestionnaires";
 const KEYS_URL = "http://localhost:9103/intelliq_api/fetchkeywords";
@@ -309,7 +309,6 @@ function AdminQuestionnaire () {
       <header className="jumbotron" id="questionnaires">
           {questionnaires === null ? "Hello" : table()}
       </header>
-      <ToastContainer/>
   </div>
       
   );

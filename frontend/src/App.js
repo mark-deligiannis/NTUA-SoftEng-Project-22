@@ -1,6 +1,8 @@
 import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Admin from "./Components/admin_components/Admin";
 import AdminGraphs from "./Components/admin_components/Admin_graphs";
@@ -46,6 +48,7 @@ class App extends React.Component {
   
       </>
       </Router>
+      <ToastContainer/>
     </div> 
   );}
 }
