@@ -1,3 +1,6 @@
+/*
+  Used for the main container of the graphs page
+*/
 .welcome{
   background-color: rgba(144, 238, 144, 0.479);
   border-radius: 20px;
@@ -5,62 +8,30 @@
   border-width: thin;
 }
 
+/*
+  Used for div around graphs() to set the max sizes
+*/
+.chart-container {
+  max-width: 350px;
+  max-height: 350px;
+}
 
-.display-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
-    height: 100%;
-    padding-top: 20px;
-  }
-  
-  .pie-container {
-    align-items: center;
-    overflow: clip;
-    width: 300px;
-    max-height: 350px;
-    display: flex;
-    margin: auto;
-  }
-  
-  .big-container {
-    display: relative;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
+/*
+  Helps with having a minimum height so that buttons are
+  not close and helps with the user experience
+*/
+.helpContainer{
+  min-height: 200px;
+}
 
-  }
-
-  .chart-container {
-    max-width: 350px;
-    max-height: 350px;
-  }
-
-  .helpContainer{
-    min-height: 200px;
-  }
-
-  .helpCenter{
-    min-height: 200px;
-    min-width: 350px;
-    vertical-align: middle;
-    display: table-cell;
-    justify-Content: center;
-    align-Items: center;
-  }
-
-  .verticalMiddle{
-    vertical-align: middle;
-  }
-
-  .lightBlueColor{
-    background-color: rgb(34, 34, 185);
-  }
-  .lightBlueColor:hover {
-    background-color: rgb(64, 64, 230);
-    cursor: pointer;
-  }
-  .lightBlueColor:active {
-    background-color: rgba(64, 64, 230, 0.552);
-  }
+/*
+  TOBEREMOVED
+*/
+.helpCenter{
+  min-height: 200px;
+  min-width: 350px;
+  vertical-align: middle;
+  display: table-cell;
+  justify-Content: center;
+  align-Items: center;
+}

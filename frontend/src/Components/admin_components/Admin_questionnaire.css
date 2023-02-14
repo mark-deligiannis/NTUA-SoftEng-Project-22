@@ -1,45 +1,26 @@
-h3{
-    font-size: 30px;
-    font-weight: bold;
-    font-style: italic;
-    text-align: center;
-}
-
+/*
+  It is used only in Admin Questionnaire to have the text
+  aligned to the left
+*/
 td.admintd {
     text-align: left;
-  }
+}
 
+/*
+  It is used as a well-looking light background for
+  the top of the page so that text can be easily read
+*/
 div.top{
     background-color: rgba(144, 238, 144, 0.479);
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     
 }
+
+/*
+  Used for everything to be centered in the table
+*/
 table{
     text-align: center;
     vertical-align: middle;
 }
-
-.redColor{
-    background-color: rgb(121, 9, 9);;
-}
-
-.redColor:hover {
-    background-color: red;
-    cursor: pointer;
-  }
-  .redColor:active {
-    background-color: rgba(255, 0, 0, 0.523);
-  }
-
-  .blueColor{
-    background-color: darkblue;
-}
-
-.blueColor:hover {
-    background-color: rgb(64, 64, 230);
-    cursor: pointer;
-  }
-  .blueColor:active {
-    background-color: rgba(64, 64, 230, 0.552);
-  }

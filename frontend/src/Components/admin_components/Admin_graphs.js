@@ -276,7 +276,7 @@ export default function AdminGraphs() {
               <div>
                 <button
                   key={i}
-                  className="button lightBlueColor verticalMiddle"
+                  className="button blueColor verticalMiddle"
                   onClick={() => {
                     toggleDisplayAnswers(i);
                   }}

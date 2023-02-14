@@ -30,33 +30,3 @@
 .custom-file-upload:active {
   background-color: #999;
 }
-
-/*
-  Used for the change of colour to red. Needs to be used with
-  the "button" className for proper results.
-*/
-.redColor{
-  background-color: rgb(121, 9, 9);;
-}
-.redColor:hover {
-  background-color: red;
-  cursor: pointer;
-}
-.redColor:active {
-  background-color: rgba(255, 0, 0, 0.523);
-}
-
-/*
-  Used for the change of colour to blue. Needs to be used with
-  the "button" className for proper results.
-*/
-.blueColor{
-  background-color: darkblue;
-}
-.blueColor:hover {
-  background-color: rgb(64, 64, 230);
-  cursor: pointer;
-}
-.blueColor:active {
-  background-color: rgba(64, 64, 230, 0.552);
-}

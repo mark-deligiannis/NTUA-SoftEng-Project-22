@@ -43,6 +43,16 @@ h2 {
 }
 
 /*
+  Used as the third type of Headers
+*/
+h3{
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+
+/*
   Used to organise more than one buttons
 */
 .buttons {
@@ -82,4 +92,34 @@ h2 {
 
 .button:active {
   background-color: green;
+}
+
+/*
+  Used for the change of colour to red. Needs to be used with
+  the "button" className for proper results.
+*/
+.redColor{
+  background-color: rgb(121, 9, 9);;
+}
+.redColor:hover {
+  background-color: red;
+  cursor: pointer;
+}
+.redColor:active {
+  background-color: rgba(255, 0, 0, 0.523);
+}
+
+/*
+  Used for the change of colour to blue. Needs to be used with
+  the "button" className for proper results.
+*/
+.blueColor{
+  background-color: rgb(34, 34, 185);
+}
+.blueColor:hover {
+  background-color: rgb(64, 64, 230);
+  cursor: pointer;
+}
+.blueColor:active {
+  background-color: rgba(64, 64, 230, 0.552);
 }
