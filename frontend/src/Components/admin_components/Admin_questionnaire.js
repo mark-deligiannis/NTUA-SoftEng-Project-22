@@ -21,7 +21,19 @@ const exportCSV=(id)=> {
       "Content-Type": "application/x-www-form-urlencoded",
     }})
   .then(response => {
-    return response.text();
+    if (response.ok) {
+      
+      toast.success("Export of CSV succeeded!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000, 
+      })
+      return response.text();
+    }
+      else{
+        toast.error("Export of CSV failed!", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,})
+      }
   })
   .then(text => {
     console.log(text);
@@ -35,12 +47,10 @@ const exportCSV=(id)=> {
     link.click();
   })
   .catch(error => {
-    console.error(error).then(
-      toast.success("Export of CSV failed!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000, 
-      
-    }))
+  // If there's an error, show an error message
+  toast.error('Export of CSV failed!', {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 2000,});
   
   });
   }
@@ -57,49 +67,65 @@ const exportCSV=(id)=> {
         "Content-Type": "application/x-www-form-urlencoded",
       }})
     .then(response => {
-      response.blob().then(blob => {
-        let url = window.URL.createObjectURL(blob);
-        let a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        a.download = "data.json";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-      });
-    })
-    .catch(error => console.error(error)
-    .then(
-      toast.success("Export of JSON failed!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000, 
+      if (response.ok) {
+        response.blob().then(blob => {
+          let url = window.URL.createObjectURL(blob);
+          let a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = "data.json";
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+        toast.success("Export of JSON succeeded!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000, 
+        })
+        
+      }
+        else{
+          toast.error("Export of JSON failed!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,})
+        }
       
-    }))
-    );
+    })
+    .catch(error => {
+      // If there's an error, show an error message
+      toast.error('Export of JSON failed!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,});
+      
+      });
     };
     const handleDeleteAnswers=(id)=> {
       const ResetAnswers_URL = `http://${host}:${port}/intelliq_api/admin/resetq/${id}`;
-      try{
+
       fetch(ResetAnswers_URL, {
         method: 'POST',
        // mode: 'no-cors',
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }).then(
-        toast.success(`Delete Answers for Questionnaire ${id} succeeded!`, {
+      }).then(response => {
+        console.log(response)
+        if (response.ok) {
+          
+        toast.success(`All Answers of questionnaire ${id} deleted!`, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000, 
-        
-      }))  }
-      catch(error){
-        console.log(error).then(
-          toast.success(`Delete Answers for Questionnaire ${id} failed!`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000, 
-          
-        }))
-      }   
+        })}
+        else{
+          toast.error(`Failed to delete all Answers of questionnaire ${id}`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,})
+        }
+      }).catch(error => {
+      toast.error(`Failed to delete all Answers of questionnaire ${id}`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,});
+    });   
     }
 
 
@@ -128,7 +154,11 @@ function AdminQuestionnaire () {
 		fetch(API_URL, requestOptions)
 			.then(res => res.json())
        		.then(data => setQuestionnaires(data))
-            .catch(error => {console.error("Error",error)});
+            .catch(error => {
+              toast.error(`Failed to get questionnaires`, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,});
+            });
 
 		requestOptions = {
 			method: 'GET',
@@ -139,7 +169,11 @@ function AdminQuestionnaire () {
 		fetch(KEYS_URL, requestOptions)
 			.then(res => res.json())
 			.then(data => setKeywords(data.Keywords))
-            .catch(error => {console.error("Error",error)});
+            .catch(error => {
+              toast.error(`Failed to set keywords`, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,});
+            });
 
     }, [])
 
@@ -169,7 +203,11 @@ function AdminQuestionnaire () {
             fetch(API_URL, requestOptions)
                 .then(res => res.json())
                 .then(response =>  setQuestionnaires(response))
-                .catch(error => {console.error("Error",error)});
+                .catch(error => {
+                  toast.error(`Failed to get questionnaires`, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 2000,});
+                });
         }
       else { // no keyword seleced, fetch all questionnaires
         var requestOptions = {
@@ -181,7 +219,11 @@ function AdminQuestionnaire () {
 		fetch(API_URL, requestOptions)
 			.then(res => res.json())
        		.then(data => setQuestionnaires(data))
-            .catch(error => {console.error("Error",error)});
+            .catch(error => {
+              toast.error(`Failed to set questionnaire`, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,});
+            });
       }
             
 	}, [selectedOptions]) // method is triggered each time selectedOptions changes

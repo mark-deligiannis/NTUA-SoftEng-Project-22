@@ -22,7 +22,7 @@ function Admin()  {
    // const { selectedFile } = this.state;
     const formData = new FormData();
     formData.append("file", selectedFile);
-    try{
+    
     fetch(Upload_URL, {
       method: "POST",
       mode: 'no-cors',
@@ -30,27 +30,28 @@ function Admin()  {
       headers: {
         "Content-Type": "multipart/form-data; boundary=${formData._boundary}",
       },
-    })
-    .then(
+    }).then(response => {
+      if (response.ok) {
+        
       toast.success("Upload succeeded!", {
       position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000, // The message will automatically close after 2 seconds
-      
-    }));
-  }
-  catch(error){
-    console.error(error).then(
-      toast.success("Upload failed!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000, // The message will automatically close after 2 seconds
-      
-    }));
-  }
+      autoClose: 2000, 
+      })}
+      else{
+        toast.error("Uploads failed!", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,})
+      }
+    }).catch(error => {
+    // If there's an error, show an error message
+    toast.error('Uploads failed!');
+  });
+  
   }
   
   const handleDelete=()=>{
   
-    try{
+    
     fetch(ResetAll_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -58,23 +59,25 @@ function Admin()  {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
-    .then(
+    .then(response => {
+      console.log(response)
+      if (response.ok) {
+        
       toast.success("All questionnaires deleted!", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000, 
-      
-    }))
-  }
-  catch(error){
-    console.error(error).then(
-      toast.success("Delete questionnaires failed!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000, // The message will automatically close after 2 seconds
-      
-    }));
+      })}
+      else{
+        toast.error("Delete questionnaires failed!", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,})
+      }
+    }).catch(error => {
+    toast.error('Delete questionnaires failed!');
+  });
   }
        
-  }
+  
 
     return (
       <div>
