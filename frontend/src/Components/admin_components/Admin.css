@@ -1,3 +1,8 @@
+/*
+  ClassName used for the choosing of the file. Has black colour
+  to be different from the upload button. There are hover and active
+  differences as well
+*/
 .custom-file-upload {
   font-weight: bold;
   padding: 10px 20px;
@@ -20,20 +25,18 @@
 }
 .custom-file-upload:hover {
   background-color: #666;
+  cursor: pointer;
 }
 .custom-file-upload:active {
   background-color: #999;
 }
 
-.buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-  
-  
+/*
+  Used for the change of colour to red. Needs to be used with
+  the "button" className for proper results.
+*/
 .redColor{
-    background-color: rgb(121, 9, 9);;
+  background-color: rgb(121, 9, 9);;
 }
 .redColor:hover {
   background-color: red;
@@ -43,6 +46,10 @@
   background-color: rgba(255, 0, 0, 0.523);
 }
 
+/*
+  Used for the change of colour to blue. Needs to be used with
+  the "button" className for proper results.
+*/
 .blueColor{
   background-color: darkblue;
 }
