@@ -258,10 +258,10 @@ function AdminQuestionnaire () {
                                     <tr>
                                         <td><h5>{item[0]}</h5></td>
                                         <td><h5>{item[1]}</h5></td>
-                                        <td><button className="button" onClick={() => exportJSON(item[0])}>Export JSON</button></td>
-                                        <td><button className="button" onClick={() => exportCSV(item[0])}>Export CSV</button></td>
+                                        <td><button className="button blueColor" onClick={() => exportJSON(item[0])}>Export JSON</button></td>
+                                        <td><button className="button blueColor" onClick={() => exportCSV(item[0])}>Export CSV</button></td>
                                         <td><button className="button redColor" onClick={() => handleDeleteAnswers(item[0])}>Delete all answers</button></td>
-                                        <td><Link to={`/Admin/Questionnaires/${item[0]}/Graphs`}> <button className="button blueColor" >View Statistics</button></Link></td>
+                                        <td><Link to={`/Admin/Questionnaires/${item[0]}/Graphs`}> <button className="button" >View Statistics</button></Link></td>
                                     </tr>
                                 );
                             })}

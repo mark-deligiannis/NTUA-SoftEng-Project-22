@@ -53,3 +53,14 @@
   .verticalMiddle{
     vertical-align: middle;
   }
+
+  .lightBlueColor{
+    background-color: rgb(34, 34, 185);
+  }
+  .lightBlueColor:hover {
+    background-color: rgb(64, 64, 230);
+    cursor: pointer;
+  }
+  .lightBlueColor:active {
+    background-color: rgba(64, 64, 230, 0.552);
+  }

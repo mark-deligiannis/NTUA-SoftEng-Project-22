@@ -171,10 +171,10 @@ export default function AdminGraphs() {
   const [buttons,setButtons] =useState([]);
   const  graphs=(qid,opts)=> {
   if(allAnswers[qid][0] === -1){
-    return <center><h1 style={{color: 'white'}}>No answers yet!</h1></center>
+    return <center><h1 style={{color: 'black'}}>No answers yet!</h1></center>
   }
   else if(opts[0].opttxt==="<open string>"){
-    return <center><h1 style={{color: 'white'}}>Not a multiple choice question</h1></center>
+    return <center><h1 style={{color: 'black'}}>Not a multiple choice question</h1></center>
 
   } 
     var optdict={}
@@ -276,7 +276,7 @@ export default function AdminGraphs() {
               <div>
                 <button
                   key={i}
-                  className="button verticalMiddle"
+                  className="button lightBlueColor verticalMiddle"
                   onClick={() => {
                     toggleDisplayAnswers(i);
                   }}

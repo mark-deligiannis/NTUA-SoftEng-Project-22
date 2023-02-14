@@ -38,13 +38,13 @@ function Admin()  {
       autoClose: 2000, 
       })}
       else{
-        toast.error("Uploads failed!", {
+        toast.error("Upload failed!", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,})
       }
     }).catch(error => {
     // If there's an error, show an error message
-    toast.error('Uploads failed!');
+    toast.error('Upload failed!');
   });
   
   }
@@ -90,7 +90,7 @@ function Admin()  {
           <span className="button custom-file-upload">{fileName}</span>
         </label>
         <input type="file" id="file-input" onChange={onFileChange} style={{ display: "none" }} /></td>
-        <td><center><button className="button" type="submit">Upload</button></center></td>
+        <td><center><button className="button blueColor" type="submit">Upload</button></center></td>
         </tr>
         
         </thead>
@@ -101,7 +101,7 @@ function Admin()  {
         
       <center><button className="button redColor" onClick={handleDelete}>Delete All</button></center>
       <br/>
-      <center><Link to={`/Admin/Questionnaires`}> <button className="button blueColor" >Questionnaires</button></Link></center>
+      <center><Link to={`/Admin/Questionnaires`}> <button className="button" >Select Questionnaires</button></Link></center>
       <center><Link to={`/`}> <button className="button" >Homepage</button></Link></center>
     </div>
     );
