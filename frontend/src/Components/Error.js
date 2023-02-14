@@ -6,9 +6,9 @@ function ErrorPage() {
     <div style={{backgroundColor: 'rgba(144, 238, 144, 0.479)',
     }}>
         <center>
-            <h1>404 - Not Found</h1>
+            <h1 style={{color: 'blue'}}>404 - Not Found</h1>
             <p style={{ fontSize: '35px'}}>The page you requested could not be found.</p>
-            <Link to={`/`}><button className="button blueColor" >Back to Homepage</button></Link>
+            <Link to={`/`}><button className="button" >Back to Homepage</button></Link>
         </center>
     </div>
   );
