@@ -139,14 +139,14 @@ function ViewSession() {
 
     return (
         <div className="container"> 
+            <div>
+                <h2> Your Answers </h2>
+            </div>
             <header className="jumbotron" id="session">
                 {table()}
             </header>
             <div className="buttons">
                 <Link to={"/User"}> <button className="button">Back to home</button></Link>
-            </div>
-            <div>
-                <h2> Your Answers </h2>
             </div>
 		</div>
     )
