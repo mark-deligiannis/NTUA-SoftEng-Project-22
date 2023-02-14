@@ -166,10 +166,8 @@ export default function AdminGraphs() {
   const [questionnaire,setQuestionnaire]=useState([])
   const [allAnswers,setAllAnswers]=useState({})
   const [displayAnswers,setDisplayAnswers]=useState([])
-  const [LetsSeeGraphs,setLetsSeeGraphs]=useState(false)
   const [loading,setLoading]=useState(true)
   const [buttons,setButtons] =useState([]);
-  const [tallestButtonHeight, setTallestButtonHeight] = useState(0);
   const  graphs=(qid,opts)=> {
   if(allAnswers[qid][0] === -1){
     return <center><h1>Nothing to show</h1></center>
@@ -267,10 +265,10 @@ export default function AdminGraphs() {
         help.push(
           <div className="col-md-4 helpContainer">
             <div className="text-center helpCenter">
-              <div className="iWantToDie">
+              <div>
                 <button
                   key={i}
-                  className="button"
+                  className="button iWantToDie"
                   onClick={() => {
                     toggleDisplayAnswers(i);
                   }}
@@ -298,20 +296,6 @@ export default function AdminGraphs() {
   if (loading) {
     return <h1>Loading...</h1>;
   }
-  
-  /*$(document).ready(function() {
-    // Get the tallest button height
-    var tallestButtonHeight = 0;
-    $(".redColor, .blueColor").each(function() {
-      var buttonHeight = $(this).outerHeight();
-      if (buttonHeight > tallestButtonHeight) {
-        tallestButtonHeight = buttonHeight;
-      }
-    });
-  
-    // Set the same height for all the divs containing the buttons
-    $(".buttons > div").css("min-height", tallestButtonHeight + "px");
-  });*/
 
   return (
     <div className="welcome">

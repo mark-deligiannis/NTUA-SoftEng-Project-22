@@ -6,6 +6,8 @@ const API_URL = "http://localhost:9103/intelliq_api/fetchquestionnaires";
 const KEYS_URL = "http://localhost:9103/intelliq_api/fetchkeywords";
 const host = "localhost"
 const port = 9103;
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const exportCSV=(id)=> {
   //const id  = this.state.id;
@@ -32,7 +34,12 @@ const exportCSV=(id)=> {
     link.click();
   })
   .catch(error => {
-    console.error(error);
+    console.error(error).then(
+      toast.success("Export of CSV failed!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000, 
+      
+    }))
   
   });
   }
@@ -60,35 +67,44 @@ const exportCSV=(id)=> {
         window.URL.revokeObjectURL(url);
       });
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error(error)
+    .then(
+      toast.success("Export of JSON failed!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000, 
+      
+    }))
+    );
     };
     const handleDeleteAnswers=(id)=> {
       const ResetAnswers_URL = `http://${host}:${port}/intelliq_api/admin/resetq/${id}`;
+      try{
       fetch(ResetAnswers_URL, {
         method: 'POST',
        // mode: 'no-cors',
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      })     
+      }).then(
+        toast.success(`Delete Answers for Questionnaire ${id} succeeded!`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000, 
+        
+      }))  }
+      catch(error){
+        console.log(error).then(
+          toast.success(`Delete Answers for Questionnaire ${id} failed!`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000, 
+          
+        }))
+      }   
     }
 
 
 
 function AdminQuestionnaire () {
-    /*constructor(props) {
-        super(props);
-        
-        this.exportCSV = this.exportCSV.bind(this);
-        this.exportJSON = this.exportJSON.bind(this);
 
-        this.state = {
-            id: '',
-        };
-      }*/
-
-
-      
             // Store all keywords contained in the database
     const [keywords, setKeywords] = useState([])
 
@@ -190,7 +206,7 @@ function AdminQuestionnaire () {
                                 <th><h3><b>JSON</b></h3></th>
                                 <th><h3><b>CSV</b></h3></th>
                                 <th><h3><b>Delete all Answers</b></h3></th>
-                                <th><h3><b>Answer Questionnaire</b></h3></th>
+                                <th><h3><b>View Statistics</b></h3></th>
                             </tr>
                         </thead>
                         <tbody id="questionnaire">
@@ -228,7 +244,7 @@ function AdminQuestionnaire () {
               <td><Link to={"/Admin"}> <button className="button" >Back</button></Link></td>
             </tr>
             <tr>
-              <td colspan="2" className="admintd"><h3> View all available questionnaires or filter by keywords </h3></td>
+              <td colSpan="2" className="admintd"><h3> View all available questionnaires or filter by keywords </h3></td>
             </tr>
             </tbody>
           </table>
@@ -250,6 +266,7 @@ function AdminQuestionnaire () {
       <header className="jumbotron" id="questionnaires">
           {questionnaires === null ? "Hello" : table()}
       </header>
+      <ToastContainer/>
   </div>
       
   );

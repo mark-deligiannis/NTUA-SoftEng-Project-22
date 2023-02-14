@@ -43,10 +43,12 @@
 
   .helpCenter{
     min-height: 200px;
-    vertical-align: auto;
+    vertical-align: middle;
+    display: table-cell;
+    justify-Content: center;
+    align-Items: center;
   }
 
   .iWantToDie{
-    min-height:150px;
     vertical-align: middle;
   }
