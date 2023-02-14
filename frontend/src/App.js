@@ -9,6 +9,7 @@ import User from "./Components/user_components/User";
 import AnswerQuestionnaire from "./Components/user_components/Answer_questionnaire";
 import Home from "./Components/home"
 import ViewSession from "./Components/user_components/View_session";
+import ErrorPage from "./Components/Error";
 
 class App extends React.Component {
   constructor(props) {
@@ -33,12 +34,14 @@ class App extends React.Component {
           
           <Routes>
             <Route path="/" element={<Home />} />
+            
             <Route path={ "/Admin"} element={<Admin />} />
             <Route path={ "/Admin/Questionnaires"} element={<AdminQuestionnaire />} />
             <Route path={ "/Admin/Questionnaires/:id/Graphs"} element={<AdminGraphs />} />
             <Route path={ "/User/Answer/:id"} element={<AnswerQuestionnaire />} />
             <Route path={ "/User/Answer/:id/:session"} element={<ViewSession />} />
             <Route path={ "/User"} element={<User />} />
+            <Route path={ "/*"} element={<ErrorPage />}/>
           </Routes> 
   
       </>
