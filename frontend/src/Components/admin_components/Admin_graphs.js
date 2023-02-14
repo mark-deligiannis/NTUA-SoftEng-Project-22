@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Pie } from "react-chartjs-2";
 import { useParams, useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import $ from "jquery";
 import "./Admin_graphs.css";
 const host = "localhost";
 const port = 9103;

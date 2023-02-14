@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import './Admin.css'
+import './Admin.css';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const host = "localhost"
-const port = 9103
+const host = "localhost";
+const port = 9103;
 const ResetAll_URL = `http://${host}:${port}/intelliq_api/admin/resetall`;
 const Upload_URL = `http://${host}:${port}/intelliq_api/admin/questionnaire_upd`;
 
