@@ -24,7 +24,7 @@ def do_copy(target):
 
 print(
 f"""This script automates the testing process by moving the test data to the working directory of Postman.
-Postman needs to be already installed in the system.
+Postman needs to already be installed in the system.
 
 Searching for directory {postman_def_dir}..."""
 )

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "768a00ec-4778-4480-ad3d-6147c1c37cf7",
+		"_postman_id": "3686aedc-f3b9-43b2-bee7-554fca84d6a8",
 		"name": "Intelliq_API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25603158"
@@ -42,11 +42,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/healthcheck",
+					"raw": "localhost:9103/intelliq_api/admin/healthcheck",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"healthcheck"
 					]
@@ -94,11 +96,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/healthcheck?format=csv",
+					"raw": "localhost:9103/intelliq_api/admin/healthcheck?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"healthcheck"
 					],
@@ -144,11 +148,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/resetall",
+					"raw": "localhost:9103/intelliq_api/admin/resetall",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"resetall"
 					]
@@ -186,11 +192,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/resetall?format=csv",
+					"raw": "localhost:9103/intelliq_api/admin/resetall?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"resetall"
 					],
@@ -236,11 +244,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/resetq/QQ001",
+					"raw": "localhost:9103/intelliq_api/admin/resetq/QQ001",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"resetq",
 						"QQ001"
@@ -279,11 +289,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/resetq/QQ001?format=csv",
+					"raw": "localhost:9103/intelliq_api/admin/resetq/QQ001?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"resetq",
 						"QQ001"
@@ -327,11 +339,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"raw": "localhost:9103/intelliq_api/admin/questionnaire_upd",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"questionnaire_upd"
 					]
@@ -388,11 +402,13 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "{{base_url}}/fetchkeywords",
+					"raw": "localhost:9103/intelliq_api/fetchkeywords",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"fetchkeywords"
 					]
 				}
@@ -445,11 +461,13 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "{{base_url}}/fetchkeywords?format=csv",
+					"raw": "localhost:9103/intelliq_api/fetchkeywords?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"fetchkeywords"
 					],
 					"query": [
@@ -491,11 +509,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"raw": "localhost:9103/intelliq_api/admin/questionnaire_upd",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"questionnaire_upd"
 					]
@@ -532,11 +552,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"raw": "localhost:9103/intelliq_api/admin/questionnaire_upd",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"questionnaire_upd"
 					]
@@ -573,11 +595,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/admin/questionnaire_upd",
+					"raw": "localhost:9103/intelliq_api/admin/questionnaire_upd",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"admin",
 						"questionnaire_upd"
 					]
@@ -676,11 +700,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/questionnaire/QQ001",
+					"raw": "localhost:9103/intelliq_api/questionnaire/QQ001",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"questionnaire",
 						"QQ001"
 					]
@@ -725,11 +751,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/questionnaire/QQ001?format=csv",
+					"raw": "localhost:9103/intelliq_api/questionnaire/QQ001?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"questionnaire",
 						"QQ001"
 					],
@@ -797,11 +825,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/question/QQ001/Q01",
+					"raw": "localhost:9103/intelliq_api/question/QQ001/Q01",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"question",
 						"QQ001",
 						"Q01"
@@ -840,11 +870,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/question/QQ001/Q01?format=csv",
+					"raw": "localhost:9103/intelliq_api/question/QQ001/Q01?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"question",
 						"QQ001",
 						"Q01"
@@ -878,11 +910,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/doanswer/QQ001/Q01/0000/Q01A1",
+					"raw": "localhost:9103/intelliq_api/doanswer/QQ001/Q01/0000/Q01A1",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"doanswer",
 						"QQ001",
 						"Q01",
@@ -928,11 +962,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/getsessionanswers/QQ001/0000",
+					"raw": "localhost:9103/intelliq_api/getsessionanswers/QQ001/0000",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"getsessionanswers",
 						"QQ001",
 						"0000"
@@ -968,11 +1004,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/getsessionanswers/QQ001/0000?format=csv",
+					"raw": "localhost:9103/intelliq_api/getsessionanswers/QQ001/0000?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"getsessionanswers",
 						"QQ001",
 						"0000"
@@ -1022,11 +1060,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/getquestionanswers/QQ001/Q01",
+					"raw": "localhost:9103/intelliq_api/getquestionanswers/QQ001/Q01",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"getquestionanswers",
 						"QQ001",
 						"Q01"
@@ -1062,11 +1102,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/getquestionanswers/QQ001/Q01?format=csv",
+					"raw": "localhost:9103/intelliq_api/getquestionanswers/QQ001/Q01?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"getquestionanswers",
 						"QQ001",
 						"Q01"
@@ -1131,11 +1173,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/questionnaireanscount/QQ001",
+					"raw": "localhost:9103/intelliq_api/questionnaireanscount/QQ001",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"questionnaireanscount",
 						"QQ001"
 					]
@@ -1190,11 +1234,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/questionnaireanscount/QQ001?format=csv",
+					"raw": "localhost:9103/intelliq_api/questionnaireanscount/QQ001?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"questionnaireanscount",
 						"QQ001"
 					],
@@ -1258,11 +1304,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/fetchquestionnaires",
+					"raw": "localhost:9103/intelliq_api/fetchquestionnaires",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"fetchquestionnaires"
 					]
 				}
@@ -1317,11 +1365,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{base_url}}/fetchquestionnaires?format=csv",
+					"raw": "localhost:9103/intelliq_api/fetchquestionnaires?format=csv",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "9103",
 					"path": [
+						"intelliq_api",
 						"fetchquestionnaires"
 					],
 					"query": [
@@ -1329,6 +1379,240 @@
 							"key": "format",
 							"value": "csv"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionnairedump",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expected_result = {\r",
+							"    \"questionnaireID\": \"QQ001\",\r",
+							"    \"questionnaireTitle\": \"Προτίμηση μαθημάτων\",\r",
+							"    \"keywords\": [\r",
+							"        \"Courses\",\r",
+							"        \"NTUA\",\r",
+							"        \"ΕΜΠ\",\r",
+							"        \"Μαθήματα\"\r",
+							"    ],\r",
+							"    \"questions\": [\r",
+							"        {\r",
+							"            \"qID\": \"P00\",\r",
+							"            \"qtext\": \"Ποιο είναι το mail σας;\",\r",
+							"            \"required\": \"FALSE\",\r",
+							"            \"type\": \"profile\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"P00TXT\",\r",
+							"                    \"opttxt\": \"<open string>\",\r",
+							"                    \"nextqID\": \"P01\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"P01\",\r",
+							"            \"qtext\": \"Ποια είναι η ηλικία σας;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"profile\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"P01A1\",\r",
+							"                    \"opttxt\": \"<30\",\r",
+							"                    \"nextqID\": \"Q01\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"P01A2\",\r",
+							"                    \"opttxt\": \">=30\",\r",
+							"                    \"nextqID\": \"Q01\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q01\",\r",
+							"            \"qtext\": \"Ποια κατεύθυνση επιλέξατε;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q01A1\",\r",
+							"                    \"opttxt\": \"Πληροφορική\",\r",
+							"                    \"nextqID\": \"Q02\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q01A2\",\r",
+							"                    \"opttxt\": \"Ηλεκτρονική\",\r",
+							"                    \"nextqID\": \"Q07\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q01A3\",\r",
+							"                    \"opttxt\": \"Τηλεπικοινωνίες\",\r",
+							"                    \"nextqID\": \"Q04\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q01A4\",\r",
+							"                    \"opttxt\": \"Ενέργεια\",\r",
+							"                    \"nextqID\": \"Q04\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q02\",\r",
+							"            \"qtext\": \"Ποιο είναι το αγαπημένο σας μάθημα στην κατεύθυνση Λ;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q02A1\",\r",
+							"                    \"opttxt\": \"Αλγόριθμοι & Πολυπλοκότητα, θα πάρω και τα προχωρημένα\",\r",
+							"                    \"nextqID\": \"Q06\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q02A2\",\r",
+							"                    \"opttxt\": \"Τεχνολογία Λογισμικού\",\r",
+							"                    \"nextqID\": \"Q03\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q03\",\r",
+							"            \"qtext\": \"Θα σας ενδιέφερε να μάθετε περισσότερα για software development;\",\r",
+							"            \"required\": \"FALSE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q03A1\",\r",
+							"                    \"opttxt\": \"Ναι\",\r",
+							"                    \"nextqID\": \"Q05\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q03A2\",\r",
+							"                    \"opttxt\": \"Όχι\",\r",
+							"                    \"nextqID\": \"Q05\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q04\",\r",
+							"            \"qtext\": \"Αναγνωρίζετε όμως ότι η κατεύθυνση πληροφορικής είναι ανώτερη;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q04A1\",\r",
+							"                    \"opttxt\": \"Ναι\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q04A2\",\r",
+							"                    \"opttxt\": \"Ναι\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q05\",\r",
+							"            \"qtext\": \"Θα επιλέξετε την προχωρημένη ΤΛ στο επόμενο εξάμηνο;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q05A1\",\r",
+							"                    \"opttxt\": \"Ναι\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q05A2\",\r",
+							"                    \"opttxt\": \"Όχι\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q06\",\r",
+							"            \"qtext\": \"Είστε σίγουροι;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q06A1\",\r",
+							"                    \"opttxt\": \"Ναι\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q06A2\",\r",
+							"                    \"opttxt\": \"Όχι\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        {\r",
+							"            \"qID\": \"Q07\",\r",
+							"            \"qtext\": \"Προτιμάτε τη ροή Υ ή Η;\",\r",
+							"            \"required\": \"TRUE\",\r",
+							"            \"type\": \"question\",\r",
+							"            \"options\": [\r",
+							"                {\r",
+							"                    \"optID\": \"Q07A1\",\r",
+							"                    \"opttxt\": \"Ροή Υ\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                },\r",
+							"                {\r",
+							"                    \"optID\": \"Q07A2\",\r",
+							"                    \"opttxt\": \"Ροή Η\",\r",
+							"                    \"nextqID\": \"-\"\r",
+							"                }\r",
+							"            ]\r",
+							"        }\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected Result\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data).to.eql(expected_result);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:9103/intelliq_api/questionnairedump/QQ001",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"questionnairedump",
+						"QQ001"
 					]
 				}
 			},
