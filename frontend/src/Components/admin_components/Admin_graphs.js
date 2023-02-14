@@ -17,6 +17,7 @@ const options = {
   height: 100
 };
 
+
 var getPieChartData = (data) => {
 
   const labels = [];
@@ -66,10 +67,10 @@ async function getAnswersToQuestions(questid,qid) {
     });try{
     const data = await res.json();
     if (data) {
-      console.log(6,data)
+      //console.log(6,data)
       var z={};
       data===null ? z[`${qid}`]=[{}]: z[`${qid}`]=data.answers;
-      console.log(6,data)
+      //console.log(6,data)
     return z;}
   }
     catch(error){
@@ -169,7 +170,8 @@ export default function AdminGraphs() {
   const [questionnaire,setQuestionnaire]=useState([])
   const [allAnswers,setAllAnswers]=useState([])
   const [displayAnswers,setDisplayAnswers]=useState([])
-  /*const [graphAns,setGraphAns]=useState([])
+  const [graphAns,setGraphAns]=useState([])
+  const [LetsSeeGraphs,setLetsSeeGraphs]=useState(false)
   const  graphs=(qid)=> {
   
     const data = new Array(allAnswers[qid].length)    // a new array with the size (rows) of reply array of objects size
@@ -195,17 +197,27 @@ export default function AdminGraphs() {
     setDisplayAnswers(temp);
     return;
   }
-*/
+
   useEffect(() => {
     var z=start(params.id);
+    const timeoutId = setTimeout(() => {
+      // Your code here
+    
     setQuestionnaire(z.q);
     setCount(z.c);
     setAllAnswers(z.a);
     setDisplayAnswers(z.d)
     console.log(count,questionnaire,allAnswers,displayAnswers)
+    }, 1000);
+  
+    return () => {
+      clearTimeout(timeoutId);
+    };
+},[])
     
-
-    /*for (let i = 0; i < questionnaire.length; i++) {
+    function handleClick() {
+      if(questionnaire !== null){
+    for (let i = 0; i < questionnaire.length; i++) {
       buttons.push(
         <div className="display-container">
         <button
@@ -228,21 +240,19 @@ export default function AdminGraphs() {
         }
         </div>
         </div>
-      );*/
-     
+      );}
 
-  }, []);
-
-  const handleClick = () => {
-    setCount(count + 1);}
+      setLetsSeeGraphs(true);
+      }
+    }
 
   
   
   
   return (
     <div className="welcome">
-          <p> Total answers: { count } </p>
-          <button onClick={handleClick}>Increment</button>
+          <p>Total Number of replies: { count }</p>
+          {(!LetsSeeGraphs) ? (<button onClick={handleClick}>Let's see Graphs</button>) : (<>{buttons}</>)}
           </div>
   )
     

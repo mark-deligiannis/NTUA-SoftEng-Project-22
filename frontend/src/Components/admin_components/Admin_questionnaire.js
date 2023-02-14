@@ -3,9 +3,74 @@ import { Link } from 'react-router-dom';
 import Select from "react-select";
 const API_URL = "http://localhost:9103/intelliq_api/fetchquestionnaires";
 const KEYS_URL = "http://localhost:9103/intelliq_api/fetchkeywords";
-var id = "QQ001";
 const host = "localhost"
 const port = 9103;
+
+const exportCSV=(id)=> {
+  //const id  = this.state.id;
+  const DownloadCSV_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}?format=csv`;
+
+  fetch(DownloadCSV_URL, {
+    headers: {
+      "Accept-Charset": "utf-8",
+      //"mode": "no-cors",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }})
+  .then(response => {
+    return response.text();
+  })
+  .then(text => {
+    console.log(text);
+    console.log(DownloadCSV_URL);
+    const utf8EncodedCsv = new TextEncoder("UTF-8").encode(text);
+    const blob = new Blob([utf8EncodedCsv], { type: 'text/csv;charset=utf-8;' });
+    //var csv = new Blob([text], { type: 'text/csv;charset=utf-8' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'data.csv';
+    link.click();
+  })
+  .catch(error => {
+    console.error(error);
+  
+  });
+  }
+  
+
+  const exportJSON=(id)=> {
+    //const id = this.state.id;
+    const DownloadJSON_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}`;
+
+    fetch(DownloadJSON_URL, {
+      headers: {
+        "Accept-Charset": "utf-8",
+        //"mode": "no-cors",
+        "Content-Type": "application/x-www-form-urlencoded",
+      }})
+    .then(response => {
+      response.blob().then(blob => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "data.json";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+    })
+    .catch(error => console.error(error));
+    };
+    const handleDeleteAnswers=(id)=> {
+      const ResetAnswers_URL = `http://${host}:${port}/intelliq_api/admin/resetq/${id}`;
+      fetch(ResetAnswers_URL, {
+        method: 'POST',
+       // mode: 'no-cors',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })     
+    }
 
 
 
@@ -22,71 +87,7 @@ function AdminQuestionnaire () {
       }*/
 
 
-      const exportCSV=()=> {
-        //const id  = this.state.id;
-        const DownloadCSV_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}?format=csv`;
       
-        fetch(DownloadCSV_URL, {
-          headers: {
-            "Accept-Charset": "utf-8",
-            //"mode": "no-cors",
-            "Content-Type": "application/x-www-form-urlencoded",
-          }})
-        .then(response => {
-          return response.text();
-        })
-        .then(text => {
-          console.log(text);
-          console.log(DownloadCSV_URL);
-          const utf8EncodedCsv = new TextEncoder("UTF-8").encode(text);
-          const blob = new Blob([utf8EncodedCsv], { type: 'text/csv;charset=utf-8;' });
-          //var csv = new Blob([text], { type: 'text/csv;charset=utf-8' });
-          var link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
-          link.download = 'data.csv';
-          link.click();
-        })
-        .catch(error => {
-          console.error(error);
-        
-        });
-        }
-        
-      
-        const exportJSON=()=> {
-          //const id = this.state.id;
-          const DownloadJSON_URL = `http://${host}:${port}/intelliq_api/questionnaire/${id}`;
-      
-          fetch(DownloadJSON_URL, {
-            headers: {
-              "Accept-Charset": "utf-8",
-              //"mode": "no-cors",
-              "Content-Type": "application/x-www-form-urlencoded",
-            }})
-          .then(response => {
-            response.blob().then(blob => {
-              let url = window.URL.createObjectURL(blob);
-              let a = document.createElement("a");
-              a.style.display = "none";
-              a.href = url;
-              a.download = "data.json";
-              document.body.appendChild(a);
-              a.click();
-              window.URL.revokeObjectURL(url);
-            });
-          })
-          .catch(error => console.error(error));
-          };
-          const handleDeleteAnswers=()=> {
-            const ResetAnswers_URL = `http://${host}:${port}/intelliq_api/admin/resetq/${id}`;
-            fetch(ResetAnswers_URL, {
-              method: 'POST',
-             // mode: 'no-cors',
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-            })     
-          }
             // Store all keywords contained in the database
     const [keywords, setKeywords] = useState([])
 
@@ -185,6 +186,9 @@ function AdminQuestionnaire () {
                             <tr>
                                 <th><h3><b>Questionnaire ID</b></h3></th>
                                 <th><h3><b>Title</b></h3></th>
+                                <th><h3><b>JSON</b></h3></th>
+                                <th><h3><b>CSV</b></h3></th>
+                                <th><h3><b>Delete all Answers</b></h3></th>
                                 <th><h3><b>Answer Questionnaire</b></h3></th>
                             </tr>
                         </thead>
@@ -194,6 +198,9 @@ function AdminQuestionnaire () {
                                     <tr>
                                         <td><h5>{item[0]}</h5></td>
                                         <td><h5>{item[1]}</h5></td>
+                                        <td><button className="button" onClick={() => exportJSON(item[0])}>Export JSON</button></td>
+                                        <td><button className="button" onClick={() => exportCSV(item[0])}>Export CSV</button></td>
+                                        <td><button className="button" onClick={() => handleDeleteAnswers(item[0])}>Delete all answers</button></td>
                                         <td><Link to={`/Admin/Questionnaires/${item[0]}/Graphs`}> <button className="button" >View Statistics</button></Link></td>
                                     </tr>
                                 );
@@ -227,11 +234,18 @@ function AdminQuestionnaire () {
       
       <div className="container">
       <div className="welcome">
-          <h2> Select Questionnaires </h2>
-          <p> View all available questionnaires or filter by keywords </p>
-          <button className="button" onClick={exportCSV}>Export CSV</button>
-    <button className="button" onClick={exportJSON}>Export JSON</button>
-    <button className="button" onClick={handleDeleteAnswers}>Delete all answers</button>
+        <table>
+          <tbody>
+          <tr>
+            <td><h2> Select Questionnaires </h2></td>
+            <td><Link to={"/Admin"}> <button className="button" >Back</button></Link></td>
+          </tr>
+          <tr>
+            <td><p> View all available questionnaires or filter by keywords </p></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
       <div className="app">
           <h2>Choose keywords</h2>
           <div className="dropdown-container">
