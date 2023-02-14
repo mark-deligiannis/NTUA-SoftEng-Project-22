@@ -5,6 +5,11 @@ const json_format_ok = require('../helpers/json_format_ok.js');
 
 // Route and handler for INSERTION OF QUESTIONNAIRE
 async function admin_questionnaire_upd_handler(req, res) {
+  // Check if file exists
+  if (!req.file) {
+    return res.status(400).send();
+  }
+
   // Fetch the questionnaire (JSON)
   const quest = JSON.parse(req.file.buffer.toString());
 

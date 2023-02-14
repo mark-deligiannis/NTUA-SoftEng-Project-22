@@ -98,11 +98,13 @@ function AnswerQuestionnaire() {
 
 
   // CREATE SESSION ANSWER
-  const createSessionAnswer = () => {
+  async function createSessionAnswer() {
     console.log(answer)
     console.log(session)
     
-    for (var i = 1; i < answer.length; i++ ) {
+    var i = 1
+    var flag = 1
+    for (i = 1; i < answer.length; i++ ) {
       var ans = answer[i]
       console.log(ans)
       const requestOptions = {
@@ -112,12 +114,16 @@ function AnswerQuestionnaire() {
         body: 'answer='+ ans.ansTXT
       }
 
-      fetch(ANSWER_URL + params.id + '/' + ans.qID + '/' + session + '/' + ans.optID, requestOptions)
+      await fetch(ANSWER_URL + params.id + '/' + ans.qID + '/' + session + '/' + ans.optID, requestOptions)
+        .then(res => {console.log("success",res);flag++})
         .catch(error => {console.error("Error",error);});
     }
-
-    let path = session;
-    navigate(path);
+    console.log(flag)
+    if (flag===answer.length){ 
+      console.log(i)
+      let path = session;
+      navigate(path);
+    }
   }
   
 
