@@ -40,9 +40,14 @@ var getPieChartData = (data) => {
         helpData[i] = data[key];
         i++;
   }}
-
+  let sum = 0;
+  for (i=0; i<helpData.length; i++){
+    sum = sum + helpData[i];
+  }
+  let customeLabels = labels.map((label,index) =>`${label}: ${(100*helpData[index]/sum).toFixed(2)}%`)
+  
   return {
-    labels: labels,
+    labels: customeLabels,
     datasets: [
       {
         data: helpData,
