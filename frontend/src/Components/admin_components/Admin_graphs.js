@@ -6,8 +6,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import "./Admin_graphs.css";
 const host = "localhost";
 const port = 9103;
-var id = 'QQ001';
-const buttons = [];
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const options = {
@@ -19,13 +17,15 @@ const options = {
 
 
 var getPieChartData = (data) => {
-
   const labels = [];
     const helpData = [];
-    { for (var i=0; i<data.length; i++) {
-        labels[i] = data[i][0];
-        helpData[i] = data[i][1];
+    let i = 0;
+    { for (let key in data) {
+        labels[i] = key;
+        helpData[i] = data[key];
+        i++;
   }}
+  console.log('gay',labels, helpData)
   return {
     labels: labels,
     datasets: [
@@ -151,36 +151,38 @@ export default function AdminGraphs() {
   const params = useParams()
   const [count,setCount]=useState(0)
   const [questionnaire,setQuestionnaire]=useState([])
-  const [allAnswers,setAllAnswers]=useState([])
+  const [allAnswers,setAllAnswers]=useState({})
   const [displayAnswers,setDisplayAnswers]=useState([])
-  const [graphAns,setGraphAns]=useState([])
   const [LetsSeeGraphs,setLetsSeeGraphs]=useState(false)
   const [loading,setLoading]=useState(true)
+  const [buttons,setButtons] =useState([]);
   const  graphs=(qid)=> {
-  if(true || (allAnswers[0][qid][0] === [-1])){
+    console.log('1', allAnswers)
+    console.log(2, qid)
+  if((allAnswers[qid][0] === [-1])){
     return <h1>Nothing to show</h1>
   }
-    const data = new Array(allAnswers[0][qid][0].length)    // a new array with the size (rows) of reply array of objects size
-    for (var i=0; i<allAnswers[0][qid][0].length; i++) data[i] = new Array(2);  // columns of it
-    for (i=0; i<allAnswers[0][qid][0].length; i++) {
-      data[i][0] = allAnswers[0][qid][0][i].ans;
-      data[i][1] = allAnswers[0][qid][0][i].session;
+    const data = new Array(allAnswers[qid].length)    // a new array with the size (rows) of reply array of objects size
+    for (var i=0; i<allAnswers[qid].length; i++) data[i] = new Array(2);  // columns of it
+    for (i=0; i<allAnswers[qid].length; i++) {
+      data[i][0] = allAnswers[qid][i].ans;
+      data[i][1] = allAnswers[qid][i].session;
     }
+
     var graphAns1 = {};
   data.forEach((item) => {
     graphAns1[item[0]] = (graphAns1[item[0]] || 0) + 1;
   });
-  
-   setGraphAns( Object.entries(graphAns1));
 
-   return (<></>
-    /*<div id="table-responsive">
+   return (
+   
+    <div id="table-responsive">
       
-      {graphAns && (
+      {(
       <div>
-        {<Pie data={getPieChartData(graphAns)} options={options} />}
+        {<Pie data={getPieChartData(graphAns1)} options={options} />}
       </div>)}
-    </div>*/
+    </div>
   );
 }
   
@@ -188,18 +190,13 @@ export default function AdminGraphs() {
   
   
    function toggleDisplayAnswers(i){
-    var temp=displayAnswers
-    temp[i]=!displayAnswers[i]
+    var temp=[...displayAnswers];
+    (displayAnswers[i]===true)?(temp[i]=false):(temp[i]=true);
     setDisplayAnswers(temp);
-    console.log(displayAnswers)
+    console.log(displayAnswers);
     return;
   }
   
-  //useEffect(() => {
-   // var z=start(params.id);
-    
-    
-    
   useEffect(() => {
     setLoading(true);
     const timeout = setTimeout(() =>{
@@ -211,7 +208,12 @@ export default function AdminGraphs() {
       return getAllAnswers(quest,questionnaire)
     })
     .then((response2) =>{
-      allAnswers = response2;
+      const result_dict = {};
+      for (let d in response2){
+        for (let key in response2[d]){
+          result_dict[key] = response2[d][key]
+      }}
+      allAnswers = result_dict;
       return getpcount(quest)
     })
     .then((response3) => {
@@ -236,6 +238,39 @@ export default function AdminGraphs() {
     },1000)
   }, []);
 
+  useEffect(() =>{
+    const help = [];
+    for (let i = 0; i < 9; i++) {
+      help.push(
+        <div className="display-container">
+          <button
+            key={i}
+            className="button"
+            onClick={() => {
+
+            toggleDisplayAnswers(i);
+            
+            }}
+          >
+          Question {i+1}
+          </button>
+          <div className="pie-container">
+          {
+          displayAnswers[i] && (
+            
+              <div key={i+1}>
+                <p>qrite sdfsfgsg</p>
+                {graphs(`Q0${i+1}`)}  
+          </div>
+            )
+          }
+          </div>
+        </div>
+      );}
+      setButtons(help);
+      console.log(buttons)
+  },[displayAnswers])
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -243,37 +278,39 @@ export default function AdminGraphs() {
     
     function handleClick() {
       
-      if(questionnaire !== null){
+      /*if(questionnaire !== null){
+        const help = [];
     for (let i = 0; i < 1; i++) {
-      buttons.push(
+      help.push(
         <div className="display-container">
           <button
             key={i}
             className="button"
             onClick={() => {
-              
+
             toggleDisplayAnswers(i);
             
             }}
           >
           Question {i+1}
           </button>
-          <div className="pie-container">{console.log(displayAnswers)}
+          <div className="pie-container">
           {
           displayAnswers[i] && (
-            <p>dummy</p>, console.log(displayAnswers),
-              {/*<div key={i+1}>
-                {graphs(`Q0${i+1}`)}  
-          </div>*/}
+            
+              <div key={i+1}>
+                <p>qrite sdfsfgsg</p>
+                {graphs(`Q0${i}`)}  
+          </div>
             )
           }
           </div>
         </div>
       );}
-
-      setLetsSeeGraphs(true);
-      }
-    }
+        setButtons(help);
+      
+      }*/
+   setLetsSeeGraphs(true); }
 
   
   
