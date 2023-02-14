@@ -51,16 +51,20 @@ function Admin()  {
 
     return (
       <div>
-      <form method="post" encType="multipart/form-data" onSubmit={onFileUpload} >
-        <label htmlFor="file-input">
-          <span className="custom-file-upload">{fileName}</span>
+      <center><form method="post" encType="multipart/form-data" onSubmit={onFileUpload} >
+        <table>
+          <tr>
+        <td><label htmlFor="file-input">
+          <span className="button custom-file-upload">{fileName}</span>
         </label>
-        <input type="file" id="file-input" onChange={onFileChange} style={{ display: "none" }} />
-        <button className="submit" type="submit">Upload</button>
-      </form>
-      <button className="delete" onClick={handleDelete}>Delete All</button>
+        <input type="file" id="file-input" onChange={onFileChange} style={{ display: "none" }} /></td>
+        <td><center><button className="button" type="submit">Upload</button></center></td>
+        </tr>
+        </table>
+      </form></center>
+      <center><button className="button redColor" onClick={handleDelete}>Delete All</button></center>
       <br/>
-      <Link to={`/Admin/Questionnaires`}> <button className="nextPage" >Questionnaires</button></Link>
+      <center><Link to={`/Admin/Questionnaires`}> <button className="button blueColor" >Questionnaires</button></Link></center>
     </div>
     );
   

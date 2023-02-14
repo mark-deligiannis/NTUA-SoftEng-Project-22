@@ -1,0 +1,47 @@
+h3{
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+}
+
+td.admintd {
+    text-align: left;
+  }
+
+div.top{
+    background-color: rgba(144, 238, 144, 0.479);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    
+}
+table{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.redColor{
+    background-color: rgb(121, 9, 9);;
+}
+
+.redColor:hover {
+    background-color: red;
+    cursor: pointer;
+  }
+  .redColor:active {
+    background-color: rgba(255, 0, 0, 0.523);
+    transform: translate(-50%, -50%);
+  }
+
+  .blueColor{
+    background-color: darkblue;
+}
+
+.blueColor:hover {
+    background-color: rgb(64, 64, 230);
+    cursor: pointer;
+  }
+  .blueColor:active {
+    background-color: rgba(64, 64, 230, 0.552);
+    transform: translate(-50%, -50%);
+  }

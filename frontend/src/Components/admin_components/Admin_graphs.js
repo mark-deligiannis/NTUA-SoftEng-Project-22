@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Pie } from "react-chartjs-2";
 import { useParams, useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import $ from "jquery";
 import "./Admin_graphs.css";
 const host = "localhost";
 const port = 9103;
@@ -11,8 +12,23 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const options = {
   maintainAspectRatio: false,
   responsive: true,
-  width: 100,
-  height: 100
+  width: 550,
+  height: 550,
+  textColor: '#000000',
+  plugins: {
+    legend: {
+      labels: {
+        color: '#000000',
+        boxWidth: 15,
+        padding: 10,
+        fontStyle: 'bold',
+        useBorderRadius: true,
+        borderRadius: '20px',
+        usePointStyle: true
+      }
+    }
+  }
+
 };
 
 
@@ -25,7 +41,7 @@ var getPieChartData = (data) => {
         helpData[i] = data[key];
         i++;
   }}
-  console.log('gay',labels, helpData)
+
   return {
     labels: labels,
     datasets: [
@@ -67,10 +83,8 @@ async function getAnswersToQuestions(questid,qid) {
     });try{
     const data = await res.json();
     if (data) {
-      //console.log(6,data)
       var z={};
       data===null ? z[`${qid}`]=[{}]: z[`${qid}`]=data.answers;
-      //console.log(6,data)
     return z;}
   }
     catch(error){
@@ -111,7 +125,6 @@ async function getcount(quest) {
     });
     const data = await res.json();
     if (data) {
-      console.log(data)
       return data.Number;
     }
   } catch (error) {
@@ -156,16 +169,25 @@ export default function AdminGraphs() {
   const [LetsSeeGraphs,setLetsSeeGraphs]=useState(false)
   const [loading,setLoading]=useState(true)
   const [buttons,setButtons] =useState([]);
-  const  graphs=(qid)=> {
-    console.log('1', allAnswers)
-    console.log(2, qid)
-  if((allAnswers[qid][0] === [-1])){
-    return <h1>Nothing to show</h1>
+  const [tallestButtonHeight, setTallestButtonHeight] = useState(0);
+  const  graphs=(qid,opts)=> {
+  if(allAnswers[qid][0] === -1){
+    return <center><h1>Nothing to show</h1></center>
   }
+  else if(opts[0].opttxt==="<open string>"){
+    return <center><h1>Not a multiple choice question</h1></center>
+
+  } 
+    var optdict={}
+    opts.forEach(entry => {
+      optdict[entry.optID] = entry.opttxt;
+  })
+
+    
     const data = new Array(allAnswers[qid].length)    // a new array with the size (rows) of reply array of objects size
     for (var i=0; i<allAnswers[qid].length; i++) data[i] = new Array(2);  // columns of it
     for (i=0; i<allAnswers[qid].length; i++) {
-      data[i][0] = allAnswers[qid][i].ans;
+      data[i][0] = optdict[allAnswers[qid][i].ans];
       data[i][1] = allAnswers[qid][i].session;
     }
 
@@ -193,7 +215,6 @@ export default function AdminGraphs() {
     var temp=[...displayAnswers];
     (displayAnswers[i]===true)?(temp[i]=false):(temp[i]=true);
     setDisplayAnswers(temp);
-    console.log(displayAnswers);
     return;
   }
   
@@ -205,6 +226,7 @@ export default function AdminGraphs() {
     //setError(null);
     getQuestions(quest).then((response1) =>{
       questionnaire = response1;
+      console.log(response1)
       return getAllAnswers(quest,questionnaire)
     })
     .then((response2) =>{
@@ -221,105 +243,88 @@ export default function AdminGraphs() {
       return initialiseDisplayAnswers(questionnaire[0].length);
     })
     .then((response4) =>{
-      console.log('donedonedone', questionnaire, allAnswers, count, response4)
+
       return {c:count,q:questionnaire,a:allAnswers,d:response4};
     }).then(data => {
-        console.log(data)
         setCount(data.c[0]);
         setQuestionnaire(data.q);
         setAllAnswers(data.a);
         setDisplayAnswers(data.d);
         setLoading(false);
+        
       })
       .catch(error => {
         //setError(error);
         setLoading(false);
       });
-    },1000)
+    },0)
   }, []);
 
-  useEffect(() =>{
-    const help = [];
-    for (let i = 0; i < 9; i++) {
-      help.push(
-        <div className="display-container">
-          <button
-            key={i}
-            className="button"
-            onClick={() => {
-
-            toggleDisplayAnswers(i);
-            
-            }}
-          >
-          Question {i+1}
-          </button>
-          <div className="pie-container">
-          {
-          displayAnswers[i] && (
-            
-              <div key={i+1}>
-                <p>qrite sdfsfgsg</p>
-                {graphs(`Q0${i+1}`)}  
+  useEffect(() => {
+    if (loading !== true) {
+      const help = [];
+      for (let i = 0; i < questionnaire[0].length; i++) {
+        help.push(
+          <div className="col-md-4 helpContainer">
+            <div className="text-center helpCenter">
+              <div className="iWantToDie">
+                <button
+                  key={i}
+                  className="button"
+                  onClick={() => {
+                    toggleDisplayAnswers(i);
+                  }}
+                >
+                  {questionnaire[0][i].qtext}
+                </button>
+              </div>
+              <div className="pie-container"></div>
+              {displayAnswers[i] && (
+                <div key={i + 1} className="chart-container">
+                  {graphs(
+                    questionnaire[0][i].qID,
+                    questionnaire[0][i].options
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-            )
-          }
-          </div>
-        </div>
-      );}
+        );
+      }
       setButtons(help);
-      console.log(buttons)
-  },[displayAnswers])
+    }
+  }, [displayAnswers, loading]);
 
   if (loading) {
     return <h1>Loading...</h1>;
   }
   
-    
-    function handleClick() {
-      
-      /*if(questionnaire !== null){
-        const help = [];
-    for (let i = 0; i < 1; i++) {
-      help.push(
-        <div className="display-container">
-          <button
-            key={i}
-            className="button"
-            onClick={() => {
+  /*$(document).ready(function() {
+    // Get the tallest button height
+    var tallestButtonHeight = 0;
+    $(".redColor, .blueColor").each(function() {
+      var buttonHeight = $(this).outerHeight();
+      if (buttonHeight > tallestButtonHeight) {
+        tallestButtonHeight = buttonHeight;
+      }
+    });
+  
+    // Set the same height for all the divs containing the buttons
+    $(".buttons > div").css("min-height", tallestButtonHeight + "px");
+  });*/
 
-            toggleDisplayAnswers(i);
-            
-            }}
-          >
-          Question {i+1}
-          </button>
-          <div className="pie-container">
-          {
-          displayAnswers[i] && (
-            
-              <div key={i+1}>
-                <p>qrite sdfsfgsg</p>
-                {graphs(`Q0${i}`)}  
-          </div>
-            )
-          }
-          </div>
-        </div>
-      );}
-        setButtons(help);
-      
-      }*/
-   setLetsSeeGraphs(true); }
-
-  
-  
-  
   return (
     <div className="welcome">
-          <p>Total Number of replies: { count }</p>
-          {(!LetsSeeGraphs) ? (<button onClick={handleClick}>Let's see Graphs</button>) : (<>{buttons}</>)}
+          <center>
+            <h2><b>Total Number of replies:</b> { count }</h2> 
+            <Link to={`/Admin/Questionnaires`}> <button className="button" >Change Questionnaire</button></Link>
+          </center>
+          <div className="container">
+            <div className="row">
+              {buttons}
+            </div>
           </div>
+    </div>
   )
     
 
