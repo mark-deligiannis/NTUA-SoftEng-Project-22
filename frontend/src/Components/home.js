@@ -12,7 +12,7 @@ export default class Home extends React.Component {
     
     render() {
     return (
-      <div>
+      <center>
       <h1>IntelliQ</h1>
       
       <h2>Our questions, your answers</h2>
@@ -21,8 +21,7 @@ export default class Home extends React.Component {
         <Link to={"/Admin"}> <button className="button" >Administrator</button></Link>
         <Link to={"/User"}><button className="button" >User</button> </Link>
       </div>
-      <p>Welcome Home</p>
-      </div>
+      </center>
   );
 }
 }

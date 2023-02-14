@@ -170,7 +170,7 @@ function AnswerQuestionnaire() {
 
 
   return (
-  <div>
+  <center>
     <h2> {qTitle} </h2>
     <div className="quiz-container">
       {qFinish !== 'TRUE' ? (
@@ -210,7 +210,7 @@ function AnswerQuestionnaire() {
       </div>
     )}    
   </div>
-  </div>
+  </center>
 
   )
 }
