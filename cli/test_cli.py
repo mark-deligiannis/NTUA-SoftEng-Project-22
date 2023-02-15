@@ -69,7 +69,9 @@ print("================== Valid Commands ==================")
 no = 1
 for cmd in correct_commands:
     for form in ['json','csv']:
-        test_command(prefix + cmd + ['--format', form],False,form=='csv',no)
+        command = prefix + cmd + ['--format', form]
+        print(Fore.CYAN + "Testing command: " + ' '.join(command) + Style.RESET_ALL)
+        test_command(command,False,form=='csv',no)
         no += 1
 
 # Wrong parts in comments
@@ -89,9 +91,16 @@ incorrect_commands = [['healthcheck', 'totallyvalidflag'], # stray argument
 print("================== Invalid Commands ==================")
 for cmd in incorrect_commands:
     for form in ['json','csv']:
-        test_command(prefix + cmd + ['--format', form],True,form=='csv',no)
+        command = prefix + cmd + ['--format', form]
+        print(Fore.CYAN + "Testing command: " + ' '.join(command) + Style.RESET_ALL)
+        test_command(command,True,form=='csv',no)
         no += 1
+
+print(Fore.CYAN + "Testing command: " + ' '.join(prefix) + Style.RESET_ALL)
 test_command(prefix,True,True,no)
 no += 1
-test_command(prefix+['doanswer', '--questionnaire_id', 'QQ001', '--question_id', 'Q01', '--session_id', '0000', '--option_id', 'Q01A1'], True, False, no)
+
+command = prefix+['doanswer', '--questionnaire_id', 'QQ001', '--question_id', 'Q01', '--session_id', '0000', '--option_id', 'Q01A1']
+print(Fore.CYAN + "Testing command: " + ' '.join(command) + Style.RESET_ALL)
+test_command(command, True, False, no)
 no += 1
