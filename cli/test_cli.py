@@ -1,6 +1,9 @@
 import subprocess
-from colorama import Fore,Style
+from colorama import Fore,Style,init
 import json
+
+# Initialize colorama library (necessary to work with cmd, powershell, bash etc.)
+init()
 
 def test_command(cmd, isbad, iscsv, number):
     # First check: Return code
