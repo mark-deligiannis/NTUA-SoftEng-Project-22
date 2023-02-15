@@ -233,6 +233,9 @@ export default function AdminGraphs() {
     getQuestions(quest).then((response1) =>{
       questionnaire = response1;
       console.log(response1)
+      
+
+          
       return getAllAnswers(quest,questionnaire)
     })
     .then((response2) =>{
@@ -269,6 +272,27 @@ export default function AdminGraphs() {
   useEffect(() => {
     if (loading !== true) {
       const help = [];
+      for (let i = 0; i < questionnaire[0].length; i++){
+        const regex = /\[\*.*?]/g;
+        //console.log(regex)
+        var y=questionnaire
+        var x = questionnaire[0][i].qtext.replace(regex, (match) => {
+          if(match===null) {return match;}
+          else if(questionnaire[0].some(q => q.qID === match.slice(2,-1))) {
+            var questtar=(questionnaire[0].find(q => q.qID === match.slice(2,-1))).qtext;
+            return( `"${questtar}" `) ;
+          }
+            
+          else{ 
+            let que= questionnaire[0].find(q => q.options.some(o => o.optID ===match.slice(2,-1) ));
+            var optxtar=que.options.find(item => item.optID ===match.slice(2,-1) ).opttxt
+            return `"${optxtar}" `;
+             }
+          });
+          y[0][i].qtext=x;
+          setQuestionnaire(y)
+
+      }  
       for (let i = 0; i < questionnaire[0].length; i++) {
         help.push(
           <div className="col-md-4 helpContainer">
