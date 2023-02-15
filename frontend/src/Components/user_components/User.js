@@ -129,11 +129,22 @@ function User() {
         
         return (
                 <div className="container">
-                    <div className="welcome">
-                        <h2> Select Questionnaires </h2>
-                        <p> View all available questionnaires or filter by keywords </p>
+                    <div className="top">
+                    <center>
+                        <table>
+                            <tbody>
+                            <tr>
+                            <td className="admintd"><h2> Select Questionnaires </h2></td>
+                            <td><Link to={"/"}> <button className="button" >Homepage</button></Link></td>
+                            </tr>
+                            <tr>
+                            <td colSpan="2" className="admintd"><h3> View all available questionnaires or filter by keywords </h3></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </center>
                     <div className="app">
-                        <h2>Choose keywords</h2>
+                        <center><h2>Choose keywords</h2></center>
                         <div className="dropdown-container">
                             <Select
                                 options={keywords.map(item => ({value: item, label: item}))}
@@ -147,7 +158,7 @@ function User() {
                     </div>
                     </div>
                     <header className="jumbotron" id="questionnaires">
-                        {questionnaires === null ? "Hello" : table()}
+                        {table()}
                     </header>
                 </div>
         )
