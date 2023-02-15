@@ -16,7 +16,7 @@ Members: el19007, el19017, el19023, el19044, el19050, el19196
 
 **This project was a collaborative effort of a team of 6 members. Those members are:**
 
-| Name
+| ΑΜ      -         Name
 | ----- 
 | el19007 - Gerasimos Mountakis
 | el19017 - Theodoros Papadopoulos
