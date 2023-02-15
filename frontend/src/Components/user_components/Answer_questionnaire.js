@@ -6,7 +6,7 @@ const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
 
 
-// GAMW THN PSYXH MOY!!!! DO SAME 
+
 
 function AnswerQuestionnaire() {
   const [state, setState] = useState({
