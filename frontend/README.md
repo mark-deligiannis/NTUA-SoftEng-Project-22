@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# Technologies used
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/bootstrap-v4.6+-green.svg)
+![React](https://img.shields.io/badge/react-v18.2.0-blue.svg)
+![Mysql.connector](https://img.shields.io/badge/react--dom-v18.2.0-red.svg)
 
-## Available Scripts
+It was also made with React Router Dom version 6.8.1.
 
-In the project directory, you can run:
+# How to use
 
-### `npm start`
+First, you need to be in the frontend folder and run `npm install` to run all the needed modules of the frontend. Then, you need to run `npm start` to start your frontend application. The application will be hosted on localhost at the port 3000. You can view it through the browser of your choise.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before running anything on the browser, make sure that your Apache and MySQL from XAMPP will be running, that you have created the database needed from the API and that you have a running API on port 9103 (in the backend folder with path `../backend` from this folder. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The page will reload when you make changes. You may also see any lint errors in the console.
 
-### `npm test`
+## While using the Intelliq App, you may be a User or an Admin. 
+* As a User, you may fill any of the available questionnaires that admins have provided. 
+  * You can find the one you wish to fill with the help of a search bar through the keywords that you want. 
+  * Then, when you have submited the questionnaire, you will see a preview of your answers and you may fill then any other questionnaire you like.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* As an Admin, you have many choices regarding the data that exist in the database. 
+  * In the first page you can delete all questionnaires, upload a new questionnaire with a JSON file that has the proper format or move to the next page to choose a questionnaire. 
+  * In the second page, you can export any questionnaire you like, delete all answers from one questionnaire or go to the next page that shows graphs and statistics based on the answers of the questions for selected questionnaire. You can also search the questionnaires with keywrods.
+  * In the third and last page, you can view how many Users replied to said questionnaire, how many replied to each question, a graphical dipiction of the replies to each question in the form of a pie chart, as well as the percentages and numbers of people that selected each answer.
