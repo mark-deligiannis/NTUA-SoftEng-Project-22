@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "3686aedc-f3b9-43b2-bee7-554fca84d6a8",
 		"name": "Intelliq_API",
+		"description": "#### This API provides backend services for the management of smart questionnaires. It may be used by frontend servers or CLIs to abstract away interactions with the database and keep the code modular, scalable and maintainable.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25603158"
 	},
@@ -52,7 +53,8 @@
 						"admin",
 						"healthcheck"
 					]
-				}
+				},
+				"description": "## Description\n\nRuns a health check of the database.\n\n## returns\n\nOn success:\n\n``` json\n{\n    \"status\": \"OK\",\n    \"dbconnection\": //connection string//\n}\n\n```\n\nOn failure:\n\n``` json\n{\n    \"status\": \"failed\",\n    \"dbconnection\": //connection string//\n}\n\n```"
 			},
 			"response": []
 		},
@@ -112,7 +114,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nRuns a health check of the database.\n\n## returns\n\nOn success:\n\n\"status\",\"dbconnection\"\n\n\"OK\",\"mariadb://root:@localhost:3306/intelliQ\"\n\nOn failure:\n\n\"status\",\"dbconnection\"\n\n\"failed\", //connection string//"
 			},
 			"response": []
 		},
@@ -158,7 +161,8 @@
 						"admin",
 						"resetall"
 					]
-				}
+				},
+				"description": "## Description\n\nReset the entire database.\n\n## returns\n\nOn success:\n\n``` json\n{ \"status\": \"OK\" }\n\n```\n\nOn failure:\n\n``` json\n{ \"status\": \"failed\", \"reason\": //error message// }\n\n```"
 			},
 			"response": []
 		},
@@ -208,7 +212,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReset the entire database.\n\n## returns\n\nOn success:\n\n\"status\"\n\n\"OK\"\n\nOn failure:\n\n\"status\",\"reason\"\n\n\"OK\",//error message//"
 			},
 			"response": []
 		},
@@ -255,7 +260,8 @@
 						"resetq",
 						"QQ001"
 					]
-				}
+				},
+				"description": "## Description\n\nDeletes all answers to the specified questionnaire.\n\n## returns\n\nOn success:\n\n``` json\n{ \"status\": \"OK\" }\n\n```\n\nOn failure:\n\n``` json\n{ \"status\": \"failed\", \"reason\": //error message// }\n\n```"
 			},
 			"response": []
 		},
@@ -306,7 +312,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nDeletes all answers to the specified questionnaire.\n\n## returns\n\nOn success:\n\n\"status\"\n\n\"OK\"\n\nOn failure:\n\n\"status\",\"reason\"\n\n\"OK\",//error message//"
 			},
 			"response": []
 		},
@@ -349,7 +356,8 @@
 						"admin",
 						"questionnaire_upd"
 					]
-				}
+				},
+				"description": "## Description\n\nInserts questionnaire to database.\n\n## returns\n\nNone"
 			},
 			"response": []
 		},
@@ -411,7 +419,8 @@
 						"intelliq_api",
 						"fetchkeywords"
 					]
-				}
+				},
+				"description": "## Description\n\nFetches every keyword registered to the database.\n\n## returns\n\nOn success:\n\n``` json\n{ \"Keywords\": //Array of keywords// }\n\n```\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -476,7 +485,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nFetches every keyword registered to the database.\n\n## returns\n\nOn success:\n\n\"Keywords\"\n\n//keywords//\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -519,7 +529,8 @@
 						"admin",
 						"questionnaire_upd"
 					]
-				}
+				},
+				"description": "## Description\n\nInserts questionnaire to database.\n\n## returns\n\nNone"
 			},
 			"response": []
 		},
@@ -562,7 +573,8 @@
 						"admin",
 						"questionnaire_upd"
 					]
-				}
+				},
+				"description": "## Description\n\nInserts questionnaire to database.\n\n## returns\n\nNone"
 			},
 			"response": []
 		},
@@ -605,7 +617,8 @@
 						"admin",
 						"questionnaire_upd"
 					]
-				}
+				},
+				"description": "## Description\n\nInserts questionnaire to database.\n\n## returns\n\nNone"
 			},
 			"response": []
 		},
@@ -710,7 +723,8 @@
 						"questionnaire",
 						"QQ001"
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the specified questionnaire along with its questions.\n\n## returns\n\nOn success:\n\n``` json\n{\n    \"questionnaireID\": //ID of questionnaire//,\n    \"questionnaireTitle\": //Title of questionnaire//,\n    \"keywords\": //Array of keywords of questionnaire//,\n    \"questions\": [\n     //Array of the questionnaire's questions in the form\n         {\n             \"qID\": //ID of question//,\n             \"qtext\": //The text of the question//,\n             \"required\": //True iff the question is required//,\n             \"type\": //The type (profile or question) of the question//,\n         }\n         //\n     ]\n}\n\n```\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -767,7 +781,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the specified questionnaire along with its questions.\n\n## returns\n\nOn success:\n\nStartFragment\n\n\"questionnaireID\",\"questionnaireTitle\",\"keywords\",\"qID\",\"qtext\",\"required\",\"type\"\n\n//ID of questionnaire//,//Questionnaire Title//,//keywords//,//ID of question//,//The text of the question//,//True iff the question is required//,//The type (profile or question) of the question//\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -836,7 +851,8 @@
 						"QQ001",
 						"Q01"
 					]
-				}
+				},
+				"description": "## Description\n\nReturns all elements of a given question to a given questionnaire.\n\n## returns\n\n``` json\n{\n    \"questionnaireID\": //ID of questionnaire//,\n    \"qID\": //ID of question//,\n    \"qtext\": //The text of the question//,\n    \"required\": //True iff the question is required//,\n    \"type\": //The type (profile or question) of the question//,\n    \"options\": [\n    //Array of the question's options in the form\n        {\n            \"optID\": //ID of option//,\n                \"opttxt\": //The text of the option//,\n                \"nextqID\": //ID of the next question after choosing this option//\n        }\n    //\n    ]\n}\n\n```"
 			},
 			"response": []
 		},
@@ -887,7 +903,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReturns all elements of a given question to a given questionnaire.\n\n## returns\n\n\"questionnaireID\",\"qID\",\"qtext\",\"required\",\"type\",\"optID\",\"opttxt\",\"nextqID\"\n\n//ID of questionnaire//,//ID of question//,//The text of the question//,//True iff the question is required//,//The type (profile or question) of the question//,//IDs of options//,//The texts of the options//,//IDs of the next question after choosing this option//"
 			},
 			"response": []
 		},
@@ -923,7 +940,8 @@
 						"0000",
 						"Q01A1"
 					]
-				}
+				},
+				"description": "## Description\n\nSubmits an answer to given question of a given questionnaire with a given session number.\n\nIf the question is open-type a json may be provided in the following format:  \n\n``` json\n{ answer: //The answer// }\n\n```\n\n## returns\n\nNone"
 			},
 			"response": []
 		},
@@ -973,7 +991,8 @@
 						"QQ001",
 						"0000"
 					]
-				}
+				},
+				"description": "## Description\n\nReturns all the answers corresponding to a given session of a given questionnaire.\n\n## returns\n\nOn success:\n\n``` json\n{\n    \"questionnaireID\": //ID of questionnaire//,\n    \"session\": //ID of session//,\n    \"answers\": [\n    // Array of answers to different questions by a submittee in a single session in the form\n        {\n            \"qID\": //ID of question//,\n            \"ans\": //Given answer//\n        }\n    //\n    ]\n}\n\n```\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -1021,7 +1040,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReturns all the answers corresponding to a given session of a given questionnaire.\n\n## returns\n\nOn success:\n\n\"questionnaireID\",\"session\",\"qID\",\"ans\"  \n//ID of questionnaire//,//IDs of session of submission//,//IDs of answered questions//,//Answers//\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -1071,7 +1091,8 @@
 						"QQ001",
 						"Q01"
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the answers to a given question of a given questionnaire.\n\n## returns\n\nOn success:\n\n``` json\n{\n    \"questionnaireID\": //ID of questionnaire//,\n    \"questionID\": //ID of question//,\n    \"answers\": [\n    // Array of submitted answers to the question in the form\n        {\n            \"session\": //ID of session of submission//,\n            \"ans\": //Given answer//\n        }\n    //\n    ]\n}\n\n```\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -1119,7 +1140,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the answers to a given question of a given questionnaire in csv\n\n## returns\n\nOn success:\n\n\"questionnaireID\",\"questionID\",\"session\",\"ans\"  \n//IDs of questionnaires//,//IDs of questions//,//IDs of session of submission//,//Given answers//\n\nOn failure:\n\nNone"
 			},
 			"response": []
 		},
@@ -1183,7 +1205,8 @@
 						"questionnaireanscount",
 						"QQ001"
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the number of sumbitted answers to a given questionnaire.\n\n## returns\n\n``` json\n{\n    \"Number\": //number of submitted answers//\n}\n\n```"
 			},
 			"response": []
 		},
@@ -1250,7 +1273,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the number of sumbitted answers to a given questionnaire.\n\n## returns\n\n\"Number\"  \n//number of submitted answers//"
 			},
 			"response": []
 		},
@@ -1313,7 +1337,8 @@
 						"intelliq_api",
 						"fetchquestionnaires"
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the available questionnaires with their titles.\n\n## returns\n\n``` json\n[\n    //Array of available questionnaires in the form\n    {\n        \"QuestionnaireID\": //ID of questionnaire//,\n        \"QuestionnaireTitle\": //Title of questionnaire//\n    }\n    //\n]\n\n```"
 			},
 			"response": []
 		},
@@ -1380,7 +1405,8 @@
 							"value": "csv"
 						}
 					]
-				}
+				},
+				"description": "## Description\n\nReturns the available questionnaires with their titles.\n\n## returns\n\n\"QuestionnaireID\",\"QuestionnaireTitle\"  \n//ID of questionnaires//,//Titles of questionnaires//"
 			},
 			"response": []
 		},
@@ -1614,7 +1640,8 @@
 						"questionnairedump",
 						"QQ001"
 					]
-				}
+				},
+				"description": "## Description\n\nDumps all elements (keywords + questions + options for every question) of the selected questionnaire\n\n## returns\n\n``` json\n{\n    \"questionnaireID\": //ID of questionnaire//,\n    \"questionnaireTitle\": //Title of questionnaire//,\n    \"keywords\": //Array of keywords of questionnaire//,\n    \"questions\": [\n     //Array of the questionnaire's questions in the form\n         {\n             \"qID\": //ID of question//,\n             \"qtext\": //The text of the question//,\n             \"required\": //True iff the question is required//,\n             \"type\": //The type (profile or question) of the question//,\n             \"options\": [\n                 //Array of the question's options in the form\n                 {\n                     \"optID\": //ID of option//,\n                     \"opttxt\": //The text of the option//,\n                     \"nextqID\": //ID of the next question after choosing this option//\n                 }\n                 //\n              ]\n         }\n         //\n     ]\n}\n\n```"
 			},
 			"response": []
 		}
