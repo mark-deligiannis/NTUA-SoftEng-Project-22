@@ -9,11 +9,11 @@ const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
 
 
 function AnswerQuestionnaire() {
-  const [state, setState] = useState({
+  const [state, setState] = useState({    // State that holds the the next question qid
     nextQuestion: null
   })
   
-  const [question, setQuestion] = useState({
+  const [question, setQuestion] = useState({ // State that represents the current question object
     qID: '',
     qtext: '',
     required: '',
@@ -21,7 +21,7 @@ function AnswerQuestionnaire() {
     options: []
   })
 
-  const [answer, setAnswer] = useState([
+  const [answer, setAnswer] = useState([ // List where user's answers will progressively be stored
     {
       qID: '',
       optID: '',
@@ -29,23 +29,23 @@ function AnswerQuestionnaire() {
     }
   ])
 
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null)
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null) // Index to store the current selected option (before clicking next)
   
-  const params = useParams()
+  const params = useParams()  // The URL parameters (Questionnaire ID)
 
-  const [qTitle, setTitle] = useState('')
+  const [qTitle, setTitle] = useState('') // Questionnaire Title
   
-  const [qStart, setStart] = useState('TRUE') 
+  const [qStart, setStart] = useState('TRUE')  // Boolean state to indicate if the quiz is starting
   
-  const [qFinish, setFinish] = useState('FALSE') 
+  const [qFinish, setFinish] = useState('FALSE') // Boolean state to indicate if the quiz is to be finished (user reaches final question)
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(''); // state that holds input text for open string questions
 
-  const [session, setSession] = useState('');
+  const [session, setSession] = useState(''); // State that holds the randomly created session number
   
   let navigate = useNavigate();
   
-  useEffect(() => {
+  useEffect(() => { // This method fetches the questionnaire, computes session number and sets first question and title
     
     const requestOptions = {
       method: 'GET',
@@ -64,7 +64,7 @@ function AnswerQuestionnaire() {
   }, [])
   
   
-  const showQuestion = (quest) => {
+  const showQuestion = (quest) => { // This method fetches a question based on question id and updates the corresponding state
     console.log(inputValue)
     setStart('FALSE')
     const requestOptions = {
@@ -85,12 +85,12 @@ function AnswerQuestionnaire() {
   }
     
 
-  const onAnswerSelected = (option) => {
+  const onAnswerSelected = (option) => { // This method updates next question state after clicking the button "Next"
     setSelectedAnswerIndex(option.optID)
     setState({nextQuestion: option.nextqID})
   }
 
-  const generateRandomString = () => {
+  const generateRandomString = () => { // This method creates a 4 character random string and updates session
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const randomStringArray = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]);
     setSession(randomStringArray.join(''));
@@ -98,7 +98,9 @@ function AnswerQuestionnaire() {
 
 
   // CREATE SESSION ANSWER
-  async function createSessionAnswer() {
+  // This method is called after clicking button "View Answers" and converts each answer into x-www-form-urlencoded form
+  // Then it POSTS each answer to the database and redirects to view session pags
+  async function createSessionAnswer() { 
     console.log(answer)
     console.log(session)
     
@@ -127,7 +129,7 @@ function AnswerQuestionnaire() {
   }
   
 
-  const onClickNext = () => {
+  const onClickNext = () => { // This method handles questionnaire behaviour after clicking next
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
       console.log("Clicked next")
       setState({nextQuestion: question.options[0].nextqID})
@@ -162,7 +164,7 @@ function AnswerQuestionnaire() {
     }
   }
 
-  const handleInputChange = (event, option) => {
+  const handleInputChange = (event, option) => { //This method handles text input changes in the given field
     setSelectedAnswerIndex(option.optID);
     setState({nextQuestion: option.nextqID});
     setInputValue(event.target.value);
@@ -204,7 +206,7 @@ function AnswerQuestionnaire() {
         <h3>You can now view your answer</h3>
         <div className="flex-right">
             <button onClick={createSessionAnswer}>
-              {"View Answers"}
+              {"Submit & View Answers"}
             </button>
         </div>
       </div>
