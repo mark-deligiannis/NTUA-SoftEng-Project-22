@@ -9,11 +9,13 @@ const ANSWER_URL = "http://localhost:9103/intelliq_api/doanswer/";
 
 
 function AnswerQuestionnaire() {
-  const [state, setState] = useState({    // State that holds the the next question qid
+  // State that holds the the next question qid
+  const [state, setState] = useState({
     nextQuestion: null
   })
   
-  const [question, setQuestion] = useState({ // State that represents the current question object
+  // State that represents the current question object
+  const [question, setQuestion] = useState({ 
     qID: '',
     qtext: '',
     required: '',
@@ -21,7 +23,8 @@ function AnswerQuestionnaire() {
     options: []
   })
 
-  const [answer, setAnswer] = useState([ // List where user's answers will progressively be stored
+  // List where user's answers will progressively be stored
+  const [answer, setAnswer] = useState([ 
     {
       qID: '',
       optID: '',
@@ -29,23 +32,32 @@ function AnswerQuestionnaire() {
     }
   ])
 
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null) // Index to store the current selected option (before clicking next)
+  // Index to store the current selected option (before clicking next)
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null) 
   
-  const params = useParams()  // The URL parameters (Questionnaire ID)
+  // The URL parameters (Questionnaire ID)
+  const params = useParams()  
+  
+  // Questionnaire Title
+  const [qTitle, setTitle] = useState('') 
+  
+  // Boolean state to indicate if the quiz is starting
+  const [qStart, setStart] = useState('TRUE')  
+  
+  // Boolean state to indicate if the quiz is to be finished (user reaches final question)
+  const [qFinish, setFinish] = useState('FALSE') 
+  
+  // state that holds input text for open string questions
+  const [inputValue, setInputValue] = useState(''); 
 
-  const [qTitle, setTitle] = useState('') // Questionnaire Title
-  
-  const [qStart, setStart] = useState('TRUE')  // Boolean state to indicate if the quiz is starting
-  
-  const [qFinish, setFinish] = useState('FALSE') // Boolean state to indicate if the quiz is to be finished (user reaches final question)
+  // State that holds the randomly created session number
+  const [session, setSession] = useState(''); 
 
-  const [inputValue, setInputValue] = useState(''); // state that holds input text for open string questions
-
-  const [session, setSession] = useState(''); // State that holds the randomly created session number
-  
   let navigate = useNavigate();
   
-  useEffect(() => { // This method fetches the questionnaire, computes session number and sets first question and title
+
+  // This method fetches the questionnaire, computes session number and sets first question and title
+  useEffect(() => { 
     
     const requestOptions = {
       method: 'GET',
@@ -64,7 +76,8 @@ function AnswerQuestionnaire() {
   }, [])
   
   
-  const showQuestion = (quest) => { // This method fetches a question based on question id and updates the corresponding state
+  // This method fetches a question based on question id and updates the corresponding state
+  const showQuestion = (quest) => { 
     console.log(inputValue)
     setStart('FALSE')
     const requestOptions = {
@@ -84,13 +97,14 @@ function AnswerQuestionnaire() {
         }))
   }
     
-
-  const onAnswerSelected = (option) => { // This method updates next question state after clicking the button "Next"
+  // This method updates next question state after clicking the button "Next"
+  const onAnswerSelected = (option) => {
     setSelectedAnswerIndex(option.optID)
     setState({nextQuestion: option.nextqID})
   }
 
-  const generateRandomString = () => { // This method creates a 4 character random string and updates session
+  // This method creates a 4 character random string and updates session
+  const generateRandomString = () => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const randomStringArray = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]);
     setSession(randomStringArray.join(''));
@@ -128,8 +142,8 @@ function AnswerQuestionnaire() {
     }
   }
   
-
-  const onClickNext = () => { // This method handles questionnaire behaviour after clicking next
+  // This method creates a 4 character random string and updates session
+  const onClickNext = () => { x
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
       console.log("Clicked next")
       setState({nextQuestion: question.options[0].nextqID})
@@ -164,7 +178,8 @@ function AnswerQuestionnaire() {
     }
   }
 
-  const handleInputChange = (event, option) => { //This method handles text input changes in the given field
+  //This method handles text input changes in the given field
+  const handleInputChange = (event, option) => { 
     setSelectedAnswerIndex(option.optID);
     setState({nextQuestion: option.nextqID});
     setInputValue(event.target.value);

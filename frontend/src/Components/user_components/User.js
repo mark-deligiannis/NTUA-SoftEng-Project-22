@@ -49,11 +49,12 @@ function User() {
     // Creating the x-www-form-urlencoded post request to filter displayed questionnaires based on user selected keywords
     useEffect(() => {
        
-        
-    	if (selectedOptions.length) { // if keywords are selected
+        // if keywords are selected
+    	if (selectedOptions.length) {
             let payload = ''
 
-            for (var i = 0; i < selectedOptions.length; i++) { // forming the x-www-form-urlencoded body of the post request
+            // forming the x-www-form-urlencoded body of the post request
+            for (var i = 0; i < selectedOptions.length; i++) { 
                 payload += `keywords[${i}]=${selectedOptions[i].value}`
                 if (i < selectedOptions.length-1) {
                     payload += '&'
