@@ -1,7 +1,7 @@
 import React , {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import { Pie } from "react-chartjs-2";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import "./Admin_graphs.css";
 const host = "localhost";
@@ -29,17 +29,17 @@ const options = {
   }
 
 };
-
+/*This function returns Pie Chart data but replaces labels and their values with the passed arguments*/
 
 var getPieChartData = (data) => {
   const labels = [];
     const helpData = [];
     let i = 0;
-    { for (let key in data) {
+     for (let key in data) {
         labels[i] = key;
         helpData[i] = data[key];
         i++;
-  }}
+  }
   let sum = 0;
   for (i=0; i<helpData.length; i++){
     sum = sum + helpData[i];
@@ -72,7 +72,13 @@ var getPieChartData = (data) => {
   };
 };
 
-
+ /*
+     Fetches from the  API through the 'getquestionanswers/:questionnaireID/:questionID' Route 
+     all answers related to a question. Transforms the output of the API (which is a JSON) 
+     to an entry to a dictionary that has as key the question id and as values an array of all the option
+      that have been selected for this question during all sessions 
+     with the following format { 'questionID': [optionID1selected,optionID2selected,....]}
+  */
 
 async function getAnswersToQuestions(questid,qid) {
   const Answers_URL = `http://localhost:9103/intelliq_api/getquestionanswers/${questid}/${qid}`;
@@ -81,27 +87,35 @@ async function getAnswersToQuestions(questid,qid) {
     const res = await fetch(Answers_URL, {
       method: 'GET',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    });try{
-    const data = await res.json();
-    if (data) {
-      var z={};
-      data===null ? z[`${qid}`]=[{}]: z[`${qid}`]=data.answers;
-    return z;}
-  }
-    catch(error){
-      var z={};
-      z[`${qid}`]=[-1];
-      return z;
+    });;try{
+      const data = await res.json();
+      if (data) { //if the question has answers
+        var z={};
+        data===null ? z[`${qid}`]=[{}]: z[`${qid}`]=data.answers;
+      return z;}
     }
-    
-  } catch (error) {
-    console.error("Error", error);
-  }
-}
+      catch(error){
+        /*if the question hasn't been answered the api returns an error with status 402
+   however we want to create an entry for this question so we catch the error and we 
+   create the entry {'questionid':[-1],so that we can handle it easier later}
+*/ 
+        var m={};
+        m[`${qid}`]=[-1];
+        return m;
+      }
+      
+    } catch (error) {
+      console.error("Error", error);
+    }
+} 
+
+/*
+     Fetches from the  API through the 'questionnairedump/:questionnaireID' Route 
+     all the questions  and their options related to a questionnaire. 
+*/
 
 async function getQuestionnaire(quest) {
-  const Questionnaire_URL = `http://${host}:${port}/intelliq_api/questionnairedump/${quest}`;
-    
+  const Questionnaire_URL = `http://${host}:${port}/intelliq_api/questionnairedump/${quest}`;    
   try {
     const res = await fetch(Questionnaire_URL, {
       method: 'GET',
@@ -116,9 +130,13 @@ async function getQuestionnaire(quest) {
   }
 }
 
+/*
+     Fetches from the  API through the 'questionnaireanscount/:questionnaireID' Route 
+     the number of the answer sessions.
+*/
+
 async function getcount(quest) {
-  const Count_URL = `http://${host}:${port}/intelliq_api/questionnaireanscount/${quest}`;
-    
+  const Count_URL = `http://${host}:${port}/intelliq_api/questionnaireanscount/${quest}`; 
   try {
     const res = await fetch(Count_URL, {
       method: 'GET',
@@ -132,73 +150,81 @@ async function getcount(quest) {
     console.error("Error", error);
   }
 }
+  /*
+     Creating an array with length equal to the number of questions in the questonnaire and initialize it with false values everywhere 
+ */
 
 function initialiseDisplayAnswers(lim) {
   return Array.from({ length: lim }, () => false);
 }
 
+
+/*
+  AllAnswers depends on the successful fetch of the questionnaire variable, because we fetch the answers passing as parameter questionID. 
+  This returns a Promise which resolves only when every last question has its answers fetched.
+*/
+
 async function getAllAnswers(questid,question) {
   const promises = [];
-  for (let i = 0; i < question[0].length; i++) {
-    promises.push(getAnswersToQuestions(questid,question[0][i].qID));
+  for (let i = 0; i < question.length; i++) {
+    promises.push(getAnswersToQuestions(questid,question[i].qID));
+    console.log(Promise.all(promises))
   }
   return Promise.all(promises);
 }
 
+/*
+  Count becomes a promise so that it can by used with then.
+*/
 
-async function getQuestions(questid) {
-  const promises=[];
- 
-  promises.push(getQuestionnaire(questid));
-  
-  return Promise.all(promises);
-}
 async function getpcount(questid) {
-  const promises3=[];
- 
+  const promises3=[]; 
   promises3.push(getcount(questid));
-  
   return Promise.all(promises3);
 }
 
 export default function AdminGraphs() {
   const params = useParams()
-  const [count,setCount]=useState(0)
-  const [questionnaire,setQuestionnaire]=useState([])
-  const [allAnswers,setAllAnswers]=useState({})
-  const [displayAnswers,setDisplayAnswers]=useState([])
-  const [loading,setLoading]=useState(true)
-  const [buttons,setButtons] =useState([]);
+  const [count,setCount]=useState(0) //count of answers
+  const [questionnaire,setQuestionnaire]=useState([]) //contains all the questions and their options 
+  const [allAnswers,setAllAnswers]=useState({}) //contains all the questions and all the session answers 
+  //controls which graphs are being shown each time (if the value is false the graph for this question is not shown)
+  const [displayAnswers,setDisplayAnswers]=useState([])  
+  /*this variable is false until all the above variables are initialized with the values 
+  fetched from the API(fetch operations are async),until then a ui component is rendered to display the message loading*/ 
+  const [loading,setLoading]=useState(true) 
+  //This is the main component of the UI, contains buttons which contain the question text and when pressed reveal the graph for that question and some statistics 
+  const [buttons,setButtons] =useState([]); 
+  
+  /*This function is used for creating the graph when the button is pressed */ 
   const  graphs=(qid,opts)=> {
-  if(allAnswers[qid][0] === -1){
-    return <center><h1 style={{color: 'black'}}>No answers yet!</h1></center>
-  }
-  else if(opts[0].opttxt==="<open string>"){
-    return <center><h1 style={{color: 'black'}}>Not a multiple choice question</h1></center>
-
-  } 
+    if(allAnswers[qid][0] === -1){//if we find no answers to that question
+      return <center><h1 style={{color: 'black'}}>No answers yet!</h1></center>
+    }
+    else if(opts[0].opttxt==="<open string>"){ //if the question is not a multiple coice question (the only available option is <open string>)
+      return <center><h1 style={{color: 'black'}}>Not a multiple choice question</h1></center>
+    } 
     var optdict={}
     opts.forEach(entry => {
       optdict[entry.optID] = entry.opttxt;
-  })
-
-    
-    const data = new Array(allAnswers[qid].length)    // a new array with the size (rows) of reply array of objects size
-    for (var i=0; i<allAnswers[qid].length; i++) data[i] = new Array(2);  // columns of it
+      })
+    const data = new Array(allAnswers[qid].length)   
+    /* data is now a two dimensional array with rows as many as the answer to the wuestion and 2 columns*/
+    for (var i=0; i<allAnswers[qid].length; i++) data[i] = new Array(2);  
     for (i=0; i<allAnswers[qid].length; i++) {
-      data[i][0] = optdict[allAnswers[qid][i].ans];
-      data[i][1] = allAnswers[qid][i].session;
+      data[i][0] = optdict[allAnswers[qid][i].ans];  //the first column of data contains the option text of the answer
+      data[i][1] = allAnswers[qid][i].session; //the second column the session
     }
     var replies = 0;
     var graphAns1 = {};
-  data.forEach((item) => {
-    graphAns1[item[0]] = (graphAns1[item[0]] || 0) + 1;
-  });
-
-    { for (let key in graphAns1) {
-        replies = replies + graphAns1[key];
-  }}
-
+    data.forEach((item) => { //parse data and find the frequencies of the options
+      graphAns1[item[0]] = (graphAns1[item[0]] || 0) + 1;
+    });
+    for (let key in graphAns1) { //find total replies to the question
+      replies = replies + graphAns1[key];
+    }
+    /*This returns the Pie Chart. We create the data for this Pie Chart passing as parameters 
+    the options and their frequences(with graphAns1) and some other options for the graph*/
    return (
    
     <div id="table-responsive">
@@ -207,7 +233,7 @@ export default function AdminGraphs() {
         <>
         {<h5 style={{width: '350px'}}>{`Total number of replies for the above question: ${replies}`}</h5>}
       <div>
-        {<Pie data={getPieChartData(graphAns1)} options={options} />}
+        {<Pie data={getPieChartData(graphAns1)} options={options} />} 
       </div>
       </>)}
     </div>
@@ -215,7 +241,7 @@ export default function AdminGraphs() {
 }
   
   
-  
+  /*When a button is pressed we change display value to true so that it shows the graph*/
   
    function toggleDisplayAnswers(i){
     var temp=[...displayAnswers];
@@ -226,74 +252,73 @@ export default function AdminGraphs() {
   
   useEffect(() => {
     setLoading(true);
-    const timeout = setTimeout(() =>{
-    let questionnaire, allAnswers, count, quest = params.id;
-    
-    //setError(null);
-    getQuestions(quest).then((response1) =>{
+    let questionnaire, allAnswers, count, quest = params.id;//quest is the questionnaireID passed from the previous page
+    getQuestionnaire(quest).then((response1) =>{ //the use of then chains the returned promises so that each step of the process is executed in order
       questionnaire = response1;
-      console.log(response1)
-      
-
-          
-      return getAllAnswers(quest,questionnaire)
+      console.log('questionnaire',response1)
+       return getAllAnswers(quest,questionnaire)
     })
     .then((response2) =>{
+      //console.log('response2',response2)
       const result_dict = {};
       for (let d in response2){
         for (let key in response2[d]){
           result_dict[key] = response2[d][key]
       }}
       allAnswers = result_dict;
+  /*  Transforms the output of the API (which is a JSON) 
+      to an array with entries{ 'questionID': [optionID1selected,optionID2selected,....]}
+  */
+      console.log('answers',allAnswers)
       return getpcount(quest)
     })
     .then((response3) => {
       count = response3; 
-      return initialiseDisplayAnswers(questionnaire[0].length);
+      return initialiseDisplayAnswers(questionnaire.length);
     })
     .then((response4) =>{
 
       return {c:count,q:questionnaire,a:allAnswers,d:response4};
     }).then(data => {
-        setCount(data.c[0]);
-        setQuestionnaire(data.q);
-        setAllAnswers(data.a);
-        setDisplayAnswers(data.d);
-        setLoading(false);
+        setCount(data.c[0]);  //initialization of all parameters
+        setQuestionnaire(data.q); 
+        setAllAnswers(data.a);   
+        setDisplayAnswers(data.d); 
+        setLoading(false); 
         
       })
       .catch(error => {
-        //setError(error);
         setLoading(false);
       });
-    },0)
+    
   }, []);
 
   useEffect(() => {
-    if (loading !== true) {
+    /*we want this code to be executed after the first initialization. 
+    Here we replace in the question text all instances of [*qid] or [*optid]*/
+    if (loading !== true) { 
       const help = [];
-      for (let i = 0; i < questionnaire[0].length; i++){
-        const regex = /\[\*.*?]/g;
-        //console.log(regex)
+      for (let i = 0; i < questionnaire.length; i++){
+        const regex = /\[\*.*?]/g;   //this regular expression matches every instance of [*"any string that dosn't contain]"] 
         var y=questionnaire
-        var x = questionnaire[0][i].qtext.replace(regex, (match) => {
-          if(match===null) {return match;}
-          else if(questionnaire[0].some(q => q.qID === match.slice(2,-1))) {
-            var questtar=(questionnaire[0].find(q => q.qID === match.slice(2,-1))).qtext;
+        /*for every match replace the match with the question text if [*] contains qid or option text if [*] contains option text*/
+        var x = questionnaire[i].qtext.replace(regex, (match) => { 
+          if(match===null) {return match;} //if there is no match nothing happens
+          else if(questionnaire.some(q => q.qID === match.slice(2,-1))) {
+            var questtar=(questionnaire.find(q => q.qID === match.slice(2,-1))).qtext;
             return( `"${questtar}" `) ;
           }
-            
           else{ 
-            let que= questionnaire[0].find(q => q.options.some(o => o.optID ===match.slice(2,-1) ));
+            let que= questionnaire.find(q => q.options.some(o => o.optID ===match.slice(2,-1) ));
             var optxtar=que.options.find(item => item.optID ===match.slice(2,-1) ).opttxt
             return `"${optxtar}" `;
              }
           });
-          y[0][i].qtext=x;
+          y[i].qtext=x; //set the new question text that no longers contains [*] substrings
           setQuestionnaire(y)
 
       }  
-      for (let i = 0; i < questionnaire[0].length; i++) {
+      for (let i = 0; i < questionnaire.length; i++) { //we also create buttons for each question
         help.push(
           <div className="col-md-4 helpContainer">
             <div className="text-center helpCenter">
@@ -302,18 +327,18 @@ export default function AdminGraphs() {
                   key={i}
                   className="button blueColor verticalMiddle"
                   onClick={() => {
-                    toggleDisplayAnswers(i);
+                    toggleDisplayAnswers(i); //Changes Display value (show and hide graph)
                   }}
                 >
-                  {questionnaire[0][i].qtext}
+                  {questionnaire[i].qtext}
                 </button>
               </div>
               <div className="pie-container"></div>
               {displayAnswers[i] && (
                 <div key={i + 1} className="chart-container">
-                  {graphs(
-                    questionnaire[0][i].qID,
-                    questionnaire[0][i].options
+                  {graphs( //creation of graphs
+                    questionnaire[i].qID,
+                    questionnaire[i].options
                   )}
                 </div>
               )}
@@ -323,9 +348,10 @@ export default function AdminGraphs() {
       }
       setButtons(help);
     }
-  }, [displayAnswers, loading]);
+  }, [displayAnswers, loading]); /*this code is executed for the first time when loading changes from 
+  true to false and after that every time a button is pressed(displayAnswers changes)*/
 
-  if (loading) {
+  if (loading) { //This shows while the pages loads(we wait for all the data to be fetched and buttons to be created)
     return <h1>Loading...</h1>;
   }
 
