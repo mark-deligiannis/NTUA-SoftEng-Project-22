@@ -203,7 +203,11 @@ function AdminQuestionnaire () {
       },
     }
 
-    // Gets the questionnaires from the database
+    /*
+      Gets the questionnaires from the database. First we get the initial response,
+      then we make sure the response is a JSON, then we set the Questionnaires var
+      to the data of the questionnaires.
+    */
     fetch(API_URL, requestOptions)
       .then(res => res.json())
         .then(data => setQuestionnaires(data))
@@ -272,7 +276,9 @@ function AdminQuestionnaire () {
         body: payload
       }
     
-      // Gets all questionnaires based on keywords
+      /* 
+        Gets all questionnaires based on keywords
+      */
       fetch(API_URL, requestOptions)
         .then(res => res.json())
           .then(response =>  setQuestionnaires(response))
