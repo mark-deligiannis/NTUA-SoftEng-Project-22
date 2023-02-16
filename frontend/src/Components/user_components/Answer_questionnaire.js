@@ -142,8 +142,8 @@ function AnswerQuestionnaire() {
     }
   }
   
-  // This method creates a 4 character random string and updates session
-  const onClickNext = () => { x
+  // // This method handles questionnaire behaviour after clicking next
+  const onClickNext = () => {
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
       console.log("Clicked next")
       setState({nextQuestion: question.options[0].nextqID})
