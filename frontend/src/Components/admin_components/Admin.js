@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './Admin.css';
 import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
+import './Admin.css';
 import "react-toastify/dist/ReactToastify.css";
 
 const host = "localhost";
@@ -79,7 +79,9 @@ function Admin()  {
       toast.error will also appear if there is an
       error with the upload.
     */
-    toast.error('Upload failed!');
+    toast.error('Upload failed!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,});
   });
   
   }
@@ -101,7 +103,6 @@ function Admin()  {
       },
     })
     .then(response => {
-      console.log(response)
       if (response.ok) {
         toast.success("All questionnaires deleted!", {
           position: toast.POSITION.TOP_CENTER,
