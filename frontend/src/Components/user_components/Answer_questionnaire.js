@@ -142,7 +142,7 @@ function AnswerQuestionnaire() {
     }
   }
   
-  // // This method handles questionnaire behaviour after clicking next
+  // This method handles questionnaire behaviour after clicking next
   const onClickNext = () => {
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
       console.log("Clicked next")

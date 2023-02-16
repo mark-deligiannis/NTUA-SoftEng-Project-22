@@ -134,13 +134,13 @@ function User() {
                     <center>
                         <table>
                             <tbody>
-                            <tr>
-                            <td className="admintd"><h2> Select Questionnaires </h2></td>
-                            <td><Link to={"/"}> <button className="button" >Homepage</button></Link></td>
-                            </tr>
-                            <tr>
-                            <td colSpan="2" className="admintd"><h3> View all available questionnaires or filter by keywords </h3></td>
-                            </tr>
+                                <tr>
+                                    <td className="admintd"><h2> Select Questionnaires </h2></td>
+                                    <td><Link to={"/"}> <button className="button" >Homepage</button></Link></td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="2" className="admintd"><h3> View all available questionnaires or filter by keywords </h3></td>
+                                </tr>
                             </tbody>
                         </table>
                     </center>
