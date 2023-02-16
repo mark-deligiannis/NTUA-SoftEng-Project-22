@@ -1,15 +1,36 @@
 import subprocess
 from colorama import Fore,Style,init
 import json
+import os
+import signal
+import sys
+
+# Force the OS to use utf-8 so that we can safely run subprocess.run
+environ = os.environ.copy()
+environ['PYTHONIOENCODING'] = 'utf-8'
 
 # Initialize colorama library (necessary to work with cmd, powershell, bash etc.)
 init()
+
+# Handle keyboard interrupts and close gracefully
+def initial_handler(sig, frame):
+    # Set the signal handler to the default one
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    try:
+        input('\n\nPress enter to exit...')
+    except:
+        # if ctrl+c is pressed again then catch it and terminate
+        None
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, initial_handler)
+
 
 def test_command(cmd, isbad, iscsv, number):
     # First check: Return code
     try:
         print(f"#{number} return code check:", end=' ')
-        result = subprocess.run(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        result = subprocess.run(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE, env=environ, encoding='utf8')
         assert bool(result.returncode) == isbad
         print(Fore.GREEN + "Success!" + Style.RESET_ALL)
         if (isbad):
@@ -27,7 +48,7 @@ def test_command(cmd, isbad, iscsv, number):
     # Second check: Output in correct format (csv/json)?
     is_json = True
     print(f"#{number} data format check:", end=' ')
-    res_string = result.stdout.decode('ISO-8859-7').strip().replace('\r','')
+    res_string = result.stdout.strip().replace('\r','')
 
     # Check for errors or lack of data
     if ("API call returned nothing" in res_string or "Internal server Error" in res_string or "Resource unavailable" in res_string or "No message provided" in res_string):
@@ -68,6 +89,7 @@ correct_commands = [['healthcheck'],
                     ['questionnaireanscount', '--questionnaire_id', 'QQ001'],
                     ['fetchquestionnaires', '--keywords', 'ΕΜΠ']]
 
+print("\nStarting... feel free to press ctrl+C to terminate the program at any point\n")
 print("================== Valid Commands ==================")
 no = 1
 for cmd in correct_commands:
