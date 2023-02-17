@@ -35,7 +35,7 @@ function Admin()  {
       of the file to the API and then to the Database.
     */
     const formData = new FormData();
-    formData.append(fileName, selectedFile);
+    formData.append("file", selectedFile);
     
     /*
       Typical post requests. All the requests to the API
