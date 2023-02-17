@@ -69,7 +69,7 @@ function Admin()  {
           informing the admin that the upload was unsuccessful.
           2 seconds later it disappears.
         */
-        toast.error("Upload failed!", {
+        toast.success("Upload succeeded!", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,})
       }
