@@ -124,7 +124,7 @@ function ViewSession() {
           <tbody id="session">
             {data.slice(0, data.length).map((item, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td><h5>{item[0]}</h5></td>
                   <td><h5>{item[1]}</h5></td>
                 </tr>

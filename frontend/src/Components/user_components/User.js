@@ -113,7 +113,7 @@ function User() {
           <tbody id="questionnaire">
             {data.slice(0, data.length).map((item, index) => {
                 return (
-                    <tr>
+                    <tr key={index}>
                         <td><h5>{item[0]}</h5></td>
                         <td><h5>{item[1]}</h5></td>
                         <td><Link to={`Answer/${item[0]}`}> <button className="button" >Answer</button></Link></td>
