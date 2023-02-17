@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 import './Admin.css';
@@ -9,6 +9,7 @@ const port = 9103;
 
 
 function Admin()  {
+  const fileInputRef = useRef();
   const [selectedFile, setselectedFile] = useState(null) //Used to upload the file
   var [fileName, setFileName] = useState("Choose file") //Used to show the file's name on the button
   
@@ -25,11 +26,19 @@ function Admin()  {
     onFileUpload: When the button is pressed to submit the file,
     it uploads the file to the API through the '/admin/questionnaire_upd' Route
   */
-  const  onFileUpload = (event) => {
+    function handleButtonClick(event) {
+    
+      event.preventDefault(); // prevent the default behavior of the button
+      onFileUpload();
+      setselectedFile(null)
+    }
+
+
+   async function onFileUpload () {
     const UploadQuestionnaire_URL = `http://${host}:${port}/intelliq_api/admin/questionnaire_upd`;
 
-    setFileName("Choose file");
-    event.preventDefault();
+    //setFileName("Choose file");
+ 
     /*
       FormData is an object that is required for the proper upload
       of the file to the API and then to the Database.
@@ -37,13 +46,31 @@ function Admin()  {
     const formData = new FormData();
     formData.append("file", selectedFile);
     
+    
+   const Fetch_Url="http://localhost:9103/intelliq_api/fetchquestionnaires"
+    
+    var response1=  await fetch(Fetch_Url, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/x-www-form-urlencoded',
+      },
+    })
+     
+      
+
+    
+    var qnumber=await response1.json()
+    
     /*
-      Typical post requests. All the requests to the API
+      All the requests to the API
       were made with the fetch() funtion that is inate
       to ReactJS. mode: 'no-cors' data is used due to a
-      CORS issue that appeared.
+      CORS issue that appeared.So inorder to understand if the upload was 
+      successful we count the number of questionnaires before and after the upload.
+      If they are the same we assume that the upload failed.
     */
-    fetch(UploadQuestionnaire_URL, {
+    try{
+    var response2= await fetch(UploadQuestionnaire_URL, {
       method: "POST",
       mode: 'no-cors',
       body: formData,
@@ -51,8 +78,25 @@ function Admin()  {
         "Content-Type": "multipart/form-data; boundary=${formData._boundary}",
       },
     })
-    .then(response => {
-      if (response.ok) {
+  }catch(error){ //catches fatal errors
+    setFileName("Choose File")
+    fileInputRef.current.value = "";
+    toast.error('Not a questionnaire! Danger!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,});
+      return;
+
+    };
+    var response3=  await fetch(Fetch_Url, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/x-www-form-urlencoded',
+      },
+    })
+    var qnumberafter=await response3.json()
+    
+    
+      if (qnumberafter.length!==qnumber.length) {
       /*
         toast.success is used to make a success message appear,
         informing the admin that the upload was successful.
@@ -62,29 +106,31 @@ function Admin()  {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000, 
         })
+        setselectedFile(null)
       }
       else{
         /*
           toast.error is used to make an error message appear,
           informing the admin that the upload was unsuccessful.
           2 seconds later it disappears.
-        */
-        toast.success("Upload succeeded!", {
+       */ 
+        if(selectedFile===null){ //if the upload failed due to no file selection
+          toast.error("Select a file!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,})
+        }
+        else{
+        toast.error("Upload failed!", {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,})
+          autoClose: 2000,})}
+        setselectedFile(null)
       }
-    })
-    .catch(error => {
-    /*
-      toast.error will also appear if there is an
-      error with the upload.
-    */
-    toast.error('Upload failed!', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,});
-  });
+      setFileName("Choose File")
+      fileInputRef.current.value = ""; //reset the input
+      
+    }
   
-  }
+  
   
   /*
     handleDelete: it is used to delete all questionnaires
@@ -135,7 +181,7 @@ function Admin()  {
           The form is used to organise the selection of the file (onFileChange) and
           the POST of the file towards the database (onFileUpload)
         */}
-        <form method="post" encType="multipart/form-data" onSubmit={onFileUpload} >
+        <form method="post" encType="multipart/form-data" onSubmit={handleButtonClick} >
           {/* 
             The table here is used for better formatting
           */}
@@ -152,7 +198,7 @@ function Admin()  {
                   {/* 
                     Needed for input but used for the selection of the file
                   */}
-                  <input type="file" id="file-input" onChange={onFileChange} style={{ display: "none" }} />
+                  <input type="file" id="file-input" onChange={onFileChange} style={{ display: "none" }} ref={fileInputRef} />
                 </td>
                 <td>
                   <center>
