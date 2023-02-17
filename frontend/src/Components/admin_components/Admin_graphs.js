@@ -98,14 +98,14 @@ async function getAnswersToQuestions(questid,qid) {
         /*if the question hasn't been answered the api returns an error with status 402
    however we want to create an entry for this question so we catch the error and we 
    create the entry {'questionid':[-1],so that we can handle it easier later}
-*/ 
+*/      //console.log("Error1", error);
         var m={};
         m[`${qid}`]=[-1];
         return m;
       }
       
     } catch (error) {
-      console.error("Error", error);
+      console.log("Error", error);
     }
 } 
 
@@ -320,7 +320,7 @@ export default function AdminGraphs() {
       }  
       for (let i = 0; i < questionnaire.length; i++) { //we also create buttons for each question
         help.push(
-          <div className="col-md-4 helpContainer">
+          <div className="col-md-4 helpContainer" key={i+100}>
             <div className="text-center helpCenter">
               <div>
                 <button

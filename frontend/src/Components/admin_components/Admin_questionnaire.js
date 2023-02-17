@@ -365,7 +365,7 @@ function AdminQuestionnaire () {
           <tbody id="questionnaire">
             {data.slice(0, data.length).map((item, index) => {
               return (
-                <tr>
+                <tr key={index}>
                     <td>
                       <h5>{item[0]}</h5>
                     </td>
