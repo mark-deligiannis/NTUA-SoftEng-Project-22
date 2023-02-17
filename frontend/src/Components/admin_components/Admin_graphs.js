@@ -168,7 +168,7 @@ async function getAllAnswers(questid,question) {
   const promises = [];
   for (let i = 0; i < question.length; i++) {
     promises.push(getAnswersToQuestions(questid,question[i].qID));
-    console.log(Promise.all(promises))
+    
   }
   return Promise.all(promises);
 }
@@ -255,11 +255,11 @@ export default function AdminGraphs() {
     let questionnaire, allAnswers, count, quest = params.id;//quest is the questionnaireID passed from the previous page
     getQuestionnaire(quest).then((response1) =>{ //the use of then chains the returned promises so that each step of the process is executed in order
       questionnaire = response1;
-      console.log('questionnaire',response1)
+      
        return getAllAnswers(quest,questionnaire)
     })
     .then((response2) =>{
-      //console.log('response2',response2)
+      
       const result_dict = {};
       for (let d in response2){
         for (let key in response2[d]){
@@ -269,7 +269,7 @@ export default function AdminGraphs() {
   /*  Transforms the output of the API (which is a JSON) 
       to an array with entries{ 'questionID': [optionID1selected,optionID2selected,....]}
   */
-      console.log('answers',allAnswers)
+      
       return getpcount(quest)
     })
     .then((response3) => {
