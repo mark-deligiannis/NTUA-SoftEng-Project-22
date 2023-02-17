@@ -129,3 +129,5 @@ command = prefix+['doanswer', '--questionnaire_id', 'QQ001', '--question_id', 'Q
 print(Fore.CYAN + "Testing command: " + ' '.join(command) + Style.RESET_ALL)
 test_command(command, True, False, no)
 no += 1
+
+input('\n Testing complete. Press enter to exit...')
