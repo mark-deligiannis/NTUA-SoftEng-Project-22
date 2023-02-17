@@ -78,7 +78,7 @@ function AnswerQuestionnaire() {
   
   // This method fetches a question based on question id and updates the corresponding state
   const showQuestion = (quest) => { 
-    console.log(inputValue)
+    //console.log(inputValue)
     setStart('FALSE')
     const requestOptions = {
       method: 'GET',
@@ -115,14 +115,14 @@ function AnswerQuestionnaire() {
   // This method is called after clicking button "View Answers" and converts each answer into x-www-form-urlencoded form
   // Then it POSTS each answer to the database and redirects to view session pags
   async function createSessionAnswer() { 
-    console.log(answer)
-    console.log(session)
+    //console.log(answer)
+    //console.log(session)
     
     var i = 1
     var flag = 1
     for (i = 1; i < answer.length; i++ ) {
       var ans = answer[i]
-      console.log(ans)
+      
       const requestOptions = {
         method: 'POST',
         mode: 'cors',
@@ -131,12 +131,12 @@ function AnswerQuestionnaire() {
       }
 
       await fetch(ANSWER_URL + params.id + '/' + ans.qID + '/' + session + '/' + ans.optID, requestOptions)
-        .then(res => {console.log("success",res);flag++})
+        .then(res => {flag++})
         .catch(error => {console.error("Error",error);});
     }
-    console.log(flag)
+    
     if (flag===answer.length){ 
-      console.log(i)
+      
       let path = session;
       navigate(path);
     }
@@ -145,7 +145,7 @@ function AnswerQuestionnaire() {
   // This method handles questionnaire behaviour after clicking next
   const onClickNext = () => {
     if (question.required === 'FALSE' && selectedAnswerIndex === null){
-      console.log("Clicked next")
+      
       setState({nextQuestion: question.options[0].nextqID})
       if (state.nextQuestion !== '-') {
         showQuestion(question.options[0].nextqID)
@@ -156,7 +156,7 @@ function AnswerQuestionnaire() {
     }
     else {
       if(question.qID !== ''){
-        console.log("geia")
+        
         setAnswer([
             ...answer,
             {
@@ -204,7 +204,7 @@ function AnswerQuestionnaire() {
                 }>
                 {option.opttxt}
               </li>
-              : <div>
+              : <div key={option.optID}>
               <input type="text" value={inputValue} onChange={event => handleInputChange(event, option)} />
             </div>
             ))}
