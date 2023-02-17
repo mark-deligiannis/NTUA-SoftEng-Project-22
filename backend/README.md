@@ -1,8 +1,8 @@
 # Technologies used
 
-![React](https://img.shields.io/badge/bootstrap-v4.6+-green.svg)
-![React](https://img.shields.io/badge/react-v18.2.0-blue.svg)
-![Mysql.connector](https://img.shields.io/badge/react--dom-v18.2.0-red.svg)
+![React](https://img.shields.io/badge/express-v4.18.2+-green.svg)
+![React](https://img.shields.io/badge/mariadb-v3.0.2-blue.svg)
+![Mysql.connector](https://img.shields.io/badge/node-v17.0.45-red.svg)
 
 
 
