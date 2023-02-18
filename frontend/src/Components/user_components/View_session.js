@@ -6,8 +6,8 @@ const QUESTION_URL = "http://localhost:9103/intelliq_api/question/";
 
 function ViewSession() {
   
-  const location = useLocation();
-  const  previousQuestion  = location.state;
+  const location = useLocation();//contains the past parameters
+  const  previousQuestion  = location.state;//stores them
 
   // Store all answers retrieved from API
   const [state, setState] = useState({
@@ -75,13 +75,11 @@ function ViewSession() {
 
   // Build the final answer to be displayed
   // Only runs when question is updated
-  useEffect(() => {console.log(previousQuestion)
+  useEffect(() => {
     // Only run after the first useEffect() fetches all answers
     if (state.index >= 0) {
-      console.log('dddd',question.qID)
       // If answer originated from text field push question title with the original answer
       if (question.options[0].opttxt === "<open string>") {
-        console.log(question.qID)
         setAnswer([
             ...answer,
             {
@@ -95,22 +93,21 @@ function ViewSession() {
       else {
         for (var j=0; j<question.options.length; j++) {
           if (question.options[j].optID === state.ans[state.index].ans) {
-            const regex = /\[\*.*?]/g; 
+            const regex = /\[\*.*?]/g;   //this regular expression matches every instance of [*"any string that dosn't contain]"] 
+            /*for every match replace the match with the question text if [*] contains qid or option text if [*] contains option text*/
             var x =question.qtext.replace(regex, (match) => { 
               if(match===null) {return match;} //if there is no match nothing happens
-              else if( previousQuestion.some(q => q.qID === match.slice(2,-1))) {console.log('ffff')
+              else if( previousQuestion.some(q => q.qID === match.slice(2,-1))) {//if the match contains qid parse the table previousQuestions and replace it with the qtext
                 var questtar =(previousQuestion.find(q => q.qID === match.slice(2,-1))).qtext;
-                console.log("elseif", questtar)
                 return( `"${questtar}" `) ;
               }
               else{ 
-    
+                //else replace it with the previous question's opttxt of the previous answer
                 var optxtar=answer[state.index-1].ansTXT
-                console.log("else", optxtar)
                 return `"${optxtar}" `;
                  }})
             
-                 console.log('33333',x)
+                 
                
             setAnswer([
               ...answer,
@@ -119,9 +116,6 @@ function ViewSession() {
                 ansTXT: question.options[j].opttxt
               }
             ])
-            console.log(question)
-            console.log(answer)
-            console.log(state.index)
           }
         }
       }
@@ -133,7 +127,7 @@ function ViewSession() {
 
   // Build table with final answers
   const table = () => {
-      console.log(answer)
+    
     const data = new Array(answer.length)    // a new array with the size (rows) of reply array of objects size
     for (var i=0; i<answer.length; i++) data[i] = new Array(2);  // columns of it
     
@@ -143,7 +137,7 @@ function ViewSession() {
       data[i][0] = answer[i].qtext;
       data[i][1] = answer[i].ansTXT;
     }
-    console.log(data)
+    
     return (
       <div id="table-responsive">
         <table>

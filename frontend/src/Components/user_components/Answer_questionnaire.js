@@ -24,13 +24,14 @@ function AnswerQuestionnaire() {
   })
 
   // State that represents the previous question object
-  const [previousQuestion, setPreviousQuestion] = useState({ 
+  const [previousQuestion, setPreviousQuestion] = useState({ //it stores the previous question,used for replacing regular expression  
     qID: '',
     qtext: '',
     required: '',
     type: '',
     options: []
   })
+  //is an array of previous questions used for passing it an an argument to view_session.js for replacing regular expressions there 
   const [prevQuestion, setPrevQuestion] = useState([{ 
     qID: '',
     qtext: '',
@@ -94,7 +95,7 @@ function AnswerQuestionnaire() {
   
   // This method fetches a question based on question id and updates the corresponding state
   const showQuestion = (quest) => { 
-    //console.log(inputValue)
+    
     setStart('FALSE')
     const requestOptions = {
       method: 'GET',
@@ -106,12 +107,13 @@ function AnswerQuestionnaire() {
     fetch(QUESTION_URL + params.id + '/' + quest, requestOptions)
       .then(res => res.json())
       .then(data =>{
-        const regex = /\[\*.*?]/g; 
+        const regex = /\[\*.*?]/g;  //this regular expression matches every instance of [*"any string that dosn't contain]"] 
+        /*for every match replace the match with the question text if [*] contains qid or option text if [*] contains option text*/
         var x = data.qtext.replace(regex, (match) => { 
           if(match===null) {return match;} //if there is no match nothing happens
-          else if( previousQuestion.qID === match.slice(2,-1)) {
+          else if( previousQuestion.qID === match.slice(2,-1)) { //if the match contains qid replace it with the previous question's qtext
             var questtar = previousQuestion.qtext;
-            console.log("elseif", questtar)
+            //add this question to the table that will be passed to view sessions
             setPrevQuestion([...prevQuestion,{
               qID: previousQuestion.qID,
               qtext: previousQuestion.qtext,
@@ -121,10 +123,10 @@ function AnswerQuestionnaire() {
             }])
             return( `"${questtar}" `) ;
           }
-          else{ 
+          else{ //else replace it with the previous question's opttxt of the option that matces the optid
 
             var optxtar=previousQuestion.options.find(item => item.optID ===match.slice(2,-1) ).opttxt
-            console.log("else", optxtar)
+            
             return `"${optxtar}" `;
              }
           });
@@ -136,7 +138,6 @@ function AnswerQuestionnaire() {
           type: data.type,
           options: data.options
         })
-        console.log(previousQuestion)
         
         setQuestion({
           qID: data.qID,
@@ -166,8 +167,7 @@ function AnswerQuestionnaire() {
   // This method is called after clicking button "View Answers" and converts each answer into x-www-form-urlencoded form
   // Then it POSTS each answer to the database and redirects to view session pags
   async function createSessionAnswer() { 
-    //console.log(answer)
-    //console.log(session)
+   
     
     var i = 1
     var flag = 1
@@ -189,8 +189,8 @@ function AnswerQuestionnaire() {
     if (flag===answer.length){ 
       
       let path = session;
-      console.log(prevQuestion)
-      navigate(`${path}`, {state: prevQuestion});
+     
+      navigate(`${path}`, {state: prevQuestion}); //passing prevQuestion as parameter
     }
   }
   

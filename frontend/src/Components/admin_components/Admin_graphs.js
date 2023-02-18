@@ -304,11 +304,11 @@ export default function AdminGraphs() {
         /*for every match replace the match with the question text if [*] contains qid or option text if [*] contains option text*/
         var x = questionnaire[i].qtext.replace(regex, (match) => { 
           if(match===null) {return match;} //if there is no match nothing happens
-          else if(questionnaire.some(q => q.qID === match.slice(2,-1))) {
+          else if(questionnaire.some(q => q.qID === match.slice(2,-1))) {//if the match contains qid replace it with the previous question's qtext
             var questtar=(questionnaire.find(q => q.qID === match.slice(2,-1))).qtext;
             return( `"${questtar}" `) ;
           }
-          else{ 
+          else{ //else replace it with the previous question's opttxt of the option that matces the optid
             let que= questionnaire.find(q => q.options.some(o => o.optID ===match.slice(2,-1) ));
             var optxtar=que.options.find(item => item.optID ===match.slice(2,-1) ).opttxt
             return `"${optxtar}" `;
