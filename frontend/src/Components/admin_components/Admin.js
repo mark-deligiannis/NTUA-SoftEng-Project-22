@@ -185,6 +185,9 @@ function Admin()  {
           {/* 
             The table here is used for better formatting
           */}
+          <h1 style={{ color: 'black', backgroundColor: 'rgba(144, 238, 144, 0.479)'}}>
+            Select a JSON questionnaire to upload!
+          </h1>
           <table>
             <thead>
               <tr>

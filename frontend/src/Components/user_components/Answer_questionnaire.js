@@ -23,6 +23,22 @@ function AnswerQuestionnaire() {
     options: []
   })
 
+  // State that represents the previous question object
+  const [previousQuestion, setPreviousQuestion] = useState({ 
+    qID: '',
+    qtext: '',
+    required: '',
+    type: '',
+    options: []
+  })
+  const [prevQuestion, setPrevQuestion] = useState([{ 
+    qID: '',
+    qtext: '',
+    required: '',
+    type: '',
+    options: []
+  }])
+
   // List where user's answers will progressively be stored
   const [answer, setAnswer] = useState([ 
     {
@@ -85,16 +101,51 @@ function AnswerQuestionnaire() {
       mode: 'cors',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }
+    
 
     fetch(QUESTION_URL + params.id + '/' + quest, requestOptions)
       .then(res => res.json())
-      .then(data => setQuestion({
+      .then(data =>{
+        const regex = /\[\*.*?]/g; 
+        var x = data.qtext.replace(regex, (match) => { 
+          if(match===null) {return match;} //if there is no match nothing happens
+          else if( previousQuestion.qID === match.slice(2,-1)) {
+            var questtar = previousQuestion.qtext;
+            console.log("elseif", questtar)
+            setPrevQuestion([...prevQuestion,{
+              qID: previousQuestion.qID,
+              qtext: previousQuestion.qtext,
+              required: previousQuestion.required,
+              type: previousQuestion.type,
+              options: previousQuestion.options
+            }])
+            return( `"${questtar}" `) ;
+          }
+          else{ 
+
+            var optxtar=previousQuestion.options.find(item => item.optID ===match.slice(2,-1) ).opttxt
+            console.log("else", optxtar)
+            return `"${optxtar}" `;
+             }
+          });
+           
+        setPreviousQuestion({
           qID: data.qID,
-          qtext: data.qtext,
+          qtext: x,
           required: data.required,
           type: data.type,
           options: data.options
-        }))
+        })
+        console.log(previousQuestion)
+        
+        setQuestion({
+          qID: data.qID,
+          qtext: x,
+          required: data.required,
+          type: data.type,
+          options: data.options
+        })})
+        
   }
     
   // This method updates next question state after clicking the button "Next"
@@ -138,7 +189,8 @@ function AnswerQuestionnaire() {
     if (flag===answer.length){ 
       
       let path = session;
-      navigate(path);
+      console.log(prevQuestion)
+      navigate(`${path}`, {state: prevQuestion});
     }
   }
   
