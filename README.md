@@ -10,7 +10,7 @@ Members: el19007, el19017, el19023, el19044, el19050, el19196
 | Asset | Technologies Used |
 | ----- | ----------- |
 | backend | NodeJS, ExpressJS |
-| frontend | html, css, javascript (ReactJS), bootstrap5 |
+| frontend | html, css, javascript (ReactJS) |
 | database | MariaDB |
 
 
@@ -24,5 +24,9 @@ Members: el19007, el19017, el19023, el19044, el19050, el19196
 | el19044 - Petros Maratos
 | el19050 - Athanasios Pyliotis
 | el19196 - Konstantinos Fotopoulos
+
+**Installation**
+
+For the installation go to the respective folders: backend, frontend and cli, and follow the instructions in the respective folder's README file.
 
 ## MIT LICENCE
