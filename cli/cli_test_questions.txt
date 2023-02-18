@@ -1,0 +1,17 @@
+1) Healthcheck:
+.\se2216 healthcheck --format csv
+2) Εμφανιση ερωτηματολογίου:
+.\se2216 questionnaire --questionnaire_id QQ001 --format csv
+3) Απάντηση ερωτήσεων ερωτηματολογίου:
+.\se2216 doanswer --questionnaire_id QQ001 --question_id P00 --session_id 0000 --option_id P00TXT --answer_txt "swraios@gmail.com" --format csv
+.\se2216 doanswer --questionnaire_id QQ001 --question_id P01 --session_id 0000 --option_id P01A1 --format csv
+.\se2216 doanswer --questionnaire_id QQ001 --question_id Q01 --session_id 0000 --option_id Q01A3 --format csv
+.\se2216 doanswer --questionnaire_id QQ001 --question_id Q04 --session_id 0000 --option_id Q04A1 --format csv
+4) Εμφάνιση όλων των απαντήσεων για μια ερώτηση:
+.\se2216 getquestionanswers --questionnaire_id QQ001 --question_id Q01 --format csv
+5) Resetall:
+.\se2216 resetall --format json
+6) Ανέβασμα ερωτηματολογίου:
+.\se2216 questionnaire_upd --source "..\backend\test\Route testing\dummydata_main.json" --format json
+7) Εμφάνιση ερωτηματολογίου:
+.\se2216 questionnaire --questionnaire_id QQ001 --format csv
